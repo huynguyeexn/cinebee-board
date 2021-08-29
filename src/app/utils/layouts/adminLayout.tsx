@@ -1,4 +1,3 @@
-import RoomAddPage from 'app/features/room/Add/roomAddPage';
 import PrivateRoute from 'app/router/privateRoute';
 import { routers } from 'app/router/routers';
 import React from 'react';
