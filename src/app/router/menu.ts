@@ -37,7 +37,7 @@ export const menus: IMenu[] = [
         icon: MdCardTravel,
     },
     {
-        path: '/admin/users',
+        path: '/admin/customers',
         label: 'Khách hàng',
         icon: HiOutlineUsers,
     },

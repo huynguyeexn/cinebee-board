@@ -14,7 +14,7 @@ const Header = (props: Props) => {
 	};
 
 	return (
-		<Navbar bg="light" variant="light">
+		<Navbar bg="light" variant="light" className="border-none">
 			<Navbar.Brand>Cinebee</Navbar.Brand>
 			<Nav className="mr-auto">
 				<span>Xin chào HUi!</span>

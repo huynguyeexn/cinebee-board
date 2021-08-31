@@ -8,7 +8,7 @@ const DashboardPage = () => {
 		<div>
 			<Row sm={1} md={2} lg={4}>
 				<Col>
-					<Card>
+					<Card className="hover-shadow">
 						<Card.Body className="widget-horizontal">
 							<div className="avatar avatar__primary">
 								<AiOutlineUser />
@@ -21,7 +21,7 @@ const DashboardPage = () => {
 					</Card>
 				</Col>
 				<Col>
-					<Card>
+					<Card className="hover-shadow">
 						<Card.Body className="widget-horizontal">
 							<div className="avatar avatar__primary">
 								<AiOutlineUser />
@@ -34,7 +34,7 @@ const DashboardPage = () => {
 					</Card>
 				</Col>
 				<Col>
-					<Card>
+					<Card className="hover-shadow">
 						<Card.Body className="widget-horizontal">
 							<div className="avatar avatar__primary">
 								<AiOutlineUser />
@@ -47,7 +47,7 @@ const DashboardPage = () => {
 					</Card>
 				</Col>
 				<Col>
-					<Card>
+					<Card className="hover-shadow">
 						<Card.Body className="widget-horizontal">
 							<div className="avatar avatar__primary">
 								<AiOutlineUser />
