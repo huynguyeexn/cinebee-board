@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
-import StatisticsChart from '../components/StatisticsChart';
-import StatisticsGroup from '../components/StatisticsGroup';
-import TopSpend from '../components/TopSpend';
+import StatisticsChart from './components/StatisticsChart';
+import StatisticsGroup from './components/StatisticsGroup';
+import TopSpend from './components/TopSpend';
 
 interface Props {}
 
