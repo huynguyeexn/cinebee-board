@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
-import StatisticsChart from './components/StatisticsChart';
-import StatisticsGroup from './components/StatisticsGroup';
-import TopSpend from './components/TopSpend';
+import StatisticsChart from '../components/StatisticsChart';
+import StatisticsGroup from '../components/StatisticsGroup';
+import TopSpend from '../components/TopSpend';
 
 interface Props {}
 
-const CustomerPage = (props: Props) => {
+const CustomerDashboard = (props: Props) => {
 	const location = useLocation();
 
 	console.log(location.pathname);
@@ -51,4 +51,4 @@ const CustomerPage = (props: Props) => {
 	);
 };
 
-export default CustomerPage;
+export default CustomerDashboard;

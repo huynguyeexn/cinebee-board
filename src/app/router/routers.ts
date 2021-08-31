@@ -1,5 +1,6 @@
-import AddCustomer from 'app/features/customer/Add/AddCustomer'
-import CustomerPage from 'app/features/customer/customerPage'
+import AddCustomer from 'app/features/customer/Add'
+import CustomerDashboard from 'app/features/customer/Dashboard'
+import DetailCustomer from 'app/features/customer/Detail'
 import DashboardPage from 'app/features/dashboard/dashboardPage'
 import RoomAddPage from 'app/features/room/Add/roomAddPage'
 import RoomEditPage from 'app/features/room/Edit/roomEditPage'
@@ -45,11 +46,15 @@ export const routers: IRoute[] = [
      */
      {
         path: "/admin/customers",
-        component: CustomerPage,
+        component: CustomerDashboard,
     },
     {
         path: "/admin/customers/create",
         component: AddCustomer,
+    },
+    {
+        path: "/admin/customers/:id",
+        component: DetailCustomer,
     },
     {
         path: "/admin/customers/edit/:id",

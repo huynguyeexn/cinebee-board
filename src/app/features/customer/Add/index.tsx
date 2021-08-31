@@ -18,8 +18,7 @@ const AddCustomer = (props: Props) => {
 		<Row>
 			<Col sm={12} className="mb-3">
 				<Button onClick={onBackClick}>
-					<BsArrowLeft />
-					Quay về
+					<BsArrowLeft /> Quay về
 				</Button>
 			</Col>
 			<Col>
