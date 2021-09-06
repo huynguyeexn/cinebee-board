@@ -3,8 +3,8 @@ import CustomerDashboard from 'app/features/customer/Dashboard'
 import DetailCustomer from 'app/features/customer/Detail'
 import DashboardPage from 'app/features/dashboard/dashboardPage'
 import RoomAddPage from 'app/features/room/Add/roomAddPage'
+import RoomDashboard from 'app/features/room/Dashboard'
 import RoomEditPage from 'app/features/room/Edit/roomEditPage'
-import RoomPage from 'app/features/room/roomPage'
 import React from 'react'
 
 interface IRoute {
@@ -26,7 +26,7 @@ export const routers: IRoute[] = [
      */
     {
         path: "/admin/rooms",
-        component: RoomPage,
+        component: RoomDashboard,
     },
     {
         path: "/admin/rooms/create",

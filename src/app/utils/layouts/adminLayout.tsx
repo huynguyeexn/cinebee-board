@@ -3,7 +3,6 @@ import { routers } from 'app/router/routers';
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Header from '../components/Header';
 import SideMenu from '../components/SideMenu';
 
 const AdminLayout = () => {
