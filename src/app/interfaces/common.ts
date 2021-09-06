@@ -1,11 +1,11 @@
 export interface PaginationParams {
     total: number,
-    query: string,
+    query?: string| null,
     last_page: number
     page: number,
     per_page: number,
-    sort_by: number,
-    sort_type: number,
+    sort_by: string,
+    sort_type: "desc"|"asc",
 }
 
 export interface ListResponse<T> {
@@ -16,7 +16,7 @@ export interface ListResponse<T> {
 export interface ListParams {
     page?: number,
     per_page?: number,
-    sort_by?: number,
-    sort_type?: number,
-    q?: string,
+    sort_by?: string,
+    sort_type?: "desc"|"asc",
+    q?: string| null,
 }
