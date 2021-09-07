@@ -1,7 +1,6 @@
 import { menus } from 'app/router/menu';
 import React from 'react';
 import { Button, Nav } from 'react-bootstrap';
-import { FiLogOut } from 'react-icons/fi';
 import { NavLink, useHistory } from 'react-router-dom';
 
 const SideMenu = () => {
@@ -28,7 +27,7 @@ const SideMenu = () => {
 			</Nav>
 			<div className="sidebar-footer">
 				<Button variant="outline-primary btn-block mt-auto" onClick={onLogoutClick}>
-					Logout <FiLogOut />
+					Đăng xuất
 				</Button>
 			</div>
 		</div>

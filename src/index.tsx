@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import App from 'app/App';
 import './assets/styles/app.scss';
+import './assets/styles/tailwind.css';
 
 ReactDOM.render(
 	<React.StrictMode>
