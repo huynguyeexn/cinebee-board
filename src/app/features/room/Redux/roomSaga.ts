@@ -1,10 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import roomApi from 'app/api/roomsApi';
-import seatApi from 'app/api/seatsApi';
-import { ISeat } from 'app/interfaces';
 import { IRoom } from 'app/interfaces/room';
-import { all, call, put, takeLatest, fork } from 'redux-saga/effects';
-import { ListParams, ListResponse } from './../../../interfaces/common';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { ListParams, ListResponse } from 'app/interfaces/common';
 import { roomActions } from './roomSlice';
 
 function* fetchRoomList(actions: PayloadAction<ListParams>) {

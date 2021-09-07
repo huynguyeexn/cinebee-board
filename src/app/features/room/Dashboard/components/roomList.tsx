@@ -2,12 +2,19 @@ import { IRoom } from 'app/interfaces/room';
 import React from 'react';
 import { Button, Card, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FaCouch } from 'react-icons/fa';
+import { useHistory } from 'react-router';
 
 interface Props {
 	roomList: IRoom[];
 }
 
 const ROOM_LIST = ({ roomList }: Props) => {
+	const history = useHistory();
+
+	const onManageClick = (roomId?: string | number) => {
+		return history.push(`/admin/rooms/edit/${roomId}`);
+	};
+
 	return (
 		<>
 			{roomList.map((room, idx) => (
@@ -71,7 +78,9 @@ const ROOM_LIST = ({ roomList }: Props) => {
 									</p>
 								</OverlayTrigger>
 							</div>
-							<Button variant="primary btn-block">Quản lý</Button>
+							<Button variant="primary btn-block" onClick={() => onManageClick(room.id)}>
+								Quản lý
+							</Button>
 						</Card.Body>
 					</Card>
 				</Col>
