@@ -15,8 +15,8 @@ const SideMenu = () => {
 		<div className="sidebar text-center">
 			<div className="logo">
 				<h3 className="tw-text-2xl tw-font-bold mb-3">Cinebee</h3>
-				<div className="tw-text-2xl tw-font-bold mb-3 collapse-logo">C</div>
 			</div>
+			<div className="tw-text-2xl tw-font-bold mb-3 collapse-logo">C</div>
 			<Nav className="flex-column sidebar-menu ">
 				{menus.map((link, idx) => (
 					<Nav.Item key={idx}>

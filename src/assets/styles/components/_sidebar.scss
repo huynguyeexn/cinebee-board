@@ -52,10 +52,10 @@
 			}
 		}
 
-		.logo > *:not(.collapse-logo) {
+		.logo {
 			display: none;
 		}
-		.logo > .collapse-logo {
+		.collapse-logo {
 			display: block;
 		}
 	}
@@ -68,9 +68,15 @@
 	overflow: auto;
 
 	.logo {
-		.collapse-logo {
-			display: none;
-		}
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.collapse-logo {
+		display: none;
 	}
 
 	&-menu {
@@ -91,7 +97,6 @@
 
 			&.active,
 			&:hover {
-				transition: all 0.25s ease-in-out;
 				color: $white;
 				background-color: $primary;
 				@include shadow($primary);
