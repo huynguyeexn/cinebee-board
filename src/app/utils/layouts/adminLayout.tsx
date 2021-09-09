@@ -1,31 +1,15 @@
 import PrivateRoute from 'app/router/privateRoute';
 import { routers } from 'app/router/routers';
-import React, { useState } from 'react';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import SideMenu from '../components/SideMenu';
+import SIDE_MENU from '../components/SideMenu';
 
 const AdminLayout = () => {
-	const [collapse, setCollase] = useState(false);
-
-	const sidebarToggle = () => {
-		setCollase(!collapse);
-	};
-
 	return (
 		<React.Fragment>
 			<div className="admin-layout">
 				<div className="main-wrapper">
-					<div
-						className={`border-right p-0 side-menu-wrapper ${
-							collapse ? 'side-menu-collapse' : ''
-						}`}
-					>
-						<SideMenu />
-						<div className="toggle-sidebar" onClick={sidebarToggle}>
-							{collapse ? <BiChevronRight /> : <BiChevronLeft />}
-						</div>
-					</div>
+					<SIDE_MENU />
 					<div className="main-content-wrapper p-0">
 						<div className="main-content p-3">
 							<Switch>
