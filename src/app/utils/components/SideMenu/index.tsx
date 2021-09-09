@@ -14,13 +14,15 @@ const SideMenu = () => {
 	return (
 		<div className="sidebar text-center">
 			<div className="logo">
-				<h3>Cinebee</h3>
+				<h3 className="tw-text-2xl tw-font-bold mb-3">Cinebee</h3>
+				<div className="tw-text-2xl tw-font-bold mb-3 collapse-logo">C</div>
 			</div>
 			<Nav className="flex-column sidebar-menu ">
 				{menus.map((link, idx) => (
 					<Nav.Item key={idx}>
 						<Nav.Link to={link.path} as={NavLink}>
-							{React.createElement(link.icon, { className: 'icon' })} {link.label}
+							{React.createElement(link.icon, { className: 'icon' })}{' '}
+							<span className="link-text">{link.label}</span>
 						</Nav.Link>
 					</Nav.Item>
 				))}

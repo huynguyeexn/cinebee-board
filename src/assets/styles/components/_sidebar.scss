@@ -1,8 +1,77 @@
+.side-menu-wrapper {
+	position: relative;
+	width: 250px;
+	transition: all 0.5s ease-in-out;
+	flex-shrink: 0;
+
+	&:hover .toggle-sidebar {
+		opacity: 1;
+	}
+
+	.toggle-sidebar {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.5rem;
+		width: 30px;
+		height: 50px;
+		background: $white;
+		border: 1px solid $secondary;
+		border-left: 0;
+		transition: all 0.25s ease-in-out;
+		z-index: 1;
+		opacity: 0;
+		top: 50%;
+		right: -29px;
+		transform: translateY(-50%);
+
+		border-radius: 0 1rem 1rem 0;
+
+		&:hover {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+
+	&.side-menu-collapse {
+		&.side-menu-wrapper {
+			width: 105px !important;
+		}
+
+		.sidebar-menu {
+			a.nav-link {
+				width: 4rem;
+			}
+
+			.link-text {
+				transition: all 0.15s ease-in-out;
+				transition-delay: 0;
+				visibility: hidden;
+				opacity: 0;
+			}
+		}
+
+		.logo > *:not(.collapse-logo) {
+			display: none;
+		}
+		.logo > .collapse-logo {
+			display: block;
+		}
+	}
+}
+
 .sidebar {
 	padding: 1rem;
 	height: 100%;
 	position: relative;
 	overflow: auto;
+
+	.logo {
+		.collapse-logo {
+			display: none;
+		}
+	}
 
 	&-menu {
 		.nav-item {
@@ -13,28 +82,42 @@
 			border-bottom: 1px solid $secondary;
 			padding: 0.75rem;
 			border-radius: 1rem;
-			transition: all 0.2s ease-out;
+			transition: all 0.25s ease-in-out;
+			transition: width 0.5s linear;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
+			width: 200px;
 
 			&.active,
 			&:hover {
+				transition: all 0.25s ease-in-out;
 				color: $white;
 				background-color: $primary;
 				@include shadow($primary);
 			}
 
 			.icon {
+				flex-shrink: 0;
 				font-size: 1.2rem;
 				height: 1.2rem;
 				width: 1.2rem;
 				margin: 0 10px;
 			}
+
+			.link-text {
+				transition: opacity 0.35s ease-in-out 0.25s;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 	}
 
 	&-footer {
+		display: none;
 		background: #fff;
 		position: absolute;
 		bottom: 0;
