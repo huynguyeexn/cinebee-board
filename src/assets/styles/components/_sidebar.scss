@@ -5,7 +5,10 @@
 	flex-shrink: 0;
 
 	&:hover .toggle-sidebar {
-		opacity: 1;
+		right: -30px;
+		width: 30px;
+		border: 1px solid #ddd;
+		border-left: 0;
 	}
 
 	.toggle-sidebar {
@@ -14,29 +17,48 @@
 		justify-content: center;
 		align-items: center;
 		font-size: 1.5rem;
-		width: 30px;
 		height: 50px;
 		background: $white;
-		border: 1px solid $secondary;
-		border-left: 0;
 		transition: all 0.25s ease-in-out;
 		z-index: 1;
-		opacity: 0;
 		top: 50%;
-		right: -29px;
+		width: 0;
+		right: 0px;
 		transform: translateY(-50%);
-
 		border-radius: 0 1rem 1rem 0;
 
+		.toggle-icon {
+			transition: transform 0.25s ease-in-out;
+		}
+		&::after {
+			content: '';
+			width: 30px;
+			opacity: 0;
+			right: -30px;
+			position: absolute;
+			height: 40px;
+			transition-delay: 0.25s;
+		}
+
+		&:hover::after {
+			right: 0px;
+		}
+
 		&:hover {
-			visibility: visible;
-			opacity: 1;
+			right: -30px;
+			width: 30px;
+			border: 1px solid #ddd;
+			border-left: 0;
 		}
 	}
 
 	&.side-menu-collapse {
 		&.side-menu-wrapper {
 			width: 105px !important;
+		}
+
+		.toggle-icon {
+			transform: rotate(180deg);
 		}
 
 		.sidebar-menu {

@@ -1,7 +1,7 @@
 import { initFilterParams } from 'app/constants';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import { roomActions, selectRoomList } from '../Redux/roomSlice';
 import ROOM_LIST from './components/roomList';
 
@@ -10,6 +10,8 @@ interface Props {}
 const RoomDashboard = (props: Props) => {
 	const dispatch = useAppDispatch();
 	const roomList = useAppSelector(selectRoomList);
+
+	console.log(roomList);
 
 	useEffect(() => {
 		dispatch(
@@ -25,9 +27,53 @@ const RoomDashboard = (props: Props) => {
 	return (
 		<div>
 			<Row className="mb-4">
-				<Col>RoomDashboard</Col>
+				<Col>
+					<p className="tw-text-2xl tw-font-semibold">Room Dashboard</p>
+				</Col>
 			</Row>
-			<Row>{roomList && <ROOM_LIST roomList={roomList} />}</Row>
+			<Row>
+				{roomList?.length ? (
+					<ROOM_LIST roomList={roomList} />
+				) : (
+					<div className="tw-w-full tw-h-40 tw-flex tw-justify-center tw-items-center">
+						<Spinner
+							className="mr-2"
+							size="sm"
+							style={{ animationDelay: '0.15s' }}
+							animation="grow"
+							variant="primary"
+						/>
+						<Spinner
+							className="mr-2"
+							size="sm"
+							style={{ animationDelay: '0.3s' }}
+							animation="grow"
+							variant="primary"
+						/>
+						<Spinner
+							className="mr-2"
+							size="sm"
+							style={{ animationDelay: '0.45s' }}
+							animation="grow"
+							variant="primary"
+						/>
+						<Spinner
+							className="mr-2"
+							size="sm"
+							style={{ animationDelay: '0.6s' }}
+							animation="grow"
+							variant="primary"
+						/>
+						<Spinner
+							className="mr-2"
+							size="sm"
+							style={{ animationDelay: '0.75s' }}
+							animation="grow"
+							variant="primary"
+						/>
+					</div>
+				)}
+			</Row>
 		</div>
 	);
 };

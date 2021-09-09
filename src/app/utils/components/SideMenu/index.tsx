@@ -46,7 +46,7 @@ const SIDE_MENU = () => {
 				</div>
 			</div>
 			<div className="toggle-sidebar" onClick={sidebarToggle}>
-				{collapse ? <BiChevronRight /> : <BiChevronLeft />}
+				<BiChevronLeft className="toggle-icon" />
 			</div>
 		</div>
 	);

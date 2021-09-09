@@ -9716,6 +9716,11 @@ react-chartjs-2@^3.0.4:
   dependencies:
     lodash "^4.17.19"
 
+react-content-loader@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-6.0.3.tgz#32e28ca7120e0a2552fc26655d0d4448cc1fc0c5"
+  integrity sha512-CIRgTHze+ls+jGDIfCitw27YkW2XcaMpsYORTUdBxsMFiKuUYMnlvY76dZE4Lsaa9vFXVw+41ieBEK7SJt0nug==
+
 react-datetime@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-datetime/-/react-datetime-3.0.4.tgz#176159d08d35c9e750f0be2f0b974e4f9532ffa5"
