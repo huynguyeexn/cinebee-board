@@ -1,9 +1,8 @@
 import { menus } from 'app/router/menu';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Nav } from 'react-bootstrap';
+import { BiChevronLeft } from 'react-icons/bi';
 import { NavLink, useHistory } from 'react-router-dom';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import { useState } from 'react';
 
 const SIDE_MENU = () => {
 	const history = useHistory();

@@ -2,7 +2,7 @@ import { initFilterParams } from 'app/constants';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import React, { useEffect } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
-import { roomActions, selectRoomList } from '../Redux/roomSlice';
+import { roomActions, selectRoomList, selectRoomLoading } from '../Redux/roomSlice';
 import ROOM_LIST from './components/roomList';
 
 interface Props {}
@@ -10,6 +10,7 @@ interface Props {}
 const RoomDashboard = (props: Props) => {
 	const dispatch = useAppDispatch();
 	const roomList = useAppSelector(selectRoomList);
+	const roomLoading = useAppSelector(selectRoomLoading);
 
 	console.log(roomList);
 
@@ -32,9 +33,7 @@ const RoomDashboard = (props: Props) => {
 				</Col>
 			</Row>
 			<Row>
-				{roomList?.length ? (
-					<ROOM_LIST roomList={roomList} />
-				) : (
+				{roomLoading ? (
 					<div className="tw-w-full tw-h-40 tw-flex tw-justify-center tw-items-center">
 						<Spinner
 							className="mr-2"
@@ -72,6 +71,8 @@ const RoomDashboard = (props: Props) => {
 							variant="primary"
 						/>
 					</div>
+				) : (
+					roomList && <ROOM_LIST roomList={roomList} />
 				)}
 			</Row>
 		</div>
