@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import ListCustomer from './components/ListCustomer';
 import StatisticsChart from './components/StatisticsChart';
 import StatisticsGroup from './components/StatisticsGroup';
 import TopSpend from './components/TopSpend';
@@ -20,7 +21,7 @@ const CustomerDashboard = (props: Props) => {
 					<StatisticsChart />
 				</Col>
 				<Col sm={4}>
-					<Card className="mb-3">
+					{/* <Card className="mb-3">
 						<Card.Body>
 							<Form>
 								<Form.Group className="m-0" controlId="formBasicEmail">
@@ -43,8 +44,13 @@ const CustomerDashboard = (props: Props) => {
 								</Form.Group>
 							</Form>
 						</Card.Body>
-					</Card>
+					</Card> */}
 					<TopSpend />
+				</Col>
+			</Row>
+			<Row className="mt-3">
+				<Col>
+					<ListCustomer />
 				</Col>
 			</Row>
 		</div>
