@@ -19,4 +19,5 @@ export interface ListParams {
 	sort_by?: string;
 	sort_type?: 'desc' | 'asc';
 	q?: string | null;
+	search?: string;
 }

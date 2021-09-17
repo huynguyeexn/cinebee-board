@@ -1,7 +1,10 @@
 import { initFilterParams } from 'app/constants';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { LOADING } from 'app/utils/components/Loading';
 import React, { useEffect } from 'react';
-import { Col, Row, Spinner } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
+import { BiPlusCircle } from 'react-icons/bi';
+import { NavLink } from 'react-router-dom';
 import { roomActions, selectRoomList, selectRoomLoading } from '../Redux/roomSlice';
 import ROOM_LIST from './components/roomList';
 
@@ -29,51 +32,20 @@ const RoomDashboard = (props: Props) => {
 		<div>
 			<Row className="mb-4">
 				<Col>
-					<p className="tw-text-2xl tw-font-semibold">Room Dashboard</p>
+					<p className="tw-text-2xl tw-font-semibold">Quản lý phòng chiếu</p>
+				</Col>
+				<Col>
+					<Button
+						as={NavLink}
+						to="/admin/rooms/create"
+						variant="outline-primary float-right d-flex align-items-center"
+					>
+						Thêm phòng chiếu <BiPlusCircle className="ml-1" />
+					</Button>
 				</Col>
 			</Row>
 			<Row>
-				{roomLoading ? (
-					<div className="tw-w-full tw-h-40 tw-flex tw-justify-center tw-items-center">
-						<Spinner
-							className="mr-2"
-							size="sm"
-							style={{ animationDelay: '0.15s' }}
-							animation="grow"
-							variant="primary"
-						/>
-						<Spinner
-							className="mr-2"
-							size="sm"
-							style={{ animationDelay: '0.3s' }}
-							animation="grow"
-							variant="primary"
-						/>
-						<Spinner
-							className="mr-2"
-							size="sm"
-							style={{ animationDelay: '0.45s' }}
-							animation="grow"
-							variant="primary"
-						/>
-						<Spinner
-							className="mr-2"
-							size="sm"
-							style={{ animationDelay: '0.6s' }}
-							animation="grow"
-							variant="primary"
-						/>
-						<Spinner
-							className="mr-2"
-							size="sm"
-							style={{ animationDelay: '0.75s' }}
-							animation="grow"
-							variant="primary"
-						/>
-					</div>
-				) : (
-					roomList && <ROOM_LIST roomList={roomList} />
-				)}
+				{roomLoading ? <LOADING /> : roomList && <ROOM_LIST roomList={roomList} />}
 			</Row>
 		</div>
 	);

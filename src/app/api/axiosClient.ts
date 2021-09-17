@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
-	baseURL: 'https://cinebee-server.herokuapp.com/api',
+	baseURL: process.env.REACT_APP_BASE_URL_API,
 	headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 });
 
@@ -16,7 +16,11 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
 	function (response: AxiosResponse) {
-		return response.data;
+		const { data, ...rest } = response.data;
+		return {
+			data: data,
+			pagination: rest,
+		};
 	},
 	function (error: AxiosError) {
 		return Promise.reject(error);
