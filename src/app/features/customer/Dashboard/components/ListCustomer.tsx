@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { LOADING } from 'app/utils/components/Loading';
 import { PAGINATION } from 'app/utils/components/Pagination';
 import moment from 'moment';
-import { loadavg } from 'os';
 import React, { useEffect } from 'react';
 import { Card, Table } from 'react-bootstrap';
 import {
@@ -45,13 +44,21 @@ const ListCustomer = (props: Props) => {
 		dispatch(customerActions.setFilterDebounce(newFilter));
 	};
 
+	const handleFilterChange = (newFilter: ListParams) => {
+		dispatch(customerActions.setFilter(newFilter));
+	};
+
 	return (
 		<Card>
 			<Card.Header>
 				<Card.Title>Danh sách khách hàng</Card.Title>
 			</Card.Header>
 			<Card.Body>
-				<StudentFilter filter={filter} onSeachChange={handleSeachChange} />
+				<StudentFilter
+					filter={filter}
+					onSeachChange={handleSeachChange}
+					onFilterChange={handleFilterChange}
+				/>
 				<div className="mb-3">{loading && <LOADING />}</div>
 				<Table striped bordered hover size="sm">
 					<thead>
