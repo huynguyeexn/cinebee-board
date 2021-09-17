@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import ListCustomer from './components/ListCustomer';
 import StatisticsChart from './components/StatisticsChart';
 import StatisticsGroup from './components/StatisticsGroup';
