@@ -39,7 +39,7 @@ export const menus: IMenu[] = [
 		icon: HiOutlineCalendar,
 	},
 	{
-		path: '/admin/staff',
+		path: '/admin/employees',
 		label: 'Nhân viên',
 		icon: MdCardTravel,
 	},
