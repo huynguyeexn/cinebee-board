@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initFilterParams, initPaginationParams } from 'app/constants';
-import { ListParams, ListResponse, PaginationParams } from 'app/interfaces';
+import { ToastSuccess } from 'app/constants/Toast';
+import {
+	ListParams,
+	ListResponse,
+	PaginationParams,
+	SuccessResponse,
+} from 'app/interfaces';
 import { Customer } from 'app/interfaces/customer';
 import { RootState } from 'app/redux/store';
 
@@ -45,6 +51,18 @@ const customerSlice = createSlice({
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {
 			state.loading = true;
 			state.filter = action.payload;
+		},
+
+		deleteById: (state, action: PayloadAction<Customer>) => {
+			state.loading = true;
+		},
+		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
+			console.log(action.payload);
+			ToastSuccess(action.payload.message);
+			state.loading = false;
+		},
+		runError: (state) => {
+			state.loading = false;
 		},
 	},
 });

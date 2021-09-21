@@ -1,51 +1,28 @@
+import { Pagination } from 'antd';
 import React from 'react';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import ReactPaginate from 'react-paginate';
+import locale from 'antd/lib/locale/vi_VN';
 
 interface Props {
 	page?: number;
-	totalPage?: number;
-	onPageChange: (page: number) => void;
+	total?: number;
+	onPageChange: (page: number, pageSize?: number) => void;
 }
 
-export const PAGINATION = ({ page = 1, totalPage = 1, onPageChange }: Props) => {
+export const AppPagination = ({ page, total, onPageChange }: Props) => {
 	return (
-		<ReactPaginate
-			breakLabel={'break-me'}
-			breakClassName={'break-class'}
-			breakLinkClassName={'break-link'}
-			disableInitialCallback={false}
-			containerClassName={'pagination'}
-			marginPagesDisplayed={5}
-			forcePage={page - 1}
-			initialPage={0}
-			pageCount={totalPage}
-			pageRangeDisplayed={10}
-			pageClassName={'page-item'}
-			pageLinkClassName={'page-link'}
-			// pageLabelBuilder={(page: number) => `${page}`}
-			onPageChange={(selectedItem: { selected: number }) =>
-				onPageChange(selectedItem.selected + 1)
-			}
-			activeClassName={'active'}
-			activeLinkClassName={'active'}
-			previousLabel={<BiChevronLeft />}
-			previousClassName={'page-item'}
-			previousLinkClassName={
-				'page-link h-100 d-flex justify-content-center align-items-center'
-			}
-			nextLabel={<BiChevronRight />}
-			nextClassName={'page-item'}
-			nextLinkClassName={
-				'page-link h-100 d-flex justify-content-center align-items-center'
-			}
-			disabledClassName={'disabled'}
-			// extraAriaContext={'aria'}
-			// hrefBuilder={(pageIndex: number) => null}
-			// ariaLabelBuilder={(page, selected) =>
-			// 	selected ? 'Current page' : 'Goto page ' + page
-			// }
-			// eventListener={'onMouseOver'}
-		/>
+		<div style={{ textAlign: 'center' }}>
+			<Pagination
+				locale={locale.Pagination}
+				defaultCurrent={page}
+				current={page}
+				onChange={onPageChange}
+				total={total}
+				showSizeChanger
+				showQuickJumper
+				showTotal={(total, range) => `Từ ${range[0]}-${range[1]} trên ${total} dòng`}
+				pageSizeOptions={['5', '10', '20', '50', '100']}
+				defaultPageSize={10}
+			/>
+		</div>
 	);
 };

@@ -1,3 +1,4 @@
+import { HandleAxiosError } from 'app/constants/HandleError';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
@@ -10,19 +11,17 @@ axiosClient.interceptors.request.use(
 		return config;
 	},
 	function (error: AxiosError) {
+		HandleAxiosError(error);
 		return error;
 	}
 );
 
 axiosClient.interceptors.response.use(
 	function (response: AxiosResponse) {
-		const { data, ...rest } = response.data;
-		return {
-			data: data,
-			pagination: rest,
-		};
+		return response.data;
 	},
 	function (error: AxiosError) {
+		HandleAxiosError(error);
 		return Promise.reject(error);
 	}
 );
