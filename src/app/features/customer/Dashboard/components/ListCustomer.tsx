@@ -12,7 +12,7 @@ import {
 	selectCustomerList,
 	selectCustomerLoading,
 	selectCustomerPagination,
-} from '../../redux/customerSlice';
+} from '../../redux1/customerSlice';
 
 interface Props {}
 
