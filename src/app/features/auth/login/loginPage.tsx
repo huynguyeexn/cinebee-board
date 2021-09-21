@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -12,7 +11,7 @@ const LoginPage = () => {
 
 	return (
 		<div>
-			<Button onClick={onLoginClick}>Click here to login</Button>
+			<button onClick={onLoginClick}>Click here to login</button>
 		</div>
 	);
 };

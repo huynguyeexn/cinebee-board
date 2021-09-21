@@ -1,19 +1,19 @@
+import { Menu } from 'antd';
 import { menus } from 'app/router/menu';
 import React from 'react';
-import { Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const SideMenu = () => {
 	return (
-		<Nav className="flex-column side-bar-menu ">
+		<Menu theme="dark" mode="inline">
 			{menus.map((link, idx) => (
-				<Nav.Item key={idx}>
-					<Nav.Link to={link.path} as={NavLink}>
-						{React.createElement(link.icon)} {link.label}
-					</Nav.Link>
-				</Nav.Item>
+				<Menu.Item key={idx} icon={React.createElement(link.icon, { className: 'icon' })}>
+					<NavLink to={link.path}>
+						<span className="link-text">{link.label}</span>
+					</NavLink>
+				</Menu.Item>
 			))}
-		</Nav>
+		</Menu>
 	);
 };
 

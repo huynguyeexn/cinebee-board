@@ -1,11 +1,10 @@
+import App from 'app/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
-import App from 'app/App';
-import "./assets/styles/app.scss";
+import { store } from './app/redux/store';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 	<React.StrictMode>
