@@ -2,6 +2,7 @@ import AddCustomer from 'app/features/customer/Add';
 import CustomerDashboard from 'app/features/customer/Dashboard';
 import DetailCustomer from 'app/features/customer/Detail';
 import DashboardPage from 'app/features/dashboard/dashboardPage';
+import AddEmployee from 'app/features/employee/Add';
 import EmployeeDashboard from 'app/features/employee/Dashboard';
 import MovieDashboard from 'app/features/movie/Dashboard/dashboard';
 import MovieEdit from 'app/features/movie/Edit';
@@ -96,10 +97,10 @@ export const routers: IRoute[] = [
 		path: '/admin/employees',
 		component: EmployeeDashboard,
 	},
-	// {
-	// 	path: '/admin/customers/create',
-	// 	component: AddCustomer,
-	// },
+	{
+		path: '/admin/employees/create',
+		component: AddEmployee,
+	},
 	// {
 	// 	path: '/admin/movies/:id',
 	// 	component: DetailCustomer,

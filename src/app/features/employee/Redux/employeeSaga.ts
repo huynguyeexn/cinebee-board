@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "@redux-saga/core/effects";
+import { call, debounce, put, takeLatest } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import employeeApi from "app/api/employeeApi";
 import { ListParams, ListResponse } from "app/interfaces";
@@ -23,4 +23,6 @@ function* fetchEmployeeList(actions: PayloadAction<ListParams>) {
 
 export default function* employeeSaga(){
     yield takeLatest(employeeActions.fetchEmployeeList, fetchEmployeeList);
+    yield takeLatest(employeeActions.setFilter, fetchEmployeeList);
+	yield debounce(1000, employeeActions.setFilterDebounce, fetchEmployeeList);
 }

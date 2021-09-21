@@ -6,10 +6,10 @@ import { RootState } from "app/redux/store";
 
 export interface EmployeeState {
     // List employee
-    list?: Employee[],
+    list: Employee[],
 
 	// Filter
-	filter?: ListParams;
+	filter: ListParams;
 
 	// Pagination
 	pagination?: PaginationParams;
@@ -32,13 +32,29 @@ const employeeSlice = createSlice({
         fetchEmployeeList: (state, action: PayloadAction<ListParams>) => {
             state.loading = true;
         },
+
         fetchEmployeeSuccess: (state, action: PayloadAction<ListResponse<Employee>>) => {
             state.loading = false;
             state.list = action.payload.data;
             state.pagination = action.payload.pagination;
         },
+
         fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
             state.loading = false;
+        },
+
+		setFilter: (state, action: PayloadAction<ListParams>) => {
+			state.loading = true;
+			state.filter = action.payload;
+		},
+
+		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {
+			state.loading = true;
+			state.filter = action.payload;
+		},
+        
+        addEmployee: (state, action) => {
+            state.list.push(action.payload);
         }
     }
 })

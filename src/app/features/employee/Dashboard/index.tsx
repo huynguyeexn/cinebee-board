@@ -1,30 +1,15 @@
-import { useAppDispatch, useAppSelector } from 'app/redux/hooks'
 import React from 'react'
 import { Button, Card, Col, Form, Row } from 'react-bootstrap'
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
-import { employeeActions, selectEmployeeList } from '../Redux/employeeSlice'
 import { EmployeeStatisticsGroup } from './components/StatisticsGroup';
 import { EmployeeStatisticsChart } from './components/StatisticsChart';
 import EmployeeTopSpend from './components/TopSpend';
-import { ListEmployee } from './components/list';
+import ListEmployee from './components/ListEmployee';
 
 interface Props {
     
 }
 const EmployeeDashboard = (props: Props) => {
-    const dispatch = useAppDispatch();
-    const list = useAppSelector(selectEmployeeList);
-    console.log(list);
-    
-    useEffect(() => {
-        dispatch(
-            employeeActions.fetchEmployeeList({
-                page: 1,
-                per_page: 10,
-            })
-        );
-    }, [dispatch])
     return (
         <div>
             <EmployeeStatisticsGroup />
@@ -61,8 +46,8 @@ const EmployeeDashboard = (props: Props) => {
 				</Col>
 			</Row>
 			<Row className="mt-3">
-				<Col  sm={12}>
-					<ListEmployee listEmployee={list}/>
+				<Col sm={12}>
+					<ListEmployee/>
 				</Col>
 			</Row>
         </div>
