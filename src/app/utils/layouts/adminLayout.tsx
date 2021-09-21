@@ -1,17 +1,39 @@
+import { Layout } from 'antd';
 import PrivateRoute from 'app/router/privateRoute';
 import { routers } from 'app/router/routers';
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import SIDE_MENU from '../components/SideMenu';
+import { useState } from 'react';
+import { Redirect, Route, Switch } from 'react-router';
+import TopHeader from '../components/Header';
+import SideMenu from '../components/SideMenu';
+
+const { Content, Sider } = Layout;
 
 const AdminLayout = () => {
+	const [collapsed, setCollapsed] = useState(false);
+
 	return (
-		<React.Fragment>
-			<div className="admin-layout">
-				<div className="main-wrapper">
-					<SIDE_MENU />
-					<div className="main-content-wrapper p-0">
-						<div className="main-content p-3">
+		<>
+			<Layout style={{ minHeight: '100vh' }} id="admin-layout">
+				<Sider
+					trigger={null}
+					breakpoint="sm"
+					collapsedWidth="0"
+					onBreakpoint={(broken) => {
+						console.log(broken);
+					}}
+					collapsible
+					collapsed={collapsed}
+					onCollapse={(collapsed) => setCollapsed(collapsed)}
+				>
+					<div className="logo">
+						<span>Logo</span>
+					</div>
+					<SideMenu />
+				</Sider>
+				<Layout className="site-layout">
+					<TopHeader collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} />
+					<Content style={{ padding: '16px' }}>
+						<div style={{ minHeight: 360 }}>
 							<Switch>
 								{routers.map((route, idx) => (
 									<PrivateRoute
@@ -28,10 +50,10 @@ const AdminLayout = () => {
 								<Route path="*">Not found</Route>
 							</Switch>
 						</div>
-					</div>
-				</div>
-			</div>
-		</React.Fragment>
+					</Content>
+				</Layout>
+			</Layout>
+		</>
 	);
 };
 

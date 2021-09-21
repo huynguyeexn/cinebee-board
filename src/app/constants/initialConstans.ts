@@ -9,11 +9,11 @@ export const initFilterParams: ListParams = {
 };
 
 export const initPaginationParams: PaginationParams = {
-	total: 10,
+	total: 0,
 	query: null,
-	last_page: 1,
-	page: 1,
-	per_page: 10,
+	last_page: 0,
+	page: 0,
+	per_page: 0,
 	sort_by: 'updated_at',
 	sort_type: 'desc',
 };

@@ -1,29 +1,46 @@
-import React from 'react';
-import { Button, Nav, Navbar } from 'react-bootstrap';
-import { FiLogOut } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import { Col, Layout, Menu, Row } from 'antd';
+import { AiOutlineUser } from 'react-icons/ai';
+import { RiMenuFoldLine, RiMenuUnfoldLine } from 'react-icons/ri';
 
-interface Props {}
+const { Header } = Layout;
 
-const Header = (props: Props) => {
-	const history = useHistory();
+const { SubMenu } = Menu;
+interface Props {
+	collapsed: boolean;
+	onCollapse: () => void;
+}
 
-	const onLogoutClick = () => {
-		localStorage.removeItem('access_token');
-		history.push('/login');
-	};
+const TopHeader = ({ collapsed, onCollapse }: Props) => {
+	// const history = useHistory();
+
+	// const onLogoutClick = () => {
+	// 	localStorage.removeItem('access_token');
+	// 	history.push('/login');
+	// };
 
 	return (
-		<Navbar bg="light" variant="light" className="border-none">
-			<Navbar.Brand>Cinebee</Navbar.Brand>
-			<Nav className="mr-auto">
-				<span>Xin chào HUi!</span>
-			</Nav>
-			<Button variant="outline-secondary" onClick={onLogoutClick}>
-				Logout <FiLogOut />
-			</Button>
-		</Navbar>
+		<Header id="top-header" className="site-layout-background" style={{ padding: 0 }}>
+			<Row>
+				<Col span={12}>
+					{collapsed ? (
+						<RiMenuUnfoldLine className="trigger" onClick={onCollapse} />
+					) : (
+						<RiMenuFoldLine className="trigger" onClick={onCollapse} />
+					)}
+				</Col>
+				<Col span={12}>
+					<Menu mode="horizontal" className="user-menu">
+						<SubMenu key="SubMenu" icon={<AiOutlineUser />} title="Huy Nguyễn">
+							<Menu.Item key="setting:1">Option 1</Menu.Item>
+							<Menu.Item key="setting:2">Option 2</Menu.Item>
+							<Menu.Item key="setting:3">Option 3</Menu.Item>
+							<Menu.Item key="setting:4">Option 4</Menu.Item>
+						</SubMenu>
+					</Menu>
+				</Col>
+			</Row>
+		</Header>
 	);
 };
 
-export default Header;
+export default TopHeader;
