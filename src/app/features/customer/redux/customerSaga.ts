@@ -28,9 +28,13 @@ function* deleteById(actions: PayloadAction<Customer>) {
 	}
 }
 
+function* setFilterDebounce(actions: PayloadAction<ListParams>) {
+	yield put(customerActions.setFilter(actions.payload));
+}
+
 export default function* customerSaga() {
 	yield takeLatest(customerActions.fetchCustomerList, fetchCustomerList);
 	yield takeLatest(customerActions.setFilter, fetchCustomerList);
 	yield takeLatest(customerActions.deleteById, deleteById);
-	yield debounce(1000, customerActions.setFilterDebounce, fetchCustomerList);
+	yield debounce(1000, customerActions.setFilterDebounce, setFilterDebounce);
 }

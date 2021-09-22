@@ -8,8 +8,9 @@ const customerApi = {
 	getAll(params?: ListParams): Promise<ListResponse<Customer>> {
 		return axiosClient.get(path, { params });
 	},
-	getById(params?: ListParams): Promise<ListResponse<Customer>> {
-		return axiosClient.get(path, { params });
+	getById(customer: Customer): Promise<Customer> {
+		const url = `${path}/${customer.id}`;
+		return axiosClient.get(url);
 	},
 	// Add
 	// Edit
