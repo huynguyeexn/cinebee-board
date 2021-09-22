@@ -3,8 +3,8 @@ import { ToastError } from './Toast';
 
 export const HandleAxiosError = (error: AxiosError) => {
 	if (error.response?.status === 404) {
-		ToastError('Không tìm thấy dữ liệu');
+		return ToastError('Không tìm thấy dữ liệu');
 	} else {
-		ToastError(error.response?.statusText || error.message);
+		return ToastError(error.response?.statusText || error.message);
 	}
 };
