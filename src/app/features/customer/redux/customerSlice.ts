@@ -57,7 +57,6 @@ const customerSlice = createSlice({
 			state.loading = true;
 		},
 		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
-			console.log(action.payload);
 			ToastSuccess(action.payload.message);
 			state.loading = false;
 		},
