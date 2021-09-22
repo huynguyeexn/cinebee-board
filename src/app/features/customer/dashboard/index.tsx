@@ -1,40 +1,194 @@
-import { Card, Col, Row, Statistic } from 'antd';
+import { blue } from '@ant-design/colors';
+import { Button, Col, Popconfirm, Row, Space, Spin } from 'antd';
+import customerApi from 'app/api/customer';
+import {
+	customerTypeActions,
+	selectCustomerTypeMap,
+} from 'app/features/customerType/redux/customerTypeSlice';
+import { Customer } from 'app/interfaces';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import moment from 'moment';
 import React from 'react';
+import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from 'react-icons/ai';
+import {
+	customerActions,
+	selectCustomerFilter,
+	selectCustomerList,
+	selectCustomerLoading,
+	selectCustomerPagination,
+} from '../redux/customerSlice';
+import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
+import ModalAddEditCustomer from './components/ModalAddEditCustomer';
 
-interface Props {}
+const CustomerDashboard = () => {
+	const dispatch = useAppDispatch();
+	const customers = useAppSelector(selectCustomerList);
+	const loading = useAppSelector(selectCustomerLoading);
+	const pagination = useAppSelector(selectCustomerPagination);
+	const filter = useAppSelector(selectCustomerFilter);
+	const customerType = useAppSelector(selectCustomerTypeMap);
 
-const CustomerDashboard = (props: Props) => {
+	const [isModalOpen, setIsModalOpen] = React.useState(false);
+	const [customer, setCustomer] = React.useState<Customer | undefined>(undefined);
+
+	React.useEffect(() => {
+		dispatch(customerActions.fetchCustomerList(filter));
+	}, [dispatch, filter]);
+
+	React.useEffect(() => {
+		dispatch(customerTypeActions.getAll());
+	}, [dispatch]);
+
+	/**
+	 * Handle Event
+	 */
+	const handlePageChange = (page: number, pageSize?: number) => {
+		console.log(page, pageSize, pagination);
+
+		const newFilter = {
+			...filter,
+			page: page,
+			per_page: pageSize,
+		};
+
+		dispatch(customerActions.setFilter(newFilter));
+	};
+
+	const handleAddButtonClick = () => {
+		setCustomer(undefined);
+		setIsModalOpen(true);
+	};
+
+	const handleDelete = (customer: Customer) => {
+		dispatch(customerActions.deleteById(customer));
+	};
+
+	const handleEdit = async (value: Customer) => {
+		setCustomer(undefined);
+		if (!value) return;
+		const response: Customer = await customerApi.getById(value);
+		setCustomer(response);
+
+		setIsModalOpen(true);
+	};
+
+	const handleModelSave = () => {
+		console.log(`handleModelSave`);
+	};
+
+	const columns = [
+		{
+			title: 'ID',
+			dataIndex: 'id',
+			key: 'id',
+			width: 80,
+		},
+		{
+			title: 'Tên khách hàng',
+			dataIndex: 'fullname',
+			key: 'fullname',
+		},
+		{
+			title: 'Tên tài khoản',
+			dataIndex: 'username',
+			key: 'username',
+		},
+		{
+			title: 'Email',
+			dataIndex: 'email',
+			key: 'email',
+		},
+		{
+			title: 'Số điện thoại',
+			dataIndex: 'phone',
+			key: 'phone',
+			width: 150,
+		},
+		{
+			title: 'Hạng',
+			key: 'customer_type_id',
+			dataIndex: 'customer_type_id',
+			width: 150,
+			render: (id: number) => (
+				<>
+					<span>
+						{Object.keys(customerType).length !== 0 ? (
+							customerType[`${id}`].name
+						) : (
+							<Spin size="small" />
+						)}
+					</span>
+				</>
+			),
+		},
+		{
+			title: 'Cập nhật',
+			key: 'updated_at',
+			dataIndex: 'updated_at',
+			width: 150,
+			render: (text: string) => <span>{moment(text).fromNow()}</span>,
+		},
+		{
+			title: 'Thao tác',
+			key: 'action',
+			fixed: 'right',
+			width: 125,
+			render: (record: Customer) => (
+				<Space size="middle">
+					<Button
+						type="default"
+						style={{ color: blue[3], borderColor: blue[3] }}
+						onClick={() => handleEdit(record)}
+					>
+						<AiOutlineEdit />
+					</Button>
+					<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
+						<Button type="default" danger>
+							<AiOutlineDelete />
+						</Button>
+					</Popconfirm>
+				</Space>
+			),
+		},
+	];
+
 	return (
 		<>
 			<Row gutter={[16, 16]}>
-				<Col sm={24} md={12} lg={6}>
-					<Card>
-						<Statistic title="Active Users" value={112893} />
-					</Card>
-				</Col>
-
-				<Col sm={24} md={12} lg={6}>
-					<Card>
-						<Statistic title="Active Users" value={112893} />
-					</Card>
-				</Col>
-
-				<Col sm={24} md={12} lg={6}>
-					<Card>
-						<Statistic title="Active Users" value={112893} />
-					</Card>
-				</Col>
-
-				<Col sm={24} md={12} lg={6}>
-					<Card>
-						<Statistic title="Active Users" value={112893} />
-					</Card>
+				<Col span={24}>
+					<FilterCustomer searchType={columns} />
 				</Col>
 				<Col span={24}>
-					<ListCustomer />
+					<Button
+						icon={<AiOutlinePlus />}
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+						}}
+						onClick={handleAddButtonClick}
+					>
+						Thêm tài khoản
+					</Button>
+				</Col>
+				<Col span={24}>
+					<ListCustomer
+						columns={columns}
+						pagination={pagination}
+						loading={loading}
+						customers={customers}
+						onPageChange={handlePageChange}
+					/>
 				</Col>
 			</Row>
+			{isModalOpen && (
+				<ModalAddEditCustomer
+					isModalVisible={isModalOpen}
+					onCancel={() => setIsModalOpen(false)}
+					onOk={handleModelSave}
+					dataField={customer}
+				/>
+			)}
 		</>
 	);
 };

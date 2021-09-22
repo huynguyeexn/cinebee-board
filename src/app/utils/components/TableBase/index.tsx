@@ -1,5 +1,4 @@
 import { Col, Row, Table } from 'antd';
-import FilterCustomer from 'app/features/customer/dashboard/components/FilterCustomer';
 import { PaginationParams } from 'app/interfaces';
 import React from 'react';
 import { AppPagination } from '../Pagination';
@@ -10,24 +9,11 @@ interface Props {
 	pagination: PaginationParams;
 	loading: boolean;
 	onPageChange: (page: number, pageSize?: number) => void;
-	isFilter?: boolean;
 }
 
-const TableBase = ({
-	columns,
-	dataSource,
-	pagination,
-	loading,
-	isFilter = false,
-	onPageChange,
-}: Props) => {
+const TableBase = ({ columns, dataSource, pagination, loading, onPageChange }: Props) => {
 	return (
 		<Row gutter={[16, 16]}>
-			{isFilter && (
-				<Col span={24}>
-					<FilterCustomer searchType={columns} />
-				</Col>
-			)}
 			<Col span={24}>
 				<Table
 					loading={loading}
@@ -37,6 +23,7 @@ const TableBase = ({
 					rowKey="id"
 					size="small"
 					scroll={{ x: 1500 }}
+					showSorterTooltip={true}
 				/>
 			</Col>
 			<Col span={24}>

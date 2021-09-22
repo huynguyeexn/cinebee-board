@@ -43,15 +43,19 @@ const customerSlice = createSlice({
 			state.loading = false;
 		},
 
+		getById: (state, action: PayloadAction<Customer>) => {
+			state.loading = true;
+		},
+		getByIdSuccess: (state, action: PayloadAction<Customer>) => {
+			state.loading = false;
+		},
+
 		setFilter: (state, action: PayloadAction<ListParams>) => {
 			state.loading = true;
 			state.filter = action.payload;
 		},
 
-		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
-			state.filter = action.payload;
-		},
+		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
 		deleteById: (state, action: PayloadAction<Customer>) => {
 			state.loading = true;
