@@ -1,4 +1,4 @@
-import customerReducer from 'app/features/customer/redux1/customerSlice';
+import customerReducer from 'app/features/customer/redux/customerSlice';
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';
 import { combineReducers } from 'redux';
