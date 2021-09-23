@@ -1,6 +1,8 @@
 import { Col, Form, Input, Row, Select } from 'antd';
-import React from 'react';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import React, { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { customerActions, selectCustomerFilter } from '../../redux/customerSlice';
 
 const { Option } = Select;
 
@@ -11,35 +13,58 @@ interface searchType {
 }
 
 interface Props {
-	searchType?: searchType[];
+	searchType: searchType[];
 }
 
 const FilterCustomer = ({ searchType }: Props) => {
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector(selectCustomerFilter);
+
+	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
+
+	React.useEffect(() => {
+		if (filter.q) {
+			const newFilter = {
+				...filter,
+				q: filter.q,
+				search: searchBy,
+			};
+
+			dispatch(customerActions.setFilterDebounce(newFilter));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchBy]);
+
+	const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const value = event.target.value;
+
+		const newFilter = {
+			...filter,
+			q: value,
+			search: searchBy,
+		};
+
+		dispatch(customerActions.setFilterDebounce(newFilter));
+	};
+
 	return (
-		<Row>
-			<Col span={8}>
-				<Form
-					// form={form}
-					layout="vertical"
-					// initialValues={{ requiredMarkValue: requiredMark }}
-					// onValuesChange={onRequiredTypeChange}
-					// requiredMark={requiredMark}
-				>
+		<Row gutter={16}>
+			<Col sm={24} md={12}>
+				<Form layout="vertical">
 					<Form.Item label="Tìm kiếm" name="search" style={{ marginBottom: 0 }}>
 						<Input.Group compact>
-							{searchType && (
-								<Select defaultValue={searchType[0].key} style={{ width: '30%' }}>
-									{searchType.slice(0, -1).map((type) => (
-										<Option key={type.key} value={type.key}>
-											{type.title}
-										</Option>
-									))}
-								</Select>
-							)}
+							<Select onChange={setSearchBy} value={searchBy} style={{ width: '120px' }}>
+								{searchType.slice(0, -1).map((type) => (
+									<Option key={type.key} value={type.key}>
+										{type.title}
+									</Option>
+								))}
+							</Select>
 							<Input
-								style={{ width: '70%' }}
+								style={{ width: 'auto' }}
 								placeholder="Từ khóa tìm kiếm..."
 								suffix={<AiOutlineSearch />}
+								onChange={handleSearchChange}
 							/>
 						</Input.Group>
 					</Form.Item>
