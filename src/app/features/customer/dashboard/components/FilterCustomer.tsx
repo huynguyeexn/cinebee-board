@@ -49,11 +49,11 @@ const FilterCustomer = ({ searchType }: Props) => {
 
 	return (
 		<Row gutter={16}>
-			<Col span={12}>
+			<Col sm={24} md={12}>
 				<Form layout="vertical">
 					<Form.Item label="Tìm kiếm" name="search" style={{ marginBottom: 0 }}>
 						<Input.Group compact>
-							<Select onChange={setSearchBy} value={searchBy} style={{ width: '30%' }}>
+							<Select onChange={setSearchBy} value={searchBy} style={{ width: '120px' }}>
 								{searchType.slice(0, -1).map((type) => (
 									<Option key={type.key} value={type.key}>
 										{type.title}
@@ -61,7 +61,7 @@ const FilterCustomer = ({ searchType }: Props) => {
 								))}
 							</Select>
 							<Input
-								style={{ width: '70%' }}
+								style={{ width: 'auto' }}
 								placeholder="Từ khóa tìm kiếm..."
 								suffix={<AiOutlineSearch />}
 								onChange={handleSearchChange}
