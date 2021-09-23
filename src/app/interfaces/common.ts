@@ -21,3 +21,8 @@ export interface ListParams {
 	q?: string | null;
 	search?: string;
 }
+
+export interface SuccessResponse<T> {
+	message: string;
+	data: T;
+}

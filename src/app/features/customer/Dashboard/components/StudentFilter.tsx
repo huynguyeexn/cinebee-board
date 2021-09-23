@@ -1,6 +1,5 @@
 import { ListParams } from 'app/interfaces';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Button, Col, Form, InputGroup } from 'react-bootstrap';
 
 interface Props {
 	filter: ListParams;
@@ -68,8 +67,8 @@ const StudentFilter = ({ filter, onSeachChange, onFilterChange }: Props) => {
 	};
 
 	return (
-		<Form.Row>
-			<Form.Group as={Col} lg={7} controlId="formGridCity">
+		<div>
+			{/* <Form.Group as={Col} lg={7} controlId="formGridCity">
 				<Form.Label>Tìm kiếm</Form.Label>
 				<InputGroup className="mb-3">
 					<InputGroup.Prepend>
@@ -115,8 +114,8 @@ const StudentFilter = ({ filter, onSeachChange, onFilterChange }: Props) => {
 				<div className="">
 					<Button onClick={handleClearClick}>Clear</Button>
 				</div>
-			</Form.Group>
-		</Form.Row>
+			</Form.Group> */}
+		</div>
 	);
 };
 

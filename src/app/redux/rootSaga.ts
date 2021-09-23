@@ -1,10 +1,14 @@
-import employeeSaga from 'app/features/employee/Redux/employeeSaga';
-import customerSaga from 'app/features/customer/Redux/customerSaga';
-import movieSaga from 'app/features/movie/Redux/movieSaga';
-import roomSaga from 'app/features/room/Redux/roomSaga';
+import customerSaga from 'app/features/customer/redux/customerSaga';
+import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
+// import movieSaga from 'app/features/movie/Redux/movieSaga';
+// import roomSaga from 'app/features/room/Redux/roomSaga';
 import { all } from 'redux-saga/effects';
 
 export default function* rootSaga() {
-	console.log('Root Saga');
-	yield all([roomSaga(), movieSaga(), employeeSaga(), customerSaga()]);
+	yield all([
+		// roomSaga(),
+		// movieSaga(),
+		customerSaga(),
+		customerTypeSaga(),
+	]);
 }

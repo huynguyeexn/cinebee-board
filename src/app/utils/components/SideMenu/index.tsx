@@ -1,54 +1,20 @@
+import { Menu } from 'antd';
 import { menus } from 'app/router/menu';
-import React, { useState } from 'react';
-import { Button, Nav } from 'react-bootstrap';
-import { BiChevronLeft } from 'react-icons/bi';
-import { NavLink, useHistory } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const SIDE_MENU = () => {
-	const history = useHistory();
-
-	const onLogoutClick = () => {
-		localStorage.removeItem('access_token');
-		history.push('/login');
-	};
-	const [collapse, setCollase] = useState(false);
-
-	const sidebarToggle = () => {
-		setCollase(!collapse);
-	};
-
+const SideMenu = () => {
 	return (
-		<div
-			className={`border-right p-0 side-menu-wrapper ${
-				collapse ? 'side-menu-collapse' : ''
-			}`}
-		>
-			<div className="sidebar text-center">
-				<div className="logo">
-					<h3 className="tw-text-2xl tw-font-bold mb-3">Cinebee</h3>
-				</div>
-				<div className="tw-text-2xl tw-font-bold mb-3 collapse-logo">C</div>
-				<Nav className="flex-column sidebar-menu ">
-					{menus.map((link, idx) => (
-						<Nav.Item key={idx}>
-							<Nav.Link to={link.path} as={NavLink}>
-								{React.createElement(link.icon, { className: 'icon' })}{' '}
-								<span className="link-text">{link.label}</span>
-							</Nav.Link>
-						</Nav.Item>
-					))}
-				</Nav>
-				<div className="sidebar-footer">
-					<Button variant="outline-primary btn-block mt-auto" onClick={onLogoutClick}>
-						Đăng xuất
-					</Button>
-				</div>
-			</div>
-			<div className="toggle-sidebar" onClick={sidebarToggle}>
-				<BiChevronLeft className="toggle-icon" />
-			</div>
-		</div>
+		<Menu theme="dark" mode="inline">
+			{menus.map((link, idx) => (
+				<Menu.Item key={idx} icon={React.createElement(link.icon, { className: 'icon' })}>
+					<NavLink to={link.path}>
+						<span className="link-text">{link.label}</span>
+					</NavLink>
+				</Menu.Item>
+			))}
+		</Menu>
 	);
 };
 
-export default SIDE_MENU;
+export default SideMenu;

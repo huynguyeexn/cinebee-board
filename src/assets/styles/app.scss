@@ -1,5 +1,4 @@
-@import './variables';
-@import './mixin';
-@import '~bootstrap/scss/bootstrap';
-@import './bootswatch';
-@import './customize';
+@import '~antd/dist/antd.css';
+@import 'components/component';
+@import 'admin-layout';
+@import 'common';
