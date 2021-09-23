@@ -52,6 +52,17 @@ export const selectCustomerTypeMap = createSelector(
 		);
 	}
 );
+export const selectCustomerTypeOptions = createSelector(
+	selectCustomerTypeList,
+	(typeList: CustomerType[]) => {
+		return typeList.map((type, idx) => {
+			return {
+				value: type.id as string | number,
+				label: type.name,
+			};
+		});
+	}
+);
 
 //  createSelector(selectCityList, (cityList: City[]) => {
 // 	return cityList.reduce((map: { [key: string]: City }, city) => {

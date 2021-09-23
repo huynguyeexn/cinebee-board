@@ -19,7 +19,8 @@ import {
 } from '../redux/customerSlice';
 import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
-import ModalAddEditCustomer from './components/ModalAddEditCustomer';
+import ModalAddCustomer from './components/ModalAddCustomer';
+import ModalEditCustomer from './components/ModalEditCustomer';
 
 const CustomerDashboard = () => {
 	const dispatch = useAppDispatch();
@@ -29,7 +30,8 @@ const CustomerDashboard = () => {
 	const filter = useAppSelector(selectCustomerFilter);
 	const customerType = useAppSelector(selectCustomerTypeMap);
 
-	const [isModalOpen, setIsModalOpen] = React.useState(false);
+	const [isAdd, setIsAdd] = React.useState(false);
+	const [isEdit, setIsEdit] = React.useState(false);
 	const [customer, setCustomer] = React.useState<Customer | undefined>(undefined);
 
 	React.useEffect(() => {
@@ -56,8 +58,7 @@ const CustomerDashboard = () => {
 	};
 
 	const handleAddButtonClick = () => {
-		setCustomer(undefined);
-		setIsModalOpen(true);
+		setIsAdd(true);
 	};
 
 	const handleDelete = (customer: Customer) => {
@@ -66,15 +67,21 @@ const CustomerDashboard = () => {
 
 	const handleEdit = async (value: Customer) => {
 		setCustomer(undefined);
-		if (!value) return;
-		const response: Customer = await customerApi.getById(value);
-		setCustomer(response);
-
-		setIsModalOpen(true);
+		try {
+			const data: Customer = await customerApi.getById(value);
+			setCustomer(data);
+			setIsEdit(true);
+		} catch (error) {
+			console.error('Failed to featch student details.', error);
+		}
 	};
 
-	const handleModelSave = () => {
-		console.log(`handleModelSave`);
+	const handleAddSave = () => {
+		console.log(`handleAddSave`);
+	};
+
+	const handleEditSave = () => {
+		console.log(`handleEditSave`);
 	};
 
 	const columns = [
@@ -181,12 +188,17 @@ const CustomerDashboard = () => {
 					/>
 				</Col>
 			</Row>
-			{isModalOpen && (
-				<ModalAddEditCustomer
-					isModalVisible={isModalOpen}
-					onCancel={() => setIsModalOpen(false)}
-					onOk={handleModelSave}
-					dataField={customer}
+			<ModalAddCustomer
+				isModalVisible={isAdd}
+				onCancel={() => setIsAdd(false)}
+				onOk={handleAddSave}
+			/>
+			{customer && (
+				<ModalEditCustomer
+					isModalVisible={isEdit}
+					onCancel={() => setIsEdit(false)}
+					onOk={handleEditSave}
+					customer={customer}
 				/>
 			)}
 		</>
