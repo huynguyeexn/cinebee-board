@@ -6,7 +6,8 @@ export interface Customer extends IBase {
 	phone: string;
 	email: string;
 	address: string;
-	birthday: number | string;
+	birthday: number | string | Date;
 	sex: 0 | 1 | 2;
 	customer_type_id: number | null;
+	password?: string;
 }

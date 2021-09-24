@@ -7,6 +7,7 @@ import {
 } from 'app/features/customerType/redux/customerTypeSlice';
 import { Customer } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { parseElementObjectToDate } from 'app/utils/helper';
 import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from 'react-icons/ai';
@@ -14,7 +15,7 @@ import {
 	customerActions,
 	selectCustomerFilter,
 	selectCustomerList,
-	selectCustomerLoading,
+	selectCustomerListLoading,
 	selectCustomerPagination,
 } from '../redux/customerSlice';
 import FilterCustomer from './components/FilterCustomer';
@@ -25,7 +26,7 @@ import ModalEditCustomer from './components/ModalEditCustomer';
 const CustomerDashboard = () => {
 	const dispatch = useAppDispatch();
 	const customers = useAppSelector(selectCustomerList);
-	const loading = useAppSelector(selectCustomerLoading);
+	const loading = useAppSelector(selectCustomerListLoading);
 	const pagination = useAppSelector(selectCustomerPagination);
 	const filter = useAppSelector(selectCustomerFilter);
 	const customerType = useAppSelector(selectCustomerTypeMap);
@@ -35,7 +36,7 @@ const CustomerDashboard = () => {
 	const [customer, setCustomer] = React.useState<Customer | undefined>(undefined);
 
 	React.useEffect(() => {
-		dispatch(customerActions.fetchCustomerList(filter));
+		dispatch(customerActions.getList(filter));
 	}, [dispatch, filter]);
 
 	React.useEffect(() => {
@@ -46,8 +47,6 @@ const CustomerDashboard = () => {
 	 * Handle Event
 	 */
 	const handlePageChange = (page: number, pageSize?: number) => {
-		console.log(page, pageSize, pagination);
-
 		const newFilter = {
 			...filter,
 			page: page,
@@ -69,19 +68,16 @@ const CustomerDashboard = () => {
 		setCustomer(undefined);
 		try {
 			const data: Customer = await customerApi.getById(value);
-			setCustomer(data);
+			setCustomer(parseElementObjectToDate(data, 'birthday') as Customer);
 			setIsEdit(true);
 		} catch (error) {
 			console.error('Failed to featch student details.', error);
 		}
 	};
 
-	const handleAddSave = () => {
-		console.log(`handleAddSave`);
-	};
-
-	const handleEditSave = () => {
-		console.log(`handleEditSave`);
+	const handleCloseEdit = () => {
+		setIsEdit(false);
+		setCustomer(undefined);
 	};
 
 	const columns = [
@@ -121,7 +117,7 @@ const CustomerDashboard = () => {
 				<>
 					<span>
 						{Object.keys(customerType).length !== 0 ? (
-							customerType[`${id}`].name
+							customerType[`${id}`]?.name
 						) : (
 							<Spin size="small" />
 						)}
@@ -188,16 +184,12 @@ const CustomerDashboard = () => {
 					/>
 				</Col>
 			</Row>
-			<ModalAddCustomer
-				isModalVisible={isAdd}
-				onCancel={() => setIsAdd(false)}
-				onOk={handleAddSave}
-			/>
+
+			<ModalAddCustomer isModalVisible={isAdd} onCancel={() => setIsAdd(false)} />
 			{customer && (
 				<ModalEditCustomer
 					isModalVisible={isEdit}
-					onCancel={() => setIsEdit(false)}
-					onOk={handleEditSave}
+					onCancel={handleCloseEdit}
 					customer={customer}
 				/>
 			)}

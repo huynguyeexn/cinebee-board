@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const makeRows = (length: number) => {
 	const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 	const alphaLength = alpha.length;
@@ -20,4 +22,22 @@ export const makeRows = (length: number) => {
 	} while (length > 0);
 
 	return result;
+};
+
+export const parseElementObjectToDate = (object: { [key: string]: any }, key: string) => {
+	if (moment(object[`${key}`]).isValid()) {
+		object[`${key}`] = moment(object[`${key}`]).toDate();
+	} else {
+		object[`${key}`] = undefined;
+	}
+	return object;
+};
+
+export const parseElementObjectToUTC = (object: { [key: string]: any }, key: string) => {
+	if (moment(object[`${key}`]).isValid()) {
+		object[`${key}`] = moment(object[`${key}`]).format();
+	} else {
+		object[`${key}`] = undefined;
+	}
+	return object;
 };
