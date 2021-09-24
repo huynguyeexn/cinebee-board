@@ -34,6 +34,7 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 			required={required}
 		>
 			<Select
+				allowClear
 				showSearch
 				style={{ width: 200 }}
 				placeholder="Select a person"
@@ -52,7 +53,6 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 					</Option>
 				))}
 			</Select>
-			,
 		</Form.Item>
 	);
 };

@@ -31,6 +31,7 @@ export const DatePickerField = ({ name, control, label, required }: Props) => {
 		>
 			<DatePicker
 				oneTap
+				defaultValue={undefined}
 				format={DATE_FORMAT}
 				onChange={onChange}
 				onBlur={onBlur}

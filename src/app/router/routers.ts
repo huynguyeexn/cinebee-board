@@ -1,7 +1,7 @@
 // import AddCustomer from 'app/features/customer/Add';
 import CustomerDashboard from 'app/features/customer/dashboard';
+import DashboardPage from 'app/features/dashboard';
 // import DetailCustomer from 'app/features/customer/Detail';
-// import DashboardPage from 'app/features/dashboard/dashboardPage';
 // import MovieDashboard from 'app/features/movie/Dashboard/dashboard';
 // import MovieEdit from 'app/features/movie/Edit';
 // import RoomAddPage from 'app/features/room/Add/roomAddPage';
@@ -15,10 +15,10 @@ interface IRoute {
 }
 
 export const routers: IRoute[] = [
-	// {
-	// 	path: '/admin/dashboard',
-	// 	component: DashboardPage,
-	// },
+	{
+		path: '/admin/dashboard',
+		component: DashboardPage,
+	},
 	// /**
 	//  * @Rooms
 	//  * --> List
