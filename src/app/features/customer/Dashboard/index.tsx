@@ -16,7 +16,7 @@ import {
 	selectCustomerList,
 	selectCustomerLoading,
 	selectCustomerPagination,
-} from '../redux/customerSlice';
+} from '../Redux/customerSlice';
 import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
 import ModalAddEditCustomer from './components/ModalAddEditCustomer';

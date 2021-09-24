@@ -1,65 +1,72 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initFilterParams, initPaginationParams } from "app/constants";
-import { ListParams, ListResponse, PaginationParams } from "app/interfaces";
+import { ToastSuccess } from "app/constants/Toast";
+import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
 import { Employee } from "app/interfaces/employee";
 import { RootState } from "app/redux/store";
 
-export interface EmployeeState {
-    // List employee
-    list: Employee[],
 
-	// Filter
+export interface EmployeeState {
+	list: Employee[];
+
 	filter: ListParams;
 
-	// Pagination
-	pagination?: PaginationParams;
+	pagination: PaginationParams;
 
-	// Loading
 	loading: boolean;
 }
 
 const initialState: EmployeeState = {
-    list: [],
-    filter:initFilterParams,
-    pagination:initPaginationParams,
-    loading:false,
-}
+	list: [],
+	filter: initFilterParams,
+	pagination: initPaginationParams,
+	loading: false,
+};
 
 const employeeSlice = createSlice({
-    name : 'employee',
-    initialState : initialState,
-    reducers : {
-        fetchEmployeeList: (state, action: PayloadAction<ListParams>) => {
-            state.loading = true;
-        },
+	name: 'employee',
+	initialState: initialState,
+	reducers: {
+		fetchEmployeeList: (state, action: PayloadAction<ListParams>) => {
+			state.loading = true;
+		},
+		fetchEmployeeListSuccess: (state, action: PayloadAction<ListResponse<Employee>>) => {
+			state.loading = false;
+			state.list = action.payload.data;
+			state.pagination = action.payload.pagination;
+		},
+		fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
+			state.loading = false;
+		},
 
-        fetchEmployeeSuccess: (state, action: PayloadAction<ListResponse<Employee>>) => {
-            state.loading = false;
-            state.list = action.payload.data;
-            state.pagination = action.payload.pagination;
-        },
-
-        fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
-            state.loading = false;
-        },
+		getById: (state, action: PayloadAction<Employee>) => {
+			state.loading = true;
+		},
+		getByIdSuccess: (state, action: PayloadAction<Employee>) => {
+			state.loading = false;
+		},
 
 		setFilter: (state, action: PayloadAction<ListParams>) => {
 			state.loading = true;
 			state.filter = action.payload;
 		},
 
-		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
-			state.filter = action.payload;
-		},
-        
-        addEmployee: (state, action) => {
-            state.list.push(action.payload);
-        }
-    }
-})
+		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
-//Action
+		deleteById: (state, action: PayloadAction<Employee>) => {
+			state.loading = true;
+		},
+		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
+			ToastSuccess(action.payload.message);
+			state.loading = false;
+		},
+		runError: (state) => {
+			state.loading = false;
+		},
+	},
+});
+
+// Actions
 export const employeeActions = employeeSlice.actions;
 
 // Selectors

@@ -1,5 +1,5 @@
-import { Modal, Form, Input, Row, Col, DatePicker, Radio, Select } from 'antd';
-import { Customer } from 'app/interfaces';
+import { Col, DatePicker, Form, Input, Modal, Radio, Row, Select } from "antd";
+import { Employee } from "app/interfaces/employee";
 import React from 'react';
 
 const { Option } = Select;
@@ -8,17 +8,17 @@ interface Props {
 	isModalVisible: boolean;
 	onOk: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	onCancel: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-	dataField?: Customer;
+	dataField?: Employee;
 }
 
-const ModalAddEditCustomer = ({ isModalVisible, onOk, onCancel, dataField }: Props) => {
+const ModalAddEditEmployee = ({ isModalVisible, onOk, onCancel, dataField }: Props) => {
 	const [form] = Form.useForm();
 
-	console.log('ModalAddEditCustomer', dataField);
+	console.log('ModalAddEditEmployee', dataField);
 
 	return (
 		<Modal
-			title="Thông tin khách hàng"
+			title="Thông tin nhân viên"
 			visible={isModalVisible}
 			onOk={onOk}
 			onCancel={onCancel}
@@ -30,7 +30,7 @@ const ModalAddEditCustomer = ({ isModalVisible, onOk, onCancel, dataField }: Pro
 				initialValues={dataField}
 				onValuesChange={(a, b) => console.log(a, b)}
 			>
-				<Form.Item label="Tên người dùng" required name="username">
+				<Form.Item label="Tên nhân viên" required name="username">
 					<Input placeholder="username..." />
 				</Form.Item>
 				<Row gutter={16}>
@@ -42,6 +42,11 @@ const ModalAddEditCustomer = ({ isModalVisible, onOk, onCancel, dataField }: Pro
 					<Col span={12}>
 						<Form.Item label="Ngày sinh">
 							<DatePicker placeholder="Ngày sinh" />
+						</Form.Item>
+					</Col>
+					<Col span={24}>
+						<Form.Item label="Mật khẩu" name="password">
+							<Input placeholder="Mật khẩu" />
 						</Form.Item>
 					</Col>
 					<Col span={12}>
@@ -69,11 +74,10 @@ const ModalAddEditCustomer = ({ isModalVisible, onOk, onCancel, dataField }: Pro
 						</Form.Item>
 					</Col>
 					<Col span={12}>
-						<Form.Item label="Khách hàng" name="customer_type_id">
+						<Form.Item label="Chức vụ" name="employee_role_id">
 							<Select defaultValue="1">
-								<Option value="1">Đồng</Option>
-								<Option value="3">Vàng</Option>
-								<Option value="2">Bạc</Option>
+								<Option value="1">Quản lý</Option>
+								<Option value="2">Nhân viên</Option>
 							</Select>
 						</Form.Item>
 					</Col>
@@ -83,4 +87,4 @@ const ModalAddEditCustomer = ({ isModalVisible, onOk, onCancel, dataField }: Pro
 	);
 };
 
-export default ModalAddEditCustomer;
+export default ModalAddEditEmployee;

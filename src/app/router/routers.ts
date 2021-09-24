@@ -1,5 +1,5 @@
 // import AddCustomer from 'app/features/customer/Add';
-import CustomerDashboard from 'app/features/customer/dashboard';
+import CustomerDashboard from '../features/customer/Dashboard';
 // import DetailCustomer from 'app/features/customer/Detail';
 // import DashboardPage from 'app/features/dashboard/dashboardPage';
 // import MovieDashboard from 'app/features/movie/Dashboard/dashboard';
@@ -8,6 +8,7 @@ import CustomerDashboard from 'app/features/customer/dashboard';
 // import RoomDashboard from 'app/features/room/Dashboard';
 // import RoomEditPage from 'app/features/room/Edit/roomEditPage';
 import React from 'react';
+import EmployeeDashboard from 'app/features/Employee/Dashboard';
 
 interface IRoute {
 	path: string;
@@ -81,5 +82,27 @@ export const routers: IRoute[] = [
 	// {
 	// 	path: '/admin/movies/:id',
 	// 	component: MovieEdit,
+	// },
+
+	/* @Employee
+	 * --> List
+	 * --> Add
+	 * --> Edit @param id
+	 */
+	{
+		path: '/admin/employees',
+		component: EmployeeDashboard,
+	},
+	// {
+	// 	path: '/admin/customers/create',
+	// 	component: AddCustomer,
+	// },
+	// {
+	// 	path: '/admin/customers/:id',
+	// 	component: DetailCustomer,
+	// },
+	// {
+	// 	path: '/admin/customers/edit/:id',
+	// 	component: RoomEditPage,
 	// },
 ];

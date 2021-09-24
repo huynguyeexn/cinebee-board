@@ -2,6 +2,8 @@ export * from './base';
 export * from './common';
 export * from './customer';
 export * from './customerType';
+export * from './employee';
+export * from './employeeRole';
 export * from './movie';
 export * from './room';
 export * from './seat';

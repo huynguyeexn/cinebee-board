@@ -1,8 +1,9 @@
-import { Col, Form, Input, Row, Select } from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import React, { ChangeEvent } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { customerActions, selectCustomerFilter } from '../../Redux/customerSlice';
+import { Col, Input, Row, Form, Select} from "antd";
+import { useAppDispatch, useAppSelector } from "app/redux/hooks";
+import { AiOutlineSearch } from "react-icons/ai";
+import React, { ChangeEvent } from "react";
+import { employeeActions, selectEmployeeFilter } from "../../Redux/EmployeeSlice";
+
 
 const { Option } = Select;
 
@@ -16,9 +17,9 @@ interface Props {
 	searchType: searchType[];
 }
 
-const FilterCustomer = ({ searchType }: Props) => {
+const FilterEmployee = ({ searchType }: Props) => {
 	const dispatch = useAppDispatch();
-	const filter = useAppSelector(selectCustomerFilter);
+	const filter = useAppSelector(selectEmployeeFilter);
 
 	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
 
@@ -30,7 +31,7 @@ const FilterCustomer = ({ searchType }: Props) => {
 				search: searchBy,
 			};
 
-			dispatch(customerActions.setFilterDebounce(newFilter));
+			dispatch(employeeActions.setFilterDebounce(newFilter));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchBy]);
@@ -44,7 +45,7 @@ const FilterCustomer = ({ searchType }: Props) => {
 			search: searchBy,
 		};
 
-		dispatch(customerActions.setFilterDebounce(newFilter));
+		dispatch(employeeActions.setFilterDebounce(newFilter));
 	};
 
 	return (
@@ -74,4 +75,4 @@ const FilterCustomer = ({ searchType }: Props) => {
 	);
 };
 
-export default FilterCustomer;
+export default FilterEmployee;
