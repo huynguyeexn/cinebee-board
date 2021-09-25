@@ -1,4 +1,4 @@
-import { ListParams, PaginationParams } from './../interfaces/common';
+import { ListParams, PaginationParams } from '../interfaces/common';
 
 export const initFilterParams: ListParams = {
 	page: 1,

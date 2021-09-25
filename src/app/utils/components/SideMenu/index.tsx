@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const SideMenu = () => {
 	return (
-		<Menu theme="dark" mode="inline">
+		<Menu theme="light" mode="inline">
 			{menus.map((link, idx) => (
 				<Menu.Item key={idx} icon={React.createElement(link.icon, { className: 'icon' })}>
 					<NavLink to={link.path}>
