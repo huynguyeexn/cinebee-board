@@ -13,14 +13,17 @@ export interface EmployeeState {
 
 	pagination: PaginationParams;
 
-	loading: boolean;
+	listLoading: boolean;
+
+	actionLoading: boolean;
 }
 
 const initialState: EmployeeState = {
 	list: [],
 	filter: initFilterParams,
 	pagination: initPaginationParams,
-	loading: false,
+	listLoading: false,
+	actionLoading: false,
 };
 
 const employeeSlice = createSlice({
@@ -28,40 +31,48 @@ const employeeSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		fetchEmployeeList: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
+			state.listLoading = true;
 		},
 		fetchEmployeeListSuccess: (state, action: PayloadAction<ListResponse<Employee>>) => {
-			state.loading = false;
+			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
 		},
 		fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
-			state.loading = false;
+			state.listLoading = false;
 		},
 
 		getById: (state, action: PayloadAction<Employee>) => {
-			state.loading = true;
+			state.listLoading = true;
 		},
 		getByIdSuccess: (state, action: PayloadAction<Employee>) => {
-			state.loading = false;
+			state.listLoading = false;
 		},
 
 		setFilter: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
+			state.listLoading = true;
 			state.filter = action.payload;
+		},
+
+		create: (state, action: PayloadAction<Employee>) => {
+			state.actionLoading = true;
+		},
+
+		update: (state, action: PayloadAction<Employee>) => {
+			state.actionLoading = true;
 		},
 
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
 		deleteById: (state, action: PayloadAction<Employee>) => {
-			state.loading = true;
+			state.listLoading = true;
 		},
 		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
 			ToastSuccess(action.payload.message);
-			state.loading = false;
+			state.listLoading = false;
 		},
 		runError: (state) => {
-			state.loading = false;
+			state.listLoading = false;
 		},
 	},
 });
@@ -71,7 +82,8 @@ export const employeeActions = employeeSlice.actions;
 
 // Selectors
 export const selectEmployeeList = (state: RootState) => state.employee.list;
-export const selectEmployeeLoading = (state: RootState) => state.employee.loading;
+export const selectEmployeeListLoading = (state: RootState) => state.employee.listLoading;
+export const selectEmployeeActionLoading = (state: RootState) => state.employee.actionLoading;
 export const selectEmployeeFilter = (state: RootState) => state.employee.filter;
 export const selectEmployeePagination = (state: RootState) => state.employee.pagination;
 

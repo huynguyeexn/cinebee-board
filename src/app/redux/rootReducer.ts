@@ -4,8 +4,8 @@ import customerTypeReducer from 'app/features/customerType/redux/customerTypeSli
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';
 import { combineReducers } from 'redux';
-import employeeReducer from 'app/features/Employee/Redux/EmployeeSlice';
 import employeeRoleReducer from 'app/features/employeeRole/Redux/employeeRoleSlice';
+import employeeReducer from 'app/features/employee/Redux/employeeSlice';
 
 const rootReducer = combineReducers({
 	// room: roomReducer,

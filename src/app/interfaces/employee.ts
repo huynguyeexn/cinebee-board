@@ -8,7 +8,7 @@ export interface Employee extends IBase {
     email: string,
     address: string,
     id_card: string,
-    birthday: Date,
-    sex: number | string,
+    birthday: number | string | Date,
+    sex: 0 | 1 | 2,
     employee_role_id: number | string,
 }

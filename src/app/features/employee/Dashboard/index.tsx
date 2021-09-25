@@ -2,27 +2,29 @@ import { blue } from "@ant-design/colors";
 import { Button, Col, Popconfirm, Row, Space, Spin } from "antd";
 import employeeApi from "app/api/employee";
 import { employeeRoleActions, selectemployeeRoleMap } from "app/features/employeeRole/Redux/employeeRoleSlice";
-import { Employee } from "app/interfaces/employee";
+import { Employee } from "app/interfaces";
 import { useAppDispatch, useAppSelector } from "app/redux/hooks";
+import { parseElementObjectToDate } from "app/utils/helper";
 import moment from "moment";
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
-import { employeeActions, selectEmployeeFilter, selectEmployeeList, selectEmployeeLoading, selectEmployeePagination } from "../Redux/EmployeeSlice";
+import { employeeActions, selectEmployeeFilter, selectEmployeeList, selectEmployeeListLoading, selectEmployeePagination } from "../Redux/employeeSlice";
 import FilterEmployee from "./components/FilterEmployee";
 import ListEmployee from "./components/ListEmployee";
-import ModalAddEditEmployee from "./components/ModalAddEditEmployee";
+import ModalAddEmployee from "./components/ModalAddEmployee";
+import ModalEditEmployee from "./components/ModalEditEmployee";
 
 
 const EmployeeDashboard = () => {
 	const dispatch = useAppDispatch();
 	const employees = useAppSelector(selectEmployeeList);
-	const loading = useAppSelector(selectEmployeeLoading);
+	const loading = useAppSelector(selectEmployeeListLoading);
 	const pagination = useAppSelector(selectEmployeePagination);
 	const filter = useAppSelector(selectEmployeeFilter);
 	const employeeRole = useAppSelector(selectemployeeRoleMap);
-    
 
-	const [isModalOpen, setIsModalOpen] = React.useState(false);
+	const [isAdd, setIsAdd] = React.useState(false);
+	const [isEdit, setIsEdit] = React.useState(false);
 	const [employee, setEmployee] = React.useState<Employee | undefined>(undefined);
 
 	React.useEffect(() => {
@@ -37,8 +39,6 @@ const EmployeeDashboard = () => {
 	 * Handle Event
 	 */
 	const handlePageChange = (page: number, pageSize?: number) => {
-		console.log(page, pageSize, pagination);
-
 		const newFilter = {
 			...filter,
 			page: page,
@@ -49,8 +49,7 @@ const EmployeeDashboard = () => {
 	};
 
 	const handleAddButtonClick = () => {
-		setEmployee(undefined);
-		setIsModalOpen(true);
+		setIsAdd(true);
 	};
 
 	const handleDelete = (employee: Employee) => {
@@ -59,15 +58,18 @@ const EmployeeDashboard = () => {
 
 	const handleEdit = async (value: Employee) => {
 		setEmployee(undefined);
-		if (!value) return;
-		const response: Employee = await employeeApi.getById(value);
-		setEmployee(response);
-
-		setIsModalOpen(true);
+		try {
+			const data: Employee = await employeeApi.getById(value);
+			setEmployee(parseElementObjectToDate(data, 'birthday') as Employee);
+			setIsEdit(true);
+		} catch (error) {
+			console.error('Failed to featch student details.', error);
+		}
 	};
 
-	const handleModelSave = () => {
-		console.log(`handleModelSave`);
+	const handleCloseEdit = () => {
+		setIsEdit(false);
+		setEmployee(undefined);
 	};
 
 	const columns = [
@@ -99,7 +101,7 @@ const EmployeeDashboard = () => {
 			width: 150,
 		},
 		{
-			title: 'Hạng',
+			title: 'Chức vụ',
 			key: 'employee_role_id',
 			dataIndex: 'employee_role_id',
 			width: 150,
@@ -107,7 +109,7 @@ const EmployeeDashboard = () => {
 				<>
 					<span>
 						{Object.keys(employeeRole).length !== 0 ? (
-							employeeRole[`${id}`].name
+							employeeRole[`${id}`]?.name
 						) : (
 							<Spin size="small" />
 						)}
@@ -174,12 +176,13 @@ const EmployeeDashboard = () => {
 					/>
 				</Col>
 			</Row>
-			{isModalOpen && (
-				<ModalAddEditEmployee
-					isModalVisible={isModalOpen}
-					onCancel={() => setIsModalOpen(false)}
-					onOk={handleModelSave}
-					dataField={employee}
+
+			<ModalAddEmployee isModalVisible={isAdd} onCancel={() => setIsAdd(false)} />
+			{employee && (
+				<ModalEditEmployee
+					isModalVisible={isEdit}
+					onCancel={handleCloseEdit}
+					employee={employee}
 				/>
 			)}
 		</>

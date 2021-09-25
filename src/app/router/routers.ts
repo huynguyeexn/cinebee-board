@@ -8,7 +8,7 @@ import DashboardPage from 'app/features/dashboard';
 // import RoomDashboard from 'app/features/room/Dashboard';
 // import RoomEditPage from 'app/features/room/Edit/roomEditPage';
 import React from 'react';
-import EmployeeDashboard from 'app/features/Employee/Dashboard';
+import EmployeeDashboard from 'app/features/employee/Dashboard';
 
 interface IRoute {
 	path: string;

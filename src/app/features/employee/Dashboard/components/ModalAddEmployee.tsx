@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Modal } from 'antd';
-import { selectCustomerTypeOptions } from 'app/features/customerType/redux/customerTypeSlice';
+import { selectEmployeeRoleOptions } from 'app/features/employeeRole/Redux/employeeRoleSlice';
+import { Employee } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import {
 	InputField,
@@ -11,8 +12,8 @@ import { DatePickerField } from 'app/utils/components/FormFields/DatePickerField
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { Customer } from '../../../../interfaces/customer';
-import { customerActions, selectCustomerActionLoading } from '../../Redux/customerSlice';
+import { employeeActions, selectEmployeeActionLoading } from '../../Redux/employeeSlice';
+
 
 interface Props {
 	isModalVisible: boolean;
@@ -30,26 +31,26 @@ const formValidate = yup.object().shape({
 	email: yup.string().email().nullable(),
 	address: yup.string().nullable(),
 	birthday: yup.string().nullable(),
-	gender: yup.number().nullable(),
-	customer_type_id: yup.number().nullable(),
+	sex: yup.number().nullable(),
+	employee_role_id: yup.number().nullable(),
 });
 
-const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
+const ModalAddEmployee = ({ isModalVisible, onCancel }: Props) => {
 	const dispatch = useAppDispatch();
-	const typeOptions = useAppSelector(selectCustomerTypeOptions);
-	const loading = useAppSelector(selectCustomerActionLoading);
+	const typeOptions = useAppSelector(selectEmployeeRoleOptions);
+	const loading = useAppSelector(selectEmployeeActionLoading);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(formValidate),
 	});
 
-	const handleSubmitForm = async (data: Customer) => {
-		dispatch(customerActions.create(data));
+	const handleSubmitForm = async (data: Employee) => {
+		dispatch(employeeActions.create(data));
 	};
 
 	return (
 		<Modal
-			title="Thông tin khách hàng"
+			title="Thông tin nhân viên"
 			visible={isModalVisible}
 			onOk={handleSubmit(handleSubmitForm)}
 			onCancel={onCancel}
@@ -73,7 +74,7 @@ const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
 				<RadioGroupField
 					control={control}
 					label="Giới tính"
-					name="gender"
+					name="sex"
 					options={[
 						{
 							label: 'Nam',
@@ -91,8 +92,8 @@ const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
 				/>
 				<SelectField
 					control={control}
-					name="customer_type_id"
-					label="Hạng"
+					name="employee_role_id"
+					label="Chức vụ"
 					options={typeOptions}
 				/>
 			</Form>
@@ -100,4 +101,4 @@ const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
 	);
 };
 
-export default ModalAddCustomer;
+export default ModalAddEmployee;

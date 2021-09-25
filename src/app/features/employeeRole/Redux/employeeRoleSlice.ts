@@ -54,6 +54,17 @@ export const selectemployeeRoleMap = createSelector(
 		);
 	}
 );
+export const selectEmployeeRoleOptions = createSelector(
+	selectEmployeeRoleList,
+	(typeList: EmployeeRole[]) => {
+		return typeList.map((type, idx) => {
+			return {
+				value: type.id as string | number,
+				label: type.name,
+			};
+		});
+	}
+);
 
 //  createSelector(selectCityList, (cityList: City[]) => {
 // 	return cityList.reduce((map: { [key: string]: City }, city) => {

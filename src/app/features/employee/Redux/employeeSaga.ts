@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import employeeApi from "app/api/employee";
 import { ListParams, ListResponse, SuccessResponse } from "app/interfaces";
 import { Employee } from "app/interfaces/employee";
-import { employeeActions } from "./EmployeeSlice";
+import { employeeActions } from "./employeeSlice";
 
 
 function* fetchEmployeeList(actions: PayloadAction<ListParams>) {
