@@ -1,9 +1,8 @@
-import { Col, Input, Row, Form, Select} from "antd";
-import { useAppDispatch, useAppSelector } from "app/redux/hooks";
-import { AiOutlineSearch } from "react-icons/ai";
-import React, { ChangeEvent } from "react";
-import { employeeActions, selectEmployeeFilter } from "../../Redux/employeeSlice";
-
+import { Col, Input, Row, Form, Select } from 'antd';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { AiOutlineSearch } from 'react-icons/ai';
+import React, { ChangeEvent } from 'react';
+import { employeeActions, selectEmployeeFilter } from '../../redux/employeeSlice';
 
 const { Option } = Select;
 
