@@ -1,6 +1,5 @@
 // import AddCustomer from 'app/features/customer/Add';
-import CustomerDashboard from 'app/features/customer/Dashboard';
-import DashboardPage from 'app/features/dashboard';
+import CustomerDashboard from 'app/features/customer/dashboard';
 // import DetailCustomer from 'app/features/customer/Detail';
 // import MovieDashboard from 'app/features/movie/Dashboard/dashboard';
 // import MovieEdit from 'app/features/movie/Edit';
@@ -8,7 +7,8 @@ import DashboardPage from 'app/features/dashboard';
 // import RoomDashboard from 'app/features/room/Dashboard';
 // import RoomEditPage from 'app/features/room/Edit/roomEditPage';
 import React from 'react';
-import EmployeeDashboard from 'app/features/employee/Dashboard';
+import EmployeeDashboard from 'app/features/employee/dashboard';
+import DashboardPage from 'app/features/dashboard';
 
 interface IRoute {
 	path: string;

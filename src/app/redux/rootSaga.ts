@@ -1,6 +1,6 @@
-import customerSaga from 'app/features/customer/Redux/customerSaga';
+import customerSaga from 'app/features/customer/redux/customerSaga';
 import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
-import employeeSaga from 'app/features/employee/Redux/employeeSaga';
+import employeeSaga from 'app/features/employee/redux/employeeSaga';
 import employeeRoleSaga from 'app/features/employeeRole/Redux/employeeRoleSaga';
 // import movieSaga from 'app/features/movie/Redux/movieSaga';
 // import roomSaga from 'app/features/room/Redux/roomSaga';

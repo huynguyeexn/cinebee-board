@@ -1,8 +1,8 @@
-import { Col, Form, Input, Row, Select } from 'antd';
+import { Col, Input, Row, Form, Select } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import React, { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { customerActions, selectCustomerFilter } from '../../redux/customerSlice';
+import React, { ChangeEvent } from 'react';
+import { employeeActions, selectEmployeeFilter } from '../../redux/employeeSlice';
 
 const { Option } = Select;
 
@@ -16,9 +16,9 @@ interface Props {
 	searchType: searchType[];
 }
 
-const FilterCustomer = ({ searchType }: Props) => {
+const FilterEmployee = ({ searchType }: Props) => {
 	const dispatch = useAppDispatch();
-	const filter = useAppSelector(selectCustomerFilter);
+	const filter = useAppSelector(selectEmployeeFilter);
 
 	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
 
@@ -30,7 +30,7 @@ const FilterCustomer = ({ searchType }: Props) => {
 				search: searchBy,
 			};
 
-			dispatch(customerActions.setFilterDebounce(newFilter));
+			dispatch(employeeActions.setFilterDebounce(newFilter));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchBy]);
@@ -44,16 +44,16 @@ const FilterCustomer = ({ searchType }: Props) => {
 			search: searchBy,
 		};
 
-		dispatch(customerActions.setFilterDebounce(newFilter));
+		dispatch(employeeActions.setFilterDebounce(newFilter));
 	};
 
 	return (
 		<Row gutter={16}>
-			<Col sm={24} md={12}>
+			<Col span={12}>
 				<Form layout="vertical">
 					<Form.Item label="Tìm kiếm" name="search" style={{ marginBottom: 0 }}>
 						<Input.Group compact>
-							<Select onChange={setSearchBy} value={searchBy} style={{ width: '120px' }}>
+							<Select onChange={setSearchBy} value={searchBy} style={{ width: '30%' }}>
 								{searchType.slice(0, -1).map((type) => (
 									<Option key={type.key} value={type.key}>
 										{type.title}
@@ -61,7 +61,7 @@ const FilterCustomer = ({ searchType }: Props) => {
 								))}
 							</Select>
 							<Input
-								style={{ width: 'auto' }}
+								style={{ width: '70%' }}
 								placeholder="Từ khóa tìm kiếm..."
 								suffix={<AiOutlineSearch />}
 								onChange={handleSearchChange}
@@ -74,4 +74,4 @@ const FilterCustomer = ({ searchType }: Props) => {
 	);
 };
 
-export default FilterCustomer;
+export default FilterEmployee;
