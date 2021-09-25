@@ -4,7 +4,7 @@ import employeeApi from 'app/api/employee';
 import {
 	employeeRoleActions,
 	selectemployeeRoleMap,
-} from 'app/features/employeeRole/Redux/employeeRoleSlice';
+} from 'app/features/employeeRole/redux/employeeRoleSlice';
 import { Employee } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { parseElementObjectToDate } from 'app/utils/helper';

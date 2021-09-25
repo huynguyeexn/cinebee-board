@@ -1,7 +1,7 @@
 import customerReducer from 'app/features/customer/redux/customerSlice';
 import customerTypeReducer from 'app/features/customerType/redux/customerTypeSlice';
 import employeeReducer from 'app/features/employee/redux/employeeSlice';
-import employeeRoleReducer from 'app/features/employeeRole/Redux/employeeRoleSlice';
+import employeeRoleReducer from 'app/features/employeeRole/redux/employeeRoleSlice';
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';
 import { combineReducers } from 'redux';

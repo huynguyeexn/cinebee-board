@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Modal, Spin } from 'antd';
 import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import { selectEmployeeRoleOptions } from 'app/features/employeeRole/Redux/employeeRoleSlice';
+import { selectEmployeeRoleOptions } from 'app/features/employeeRole/redux/employeeRoleSlice';
 import { useForm } from 'react-hook-form';
 import {
 	InputField,
