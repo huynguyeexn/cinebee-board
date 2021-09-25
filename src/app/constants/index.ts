@@ -1,4 +1,4 @@
 export * from './Common';
-export * from './initialConstans';
+export * from './initialConstants';
 export * from './Toast';
 export * from './HandleError';
