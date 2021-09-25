@@ -15,10 +15,11 @@ const AdminLayout = () => {
 		<>
 			<Layout style={{ minHeight: '100vh' }} id="admin-layout">
 				<Sider
-					trigger={null}
-					breakpoint="sm"
+					className="admin-side-bar"
+					breakpoint="md"
 					collapsedWidth="0"
 					collapsible
+					theme="light"
 					collapsed={collapsed}
 					onCollapse={(collapsed) => setCollapsed(collapsed)}
 				>
@@ -28,8 +29,8 @@ const AdminLayout = () => {
 					<SideMenu />
 				</Sider>
 				<Layout className="site-layout">
-					<TopHeader collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} />
-					<Content style={{ padding: '16px' }}>
+					<TopHeader />
+					<Content className="site-content">
 						<div style={{ minHeight: 360 }}>
 							<Switch>
 								{routers.map((route, idx) => (

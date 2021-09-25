@@ -1,5 +1,5 @@
 import { blue } from '@ant-design/colors';
-import { Button, Col, Popconfirm, Row, Space, Spin } from 'antd';
+import { Button, Col, Dropdown, Popconfirm, Row, Space, Spin } from 'antd';
 import customerApi from 'app/api/customer';
 import {
 	customerTypeActions,
@@ -22,6 +22,7 @@ import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
 import ModalAddCustomer from './components/ModalAddCustomer';
 import ModalEditCustomer from './components/ModalEditCustomer';
+import { FiMoreHorizontal } from 'react-icons/fi';
 
 const CustomerDashboard = () => {
 	const dispatch = useAppDispatch();
@@ -133,25 +134,34 @@ const CustomerDashboard = () => {
 			render: (text: string) => <span>{moment(text).fromNow()}</span>,
 		},
 		{
-			title: 'Thao tác',
+			title: '',
 			key: 'action',
 			fixed: 'right',
-			width: 125,
+			width: 65,
 			render: (record: Customer) => (
-				<Space size="middle">
-					<Button
-						type="default"
-						style={{ color: blue[3], borderColor: blue[3] }}
-						onClick={() => handleEdit(record)}
-					>
-						<AiOutlineEdit />
+				<Dropdown
+					overlay={
+						<Space size="middle">
+							<Button
+								type="text"
+								style={{ color: blue[3] }}
+								onClick={() => handleEdit(record)}
+							>
+								Sửa <AiOutlineEdit />
+							</Button>
+							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
+								<Button type="text" danger>
+									Xóa <AiOutlineDelete />
+								</Button>
+							</Popconfirm>
+						</Space>
+					}
+					trigger={['click']}
+				>
+					<Button style={{ margin: '0 auto' }}>
+						<FiMoreHorizontal />
 					</Button>
-					<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
-						<Button type="default" danger>
-							<AiOutlineDelete />
-						</Button>
-					</Popconfirm>
-				</Space>
+				</Dropdown>
 			),
 		},
 	];
