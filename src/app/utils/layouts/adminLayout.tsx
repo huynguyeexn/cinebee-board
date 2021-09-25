@@ -18,9 +18,6 @@ const AdminLayout = () => {
 					trigger={null}
 					breakpoint="sm"
 					collapsedWidth="0"
-					onBreakpoint={(broken) => {
-						console.log(broken);
-					}}
 					collapsible
 					collapsed={collapsed}
 					onCollapse={(collapsed) => setCollapsed(collapsed)}

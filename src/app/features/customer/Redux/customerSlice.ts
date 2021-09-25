@@ -17,55 +17,66 @@ export interface CustomerState {
 
 	pagination: PaginationParams;
 
-	loading: boolean;
+	listLoading: boolean;
+
+	actionLoading: boolean;
 }
 
 const initialState: CustomerState = {
 	list: [],
 	filter: initFilterParams,
 	pagination: initPaginationParams,
-	loading: false,
+	listLoading: false,
+	actionLoading: false,
 };
 
 const customerSlice = createSlice({
 	name: 'customer',
 	initialState: initialState,
 	reducers: {
-		fetchCustomerList: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
+		// GET
+		getList: (state, action: PayloadAction<ListParams>) => {
+			state.listLoading = true;
 		},
-		fetchCustomerListSuccess: (state, action: PayloadAction<ListResponse<Customer>>) => {
-			state.loading = false;
+		getListSuccess: (state, action: PayloadAction<ListResponse<Customer>>) => {
+			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
 		},
-		fetchCustomerError: (state, action: PayloadAction<ListParams>) => {
-			state.loading = false;
-		},
-
 		getById: (state, action: PayloadAction<Customer>) => {
-			state.loading = true;
+			state.listLoading = true;
 		},
 		getByIdSuccess: (state, action: PayloadAction<Customer>) => {
-			state.loading = false;
+			state.listLoading = false;
 		},
 
+		// SET
 		setFilter: (state, action: PayloadAction<ListParams>) => {
-			state.loading = true;
+			state.listLoading = true;
 			state.filter = action.payload;
 		},
-
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
-		deleteById: (state, action: PayloadAction<Customer>) => {
-			state.loading = true;
+
+		create: (state, action: PayloadAction<Customer>) => {
+			state.actionLoading = true;
 		},
+		update: (state, action: PayloadAction<Customer>) => {
+			state.actionLoading = true;
+		},
+		deleteById: (state, action: PayloadAction<Customer>) => {
+			state.actionLoading = true;
+		},
+
+		// Handle
 		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
 			ToastSuccess(action.payload.message);
-			state.loading = false;
+			state.listLoading = false;
+			state.actionLoading = false;
 		},
 		runError: (state) => {
-			state.loading = false;
+			state.listLoading = false;
+			state.actionLoading = false;
 		},
 	},
 });
@@ -75,7 +86,8 @@ export const customerActions = customerSlice.actions;
 
 // Selectors
 export const selectCustomerList = (state: RootState) => state.customer.list;
-export const selectCustomerLoading = (state: RootState) => state.customer.loading;
+export const selectCustomerListLoading = (state: RootState) => state.customer.listLoading;
+export const selectCustomerActionLoading = (state: RootState) => state.customer.actionLoading;
 export const selectCustomerFilter = (state: RootState) => state.customer.filter;
 export const selectCustomerPagination = (state: RootState) => state.customer.pagination;
 
