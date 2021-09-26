@@ -29,6 +29,35 @@ function* deleteById(actions: PayloadAction<Employee>) {
 	}
 }
 
+function* create(actions: PayloadAction<Employee>) {
+	try {
+		const data: SuccessResponse<Employee> = yield call(
+			employeeApi.create,
+			actions.payload
+		);
+		const filter: ListParams = yield select((state) => state.employee.filter);
+		yield put(employeeActions.runSuccess(data));
+		yield put(employeeActions.fetchEmployeeList(filter));
+	} catch (error) {
+		yield put(employeeActions.runError());
+	}
+}
+
+function* update(actions: PayloadAction<Employee>) {
+	try {
+		const data: SuccessResponse<Employee> = yield call(
+			employeeApi.update,
+			actions.payload
+		);
+		const filter: ListParams = yield select((state) => state.employee.filter);
+		yield put(employeeActions.runSuccess(data));
+		yield put(employeeActions.fetchEmployeeList(filter));
+	} catch (error) {
+		yield put(employeeActions.runError());
+	}
+}
+
+
 function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 	yield put(employeeActions.setFilter(actions.payload));
 }
@@ -36,6 +65,8 @@ function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 export default function* employeeSaga() {
 	yield takeLatest(employeeActions.fetchEmployeeList, fetchEmployeeList);
 	yield takeLatest(employeeActions.setFilter, fetchEmployeeList);
+	yield takeLatest(employeeActions.create, create);
+	yield takeLatest(employeeActions.update, update);
 	yield takeLatest(employeeActions.deleteById, deleteById);
 	yield debounce(1000, employeeActions.setFilterDebounce, setFilterDebounce);
 }

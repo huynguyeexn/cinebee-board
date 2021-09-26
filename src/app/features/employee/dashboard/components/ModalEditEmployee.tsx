@@ -30,7 +30,8 @@ const formValidate = yup.object().shape({
 	email: yup.string().nullable(),
 	address: yup.string().nullable(),
 	birthday: yup.string().nullable(),
-	sex: yup.number().nullable(),
+	id_card: yup.string().nullable(),
+	gender: yup.number().nullable(),
 	employee_role_id: yup.number().nullable(),
 });
 

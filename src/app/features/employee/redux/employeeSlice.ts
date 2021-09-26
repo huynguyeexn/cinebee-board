@@ -70,9 +70,11 @@ const employeeSlice = createSlice({
 		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
 			ToastSuccess(action.payload.message);
 			state.listLoading = false;
+			state.actionLoading = false;
 		},
 		runError: (state) => {
 			state.listLoading = false;
+			state.actionLoading = false;
 		},
 	},
 });
