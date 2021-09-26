@@ -57,7 +57,6 @@ const customerSlice = createSlice({
 		},
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
-
 		create: (state, action: PayloadAction<Customer>) => {
 			state.actionLoading = true;
 		},
@@ -87,7 +86,8 @@ export const customerActions = customerSlice.actions;
 // Selectors
 export const selectCustomerList = (state: RootState) => state.customer.list;
 export const selectCustomerListLoading = (state: RootState) => state.customer.listLoading;
-export const selectCustomerActionLoading = (state: RootState) => state.customer.actionLoading;
+export const selectCustomerActionLoading = (state: RootState) =>
+	state.customer.actionLoading;
 export const selectCustomerFilter = (state: RootState) => state.customer.filter;
 export const selectCustomerPagination = (state: RootState) => state.customer.pagination;
 
