@@ -1,4 +1,3 @@
-import { parseElementObjectToUTC } from 'app/utils/helper';
 import { ListParams, ListResponse, SuccessResponse } from '../interfaces/common';
 import { Customer } from '../interfaces/customer';
 import axiosClient from './axiosClient';

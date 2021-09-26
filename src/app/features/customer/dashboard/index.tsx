@@ -7,10 +7,10 @@ import {
 } from 'app/features/customerType/redux/customerTypeSlice';
 import { Customer } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import { parseElementObjectToDate } from 'app/utils/helper';
 import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from 'react-icons/ai';
+import { FiMoreHorizontal } from 'react-icons/fi';
 import {
 	customerActions,
 	selectCustomerFilter,
@@ -22,7 +22,7 @@ import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
 import ModalAddCustomer from './components/ModalAddCustomer';
 import ModalEditCustomer from './components/ModalEditCustomer';
-import { FiMoreHorizontal } from 'react-icons/fi';
+import StatisticCustomer from './components/StatisticCustomer';
 
 const CustomerDashboard = () => {
 	const dispatch = useAppDispatch();
@@ -69,7 +69,7 @@ const CustomerDashboard = () => {
 		setCustomer(undefined);
 		try {
 			const data: Customer = await customerApi.getById(value);
-			setCustomer(parseElementObjectToDate(data, 'birthday') as Customer);
+			setCustomer(data);
 			setIsEdit(true);
 		} catch (error) {
 			console.error('Failed to featch student details.', error);
@@ -169,6 +169,9 @@ const CustomerDashboard = () => {
 	return (
 		<>
 			<Row gutter={[16, 16]}>
+				<Col span={24}>
+					<StatisticCustomer />
+				</Col>
 				<Col span={24}>
 					<FilterCustomer searchType={columns} />
 				</Col>

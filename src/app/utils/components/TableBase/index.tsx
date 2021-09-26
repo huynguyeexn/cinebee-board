@@ -22,7 +22,7 @@ const TableBase = ({ columns, dataSource, pagination, loading, onPageChange }: P
 					dataSource={dataSource}
 					rowKey="id"
 					size="small"
-					scroll={{ x: 1500 }}
+					scroll={{ x: 1000 }}
 					showSorterTooltip={true}
 				/>
 			</Col>

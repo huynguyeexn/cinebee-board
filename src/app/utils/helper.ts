@@ -41,3 +41,18 @@ export const parseElementObjectToUTC = (object: { [key: string]: any }, key: str
 	}
 	return object;
 };
+
+export const ageRatingColor = (rating: string): string => {
+	switch (rating.toLowerCase()) {
+		case 'p':
+			return '#87d068';
+		case 'c13':
+			return '#2db7f5';
+		case 'c16':
+			return '#7f2df5';
+		case 'c18':
+			return '#f50';
+		default:
+			return '';
+	}
+};
