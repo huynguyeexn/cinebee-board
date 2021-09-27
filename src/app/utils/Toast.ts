@@ -1,5 +1,5 @@
+import { TOAST_CONFIG } from 'app/constants';
 import { toast } from 'react-toastify';
-import { TOAST_CONFIG } from '.';
 
 export const ToastDefault = (label: string) => {
 	toast(label, TOAST_CONFIG);

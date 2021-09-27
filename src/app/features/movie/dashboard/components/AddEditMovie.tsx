@@ -1,8 +1,13 @@
-import { Button, Col, Row, Form } from 'antd';
+import { Button, Col, Form, Row } from 'antd';
 import { selectAgeRatingOptions } from 'app/features/ageRating/redux/ageRatingSlice';
 import { Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import { InputField, SelectField, SliderField } from 'app/utils/components/FormFields';
+import {
+	InputField,
+	SelectField,
+	SliderField,
+	UploadFileField,
+} from 'app/utils/components/FormFields';
 import { DatePickerField } from 'app/utils/components/FormFields/DatePickerField';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,8 +25,10 @@ const AddEditMovie = ({ onCancel }: Props) => {
 	const { control, handleSubmit, reset } = useForm({});
 
 	const onSubmit = (data: Movie) => {
+		console.log(`AddEditMovie: data`, data);
 		dispatch(movieActions.getList({}));
 	};
+
 	return (
 		<div className="">
 			<Row>
@@ -68,8 +75,13 @@ const AddEditMovie = ({ onCancel }: Props) => {
 								/>
 							</Col>
 						</Row>
+
+						{/* Poster */}
+						<UploadFileField name="thumbs" label="Ảnh poster" control={control} />
 					</Form>
 				</Col>
+
+				{/* Form actions */}
 				<Col span={24} style={{ textAlign: 'right' }}>
 					<Button style={{ margin: '0 8px' }} onClick={reset} type="link">
 						Clear

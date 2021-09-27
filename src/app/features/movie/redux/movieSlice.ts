@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initFilterParams, initPaginationParams, ToastSuccess } from 'app/constants';
+import { initFilterParams, initPaginationParams } from 'app/constants';
 import {
 	ListParams,
 	ListResponse,
@@ -8,6 +8,7 @@ import {
 	SuccessResponse,
 } from 'app/interfaces';
 import { RootState } from 'app/redux/store';
+import { ToastSuccess } from 'app/utils/Toast';
 
 export interface MovieState {
 	list: Movie[];
