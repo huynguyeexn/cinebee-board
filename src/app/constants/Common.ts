@@ -11,3 +11,12 @@ export const TOAST_CONFIG: ToastOptions<{}> = {
 	draggable: true,
 	progress: undefined,
 };
+
+export const IMAGE_TYPE_ACCEPT: string[] = [
+	'image/png',
+	'image/jpg',
+	'image/jpeg',
+	'image/svg',
+	'image/gif',
+	'image/webp',
+];

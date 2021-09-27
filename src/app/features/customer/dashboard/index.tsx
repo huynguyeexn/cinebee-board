@@ -1,5 +1,5 @@
 import { blue } from '@ant-design/colors';
-import { Button, Col, Popconfirm, Row, Space, Spin } from 'antd';
+import { Button, Col, Dropdown, Popconfirm, Row, Space, Spin } from 'antd';
 import customerApi from 'app/api/customer';
 import {
 	customerTypeActions,
@@ -7,10 +7,10 @@ import {
 } from 'app/features/customerType/redux/customerTypeSlice';
 import { Customer } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
-import { parseElementObjectToDate } from 'app/utils/helper';
 import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from 'react-icons/ai';
+import { FiMoreHorizontal } from 'react-icons/fi';
 import {
 	customerActions,
 	selectCustomerFilter,
@@ -22,6 +22,7 @@ import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
 import ModalAddCustomer from './components/ModalAddCustomer';
 import ModalEditCustomer from './components/ModalEditCustomer';
+import StatisticCustomer from './components/StatisticCustomer';
 
 const CustomerDashboard = () => {
 	const dispatch = useAppDispatch();
@@ -68,7 +69,7 @@ const CustomerDashboard = () => {
 		setCustomer(undefined);
 		try {
 			const data: Customer = await customerApi.getById(value);
-			setCustomer(parseElementObjectToDate(data, 'birthday') as Customer);
+			setCustomer(data);
 			setIsEdit(true);
 		} catch (error) {
 			console.error('Failed to featch student details.', error);
@@ -133,25 +134,34 @@ const CustomerDashboard = () => {
 			render: (text: string) => <span>{moment(text).fromNow()}</span>,
 		},
 		{
-			title: 'Thao tác',
+			title: '',
 			key: 'action',
 			fixed: 'right',
-			width: 125,
+			width: 65,
 			render: (record: Customer) => (
-				<Space size="middle">
-					<Button
-						type="default"
-						style={{ color: blue[3], borderColor: blue[3] }}
-						onClick={() => handleEdit(record)}
-					>
-						<AiOutlineEdit />
+				<Dropdown
+					overlay={
+						<Space size="middle">
+							<Button
+								type="text"
+								style={{ color: blue[3] }}
+								onClick={() => handleEdit(record)}
+							>
+								Sửa <AiOutlineEdit />
+							</Button>
+							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
+								<Button type="text" danger>
+									Xóa <AiOutlineDelete />
+								</Button>
+							</Popconfirm>
+						</Space>
+					}
+					trigger={['click']}
+				>
+					<Button style={{ margin: '0 auto' }}>
+						<FiMoreHorizontal />
 					</Button>
-					<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
-						<Button type="default" danger>
-							<AiOutlineDelete />
-						</Button>
-					</Popconfirm>
-				</Space>
+				</Dropdown>
 			),
 		},
 	];
@@ -159,6 +169,9 @@ const CustomerDashboard = () => {
 	return (
 		<>
 			<Row gutter={[16, 16]}>
+				<Col span={24}>
+					<StatisticCustomer />
+				</Col>
 				<Col span={24}>
 					<FilterCustomer searchType={columns} />
 				</Col>

@@ -1,0 +1,17 @@
+#admin-layout .admin-side-bar {
+	border-right: 1px solid rgb(240, 240, 240);
+
+	.ant-layout-sider-zero-width-trigger {
+		top: 12px;
+		right: -37px;
+		z-index: 11;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.admin-side-bar {
+		left: 0;
+		top: 0;
+		z-index: 10;
+	}
+}

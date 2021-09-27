@@ -36,8 +36,7 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 			<Select
 				allowClear
 				showSearch
-				style={{ width: 200 }}
-				placeholder="Select a person"
+				placeholder={`${label}...`}
 				optionFilterProp="children"
 				onChange={onChange}
 				onBlur={onBlur}

@@ -1,3 +1,4 @@
+import { RcFile } from 'antd/lib/upload';
 import moment from 'moment';
 
 export const makeRows = (length: number) => {
@@ -40,4 +41,28 @@ export const parseElementObjectToUTC = (object: { [key: string]: any }, key: str
 		object[`${key}`] = undefined;
 	}
 	return object;
+};
+
+export const ageRatingColor = (rating: string): string => {
+	switch (rating.toLowerCase()) {
+		case 'p':
+			return '#87d068';
+		case 'c13':
+			return '#2db7f5';
+		case 'c16':
+			return '#7f2df5';
+		case 'c18':
+			return '#f50';
+		default:
+			return '';
+	}
+};
+
+export const getBase64 = (file: RcFile) => {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = (error) => reject(error);
+	});
 };

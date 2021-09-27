@@ -1,33 +1,16 @@
 import { Col, Layout, Menu, Row } from 'antd';
 import { AiOutlineUser } from 'react-icons/ai';
-import { RiMenuFoldLine, RiMenuUnfoldLine } from 'react-icons/ri';
 
 const { Header } = Layout;
 
 const { SubMenu } = Menu;
-interface Props {
-	collapsed: boolean;
-	onCollapse: () => void;
-}
+interface Props {}
 
-const TopHeader = ({ collapsed, onCollapse }: Props) => {
-	// const history = useHistory();
-
-	// const onLogoutClick = () => {
-	// 	localStorage.removeItem('access_token');
-	// 	history.push('/login');
-	// };
-
+const TopHeader = (props: Props) => {
 	return (
 		<Header id="top-header" className="site-layout-background" style={{ padding: 0 }}>
 			<Row>
-				<Col span={12}>
-					{collapsed ? (
-						<RiMenuUnfoldLine className="trigger" onClick={onCollapse} />
-					) : (
-						<RiMenuFoldLine className="trigger" onClick={onCollapse} />
-					)}
-				</Col>
+				<Col span={12}></Col>
 				<Col span={12}>
 					<Menu mode="horizontal" className="user-menu">
 						<SubMenu key="SubMenu" icon={<AiOutlineUser />} title="Huy Nguyễn">

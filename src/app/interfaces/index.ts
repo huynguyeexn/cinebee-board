@@ -5,3 +5,4 @@ export * from './customerType';
 export * from './movie';
 export * from './room';
 export * from './seat';
+export * from './ageRating';
