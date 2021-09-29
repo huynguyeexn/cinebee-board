@@ -39,11 +39,7 @@ const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
 	const typeOptions = useAppSelector(selectCustomerTypeOptions);
 	const loading = useAppSelector(selectCustomerActionLoading);
 
-	const {
-		control,
-		handleSubmit,
-		formState: { isValid },
-	} = useForm({
+	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(formValidate),
 	});
 
@@ -56,7 +52,6 @@ const ModalAddCustomer = ({ isModalVisible, onCancel }: Props) => {
 			title="Thông tin khách hàng"
 			visible={isModalVisible}
 			onOk={handleSubmit(handleSubmitForm)}
-			okButtonProps={{ disabled: !isValid }}
 			onCancel={onCancel}
 			confirmLoading={loading}
 			okText="Lưu"
