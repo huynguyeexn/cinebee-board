@@ -33,7 +33,8 @@ export const DatePickerField = ({ name, control, label, required }: Props) => {
 		>
 			<DatePicker
 				name={name}
-				value={moment(value).isValid() ? moment(value) : value}
+				value={!value ? undefined : moment(value).isValid() ? moment(value) : value}
+				defaultValue={moment()}
 				format={DATE_FORMAT}
 				onChange={onChange}
 				style={{ width: '100%' }}

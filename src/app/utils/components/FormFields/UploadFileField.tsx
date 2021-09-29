@@ -1,8 +1,14 @@
 import { Button, Form, message, Modal, Upload } from 'antd';
 import { RcFile, UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
-import fileUploadApi from 'app/api/fileUploadApi';
 import { IMAGE_TYPE_ACCEPT } from 'app/constants';
+import {
+	selectImageUpload,
+	selectUploadLoading,
+	selectUploadSuccess,
+	uploadActions,
+} from 'app/features/upload/redux/uploadSlice';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { getBase64 } from 'app/utils/helper';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
@@ -14,6 +20,7 @@ interface Props {
 	type?: 'image' | 'file';
 	label?: string;
 	required?: boolean;
+	hasUpload: (list: any) => void;
 }
 
 export const UploadFileField = ({
@@ -22,34 +29,37 @@ export const UploadFileField = ({
 	type = 'image',
 	label,
 	required,
+	hasUpload,
 }: Props) => {
-	const {
-		field: { onChange },
-		// fieldState: { invalid, error },
-	} = useController({
-		name,
-		control,
-		defaultValue: undefined,
-	});
-
-	const url: string =
-		(type === 'image' && process.env.REACT_APP_IMAGE_UPLOAD_URL) ||
-		(type === 'file' && process.env.REACT_APP_FILE_UPLOAD_URL) ||
-		'';
-	const [isUploading, setIsUploading] = React.useState(false);
+	const dispatch = useAppDispatch();
+	const isUploading = useAppSelector(selectUploadLoading);
+	const isUploadSuccess = useAppSelector(selectUploadSuccess);
+	const images = useAppSelector(selectImageUpload);
 
 	const [fileList, setFileList] = React.useState<UploadFile[]>();
 	const [previewVisible, setPreviewVisible] = React.useState(false);
 	const [previewFile, setPreviewFile] = React.useState<string>();
 
+	const {
+		field: { onChange },
+	} = useController({
+		name,
+		control,
+	});
+
 	const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
-		console.log(`handleChange`, info);
 		onChange(info.fileList);
 		setFileList(info.fileList);
 	};
 
+	React.useEffect(() => {
+		if (isUploadSuccess) {
+			hasUpload(images);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isUploadSuccess]);
+
 	const handleBeforeUpload = (file: RcFile) => {
-		console.log(`handleBeforeUpload`, file);
 		if (type === 'image') {
 			if (!IMAGE_TYPE_ACCEPT.includes(file.type)) {
 				message.error(`${file.name} không phải là hình ảnh`);
@@ -78,15 +88,8 @@ export const UploadFileField = ({
 			message.error(`Không có file để tải lên`);
 			return;
 		}
-		setIsUploading(true);
 
-		try {
-			await fileUploadApi.image(fileList);
-			message.success(`Các tệp của bạn đã được tải lên`);
-		} catch (error) {
-			message.error(`Lỗi khi tải lên`);
-		}
-		setIsUploading(false);
+		dispatch(uploadActions.uploadImages(fileList));
 	};
 
 	return (
@@ -94,7 +97,6 @@ export const UploadFileField = ({
 			<Upload
 				listType="picture-card"
 				fileList={fileList}
-				action={url}
 				onChange={handleChange}
 				beforeUpload={handleBeforeUpload}
 				onPreview={handlePreview}
