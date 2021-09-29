@@ -20,3 +20,5 @@ export const IMAGE_TYPE_ACCEPT: string[] = [
 	'image/gif',
 	'image/webp',
 ];
+
+export const URL_SERVER: string = process.env.REACT_APP_SERVER_URL || '';

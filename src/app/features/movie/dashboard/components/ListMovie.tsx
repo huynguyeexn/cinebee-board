@@ -1,10 +1,11 @@
 import { blue } from '@ant-design/colors';
-import { Button, Dropdown, Popconfirm, Space, Spin, Tag } from 'antd';
+import { Button, Dropdown, Popconfirm, Space, Spin, Tag, Image } from 'antd';
+import { URL_SERVER } from 'app/constants';
 import {
 	ageRatingActions,
 	selectAgeRatingMap,
 } from 'app/features/ageRating/redux/ageRatingSlice';
-import { Movie } from 'app/interfaces';
+import { ImageUpload, Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import { ageRatingColor } from 'app/utils/helper';
@@ -61,17 +62,25 @@ const ListMovie = (props: Props) => {
 			width: 65,
 		},
 		{
-			title: 'Ảnh đại diện',
-			dataIndex: 'thumbnail',
-			key: 'thumbnail',
-			render: (url: string, record: Movie) => (
-				<img alt={record.name} src={url} style={{ height: '100px' }} />
-			),
-		},
-		{
 			title: 'Tên phim',
 			dataIndex: 'name',
 			key: 'name',
+		},
+		{
+			title: 'Ảnh poster',
+			dataIndex: 'posters',
+			key: 'name',
+			render: (posters: ImageUpload[]) => (
+				<>
+					{posters && posters[0] && (
+						<Image
+							height={100}
+							src={`${URL_SERVER}/${posters[0].folder}${posters[0].file_name}`}
+							alt={posters[0].alt}
+						/>
+					)}
+				</>
+			),
 		},
 		{
 			title: 'Giới hạn độ tuổi',

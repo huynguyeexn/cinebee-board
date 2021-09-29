@@ -28,10 +28,10 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 	return (
 		<Form.Item
 			label={label}
-			name={name}
 			validateStatus={invalid ? 'error' : ''}
 			help={error?.message}
 			required={required}
+			name={name}
 		>
 			<Select
 				allowClear

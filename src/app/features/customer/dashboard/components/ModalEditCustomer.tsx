@@ -40,7 +40,11 @@ const ModalEditCustomer = ({ isModalVisible, onCancel, customer }: Props) => {
 	const typeOptions = useAppSelector(selectCustomerTypeOptions);
 	const loading = useAppSelector(selectCustomerActionLoading);
 
-	const { control, handleSubmit } = useForm<any>({
+	const {
+		control,
+		handleSubmit,
+		formState: { isValid },
+	} = useForm<any>({
 		defaultValues: customer,
 		resolver: yupResolver(formValidate),
 	});
@@ -57,6 +61,7 @@ const ModalEditCustomer = ({ isModalVisible, onCancel, customer }: Props) => {
 			visible={isModalVisible}
 			onOk={handleSubmit(handleFormSubmit)}
 			onCancel={onCancel}
+			okButtonProps={{ disabled: !isValid }}
 			confirmLoading={loading}
 			okText="Lưu"
 		>
