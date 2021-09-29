@@ -1,3 +1,4 @@
+import actorReducer from 'app/features/actors/redux/actorSlice';
 import ageRatingReducer from 'app/features/ageRating/redux/ageRatingSlice';
 import customerReducer from 'app/features/customer/redux/customerSlice';
 import customerTypeReducer from 'app/features/customerType/redux/customerTypeSlice';
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	customer: customerReducer,
 	customerType: customerTypeReducer,
 	upload: uploadReducer,
+	actor: actorReducer,
 });
 
 export default rootReducer;

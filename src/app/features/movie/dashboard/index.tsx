@@ -1,4 +1,4 @@
-import { Button, Card, Col, Modal, Row } from 'antd';
+import { Button, Col, Modal, Row } from 'antd';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddEditMovie from './components/AddEditMovie';
@@ -16,6 +16,7 @@ const MovieDashboardPage = (props: Props) => {
 	return (
 		<>
 			<Row gutter={[16, 16]}>
+				{/* List Actions */}
 				<Col span={24}>
 					<Button
 						icon={<AiOutlinePlus />}
@@ -28,13 +29,21 @@ const MovieDashboardPage = (props: Props) => {
 						Thêm phim mới
 					</Button>
 				</Col>
+
+				{/* List table */}
 				<Col span={24}>
-					<Card>
-						<ListMovie />
-					</Card>
+					<ListMovie />
 				</Col>
 			</Row>
-			<Modal visible={isOpenModal} title="Thông tin phim" footer={null}>
+
+			{/* Add edit */}
+			<Modal
+				centered={true}
+				closable={false}
+				visible={isOpenModal}
+				title={false}
+				footer={null}
+			>
 				<AddEditMovie onCancel={() => setIsOpenModal(false)} />
 			</Modal>
 		</>

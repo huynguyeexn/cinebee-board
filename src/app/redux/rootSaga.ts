@@ -1,3 +1,4 @@
+import actorSaga from 'app/features/actors/redux/actorSaga';
 import ageRatingSaga from 'app/features/ageRating/redux/ageRatingSaga';
 import customerSaga from 'app/features/customer/redux/customerSaga';
 import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
@@ -12,5 +13,6 @@ export default function* rootSaga() {
 		customerTypeSaga(),
 		ageRatingSaga(),
 		uploadSaga(),
+		actorSaga(),
 	]);
 }

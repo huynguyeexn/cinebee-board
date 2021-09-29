@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row } from 'antd';
+import { Button, Col, Form, Row, Tabs } from 'antd';
 import { selectAgeRatingOptions } from 'app/features/ageRating/redux/ageRatingSlice';
 import { selectUploadLoading } from 'app/features/upload/redux/uploadSlice';
 import { ImageUpload, Movie } from 'app/interfaces';
@@ -17,6 +17,7 @@ import { movieActions, selectMovieActionLoading } from '../../redux/movieSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+const { TabPane } = Tabs;
 interface Props {
 	onCancel: () => void;
 }
@@ -62,90 +63,95 @@ const AddEditMovie = ({ onCancel }: Props) => {
 	};
 
 	return (
-		<div className="">
-			<Row>
-				<Col span={24}>
-					<Form layout="vertical">
-						{/* name */}
-						<InputField name="name" label="Tên phim" control={control} required />
+		<Form layout="vertical">
+			<Tabs defaultActiveKey="1">
+				<TabPane tab="Thông tin phim" key="1">
+					{/* name */}
+					<InputField name="name" label="Tên phim" control={control} required />
 
-						{/* slug */}
-						<InputField name="slug" label="Đường dẫn phim" control={control} required />
+					{/* slug */}
+					<InputField name="slug" label="Đường dẫn phim" control={control} required />
 
-						{/* trailer */}
-						<InputField name="trailer" label="Đường dẫn trailer phim" control={control} />
+					{/* trailer */}
+					<InputField name="trailer" label="Đường dẫn trailer phim" control={control} />
 
-						{/* description */}
-						<InputField name="description" label="Mô tả" control={control} />
+					{/* description */}
+					<InputField name="description" label="Mô tả" control={control} />
 
-						{/* running_time */}
-						<SliderField
-							name="running_time"
-							label="Độ dài phim"
-							control={control}
-							max={300}
-						/>
+					{/* running_time */}
+					<SliderField
+						name="running_time"
+						label="Độ dài phim"
+						control={control}
+						max={300}
+					/>
 
-						<Row gutter={16}>
-							<Col span={12}>
-								{/* release_date */}
-								<DatePickerField
-									name="release_date"
-									label="Ngày khởi chiếu"
-									control={control}
-									required
-								/>
-							</Col>
-							<Col span={12}>
-								{/* age_rating_id" */}
-								<SelectField
-									control={control}
-									name="age_rating_id"
-									label="Giới hạn độ tuổi"
-									options={ageRatingOptions}
-									required
-								/>
-							</Col>
-						</Row>
+					<Row gutter={16}>
+						<Col span={12}>
+							{/* release_date */}
+							<DatePickerField
+								name="release_date"
+								label="Ngày khởi chiếu"
+								control={control}
+								required
+							/>
+						</Col>
+						<Col span={12}>
+							{/* age_rating_id" */}
+							<SelectField
+								control={control}
+								name="age_rating_id"
+								label="Giới hạn độ tuổi"
+								options={ageRatingOptions}
+								required
+							/>
+						</Col>
+					</Row>
 
-						{/* Poster */}
-						<UploadFileField
-							name="thumbs"
-							required
-							label="Ảnh poster"
-							hasUpload={handlePosterUpload}
-							control={control}
-						/>
+					{/* Poster */}
+					<UploadFileField
+						name="thumbs"
+						required
+						label="Ảnh poster"
+						hasUpload={handlePosterUpload}
+						control={control}
+					/>
 
-						{/* posters */}
-						<InputField name="posters" label="" control={control} hidden />
-					</Form>
-				</Col>
+					{/* posters */}
+					<InputField name="posters" label="" control={control} hidden />
+				</TabPane>
+				<TabPane tab="Khác" key="2">
+					{/* Actors */}
+					{/* <SelectField control={control} name="actors" label="Diễn viên" options={} /> */}
 
-				{/* Form actions */}
-				<Col span={24} style={{ textAlign: 'right' }}>
-					<Button style={{ margin: '0 8px' }} onClick={() => reset()} type="link">
-						Clear
-					</Button>
-					<Button
-						onClick={() => {
-							onCancel();
-							reset();
-						}}
-					>
-						Hủy
-					</Button>
-					<Button
-						loading={loading || isUploading}
-						style={{ margin: '0 8px' }}
-						onClick={handleSubmit(onSubmit)}
-						type="primary"
-					>
-						Lưu
-					</Button>
-				</Col>
-			</Row>
-		</div>
+					{/* Directors */}
+					{/* Genres */}
+				</TabPane>
+			</Tabs>
+
+			{/* Form actions */}
+			<Col span={24} style={{ textAlign: 'right' }}>
+				<Button style={{ margin: '0 8px' }} onClick={() => reset()} type="link">
+					Clear
+				</Button>
+				<Button
+					onClick={() => {
+						onCancel();
+						reset();
+					}}
+				>
+					Hủy
+				</Button>
+				<Button
+					loading={loading || isUploading}
+					style={{ margin: '0 8px' }}
+					onClick={handleSubmit(onSubmit)}
+					type="primary"
+				>
+					Lưu
+				</Button>
+			</Col>
+		</Form>
 	);
 };
 

@@ -10,11 +10,13 @@ import {
 	HiOutlineTicket,
 	HiOutlineUsers,
 } from 'react-icons/hi';
+import { FiUsers } from 'react-icons/fi';
 
 interface IMenu {
 	path: string;
 	label: string;
 	icon: IconType;
+	child?: IMenu[];
 }
 
 export const menus: IMenu[] = [
@@ -57,5 +59,10 @@ export const menus: IMenu[] = [
 		path: '/admin/movies',
 		label: 'Phim',
 		icon: RiMovie2Line,
+	},
+	{
+		path: '/admin/actors',
+		label: 'Diễn viên',
+		icon: FiUsers,
 	},
 ];
