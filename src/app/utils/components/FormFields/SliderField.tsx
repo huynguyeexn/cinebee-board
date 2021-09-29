@@ -31,10 +31,10 @@ export const SliderField = ({
 	return (
 		<Form.Item
 			label={label}
-			name={name}
 			validateStatus={invalid ? 'error' : ''}
 			help={error?.message}
 			required={required}
+			name={name}
 		>
 			<Row>
 				<Col span={18}>
@@ -45,12 +45,12 @@ export const SliderField = ({
 						value={typeof value === 'number' ? value : 0}
 					/>
 				</Col>
-				<Col span={4}>
+				<Col span={5}>
 					<InputNumber
 						min={min}
 						max={max}
-						style={{ margin: '0 16px' }}
-						value={value}
+						style={{ margin: '0 8px', width: '100%' }}
+						value={typeof value === 'number' ? value : 0}
 						onChange={onChange}
 					/>
 				</Col>

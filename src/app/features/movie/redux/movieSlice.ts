@@ -50,6 +50,12 @@ const movieSlice = createSlice({
 		},
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
+		create: (state, action: PayloadAction<Movie>) => {
+			state.actionLoading = true;
+		},
+		update: (state, action: PayloadAction<Movie>) => {
+			state.actionLoading = true;
+		},
 		deleteById: (state, action: PayloadAction<Movie>) => {
 			state.actionLoading = true;
 		},

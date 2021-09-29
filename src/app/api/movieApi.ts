@@ -12,6 +12,10 @@ const movieApi = {
 		return axiosClient.get(endpoint, { params });
 	},
 	// Add
+	create(data: Movie): Promise<Movie> {
+		return axiosClient.post(endpoint, data);
+	},
+
 	// Edit
 	// Delete
 	deleteById(params: Movie): Promise<SuccessResponse<Movie>> {

@@ -8,9 +8,17 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	control: Control<any>;
 	label?: string;
 	required?: boolean;
+	hidden?: boolean;
 }
 
-export const InputField = ({ name, control, label, required, ...inputProps }: Props) => {
+export const InputField = ({
+	name,
+	control,
+	label,
+	required,
+	hidden,
+	...inputProps
+}: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },
@@ -22,12 +30,13 @@ export const InputField = ({ name, control, label, required, ...inputProps }: Pr
 	return (
 		<Form.Item
 			label={label}
-			name={name}
 			validateStatus={invalid ? 'error' : ''}
 			help={error?.message}
 			required={required}
+			hidden={hidden}
 		>
 			<Input
+				name={name}
 				value={value}
 				onChange={onChange}
 				onBlur={onBlur}
