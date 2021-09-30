@@ -17,14 +17,7 @@ interface Props {
 	required?: boolean;
 }
 
-export const SelectField = ({
-	label,
-	name,
-	control,
-	options,
-	mode = 'multiple',
-	required,
-}: Props) => {
+export const SelectField = ({ label, name, control, options, mode, required }: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },

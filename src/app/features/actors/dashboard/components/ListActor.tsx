@@ -1,5 +1,6 @@
 import { blue } from '@ant-design/colors';
 import { Button, Dropdown, Image, Popconfirm, Space } from 'antd';
+import { IMAGE_PLACEHOLDER } from 'app/constants';
 import { Actor } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
@@ -62,7 +63,12 @@ const ListActor = ({ onEdit }: Props) => {
 			key: 'avatar',
 			render: (avatar: string, record: Actor) => (
 				<>
-					<Image height={100} src={avatar} alt={record.fullname} />
+					<Image
+						fallback={IMAGE_PLACEHOLDER}
+						height={100}
+						src={avatar}
+						alt={record.fullname}
+					/>
 				</>
 			),
 		},

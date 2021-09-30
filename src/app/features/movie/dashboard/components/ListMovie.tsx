@@ -69,7 +69,7 @@ const ListMovie = (props: Props) => {
 		{
 			title: 'Ảnh poster',
 			dataIndex: 'posters',
-			key: 'name',
+			key: 'posters',
 			render: (posters: ImageUpload[]) => (
 				<>
 					{posters && posters[0] && (
@@ -80,6 +80,43 @@ const ListMovie = (props: Props) => {
 						/>
 					)}
 				</>
+			),
+		},
+		{
+			title: 'Ảnh backdrop',
+			dataIndex: 'backdrops',
+			key: 'backdrops',
+			render: (backdrops: ImageUpload[]) => (
+				<div style={{ display: 'flex', alignItems: 'center' }}>
+					{backdrops && (
+						<>
+							<Image.PreviewGroup>
+								{backdrops[0] && (
+									<Image
+										height={100}
+										src={`${URL_SERVER}/${backdrops[0].folder}${backdrops[0].file_name}`}
+										alt={backdrops[0].alt}
+									/>
+								)}
+								<div className="" style={{ display: 'none' }}>
+									{backdrops.length > 0 &&
+										backdrops.slice(1).map((image, idx) => {
+											return (
+												<Image
+													height={100}
+													src={`${URL_SERVER}/${image.folder}${image.file_name}`}
+													alt={image.alt}
+												/>
+											);
+										})}
+								</div>
+							</Image.PreviewGroup>
+							{backdrops.length > 0 && (
+								<Tag style={{ marginLeft: '8px' }}>+{backdrops.length - 1}</Tag>
+							)}
+						</>
+					)}
+				</div>
 			),
 		},
 		{

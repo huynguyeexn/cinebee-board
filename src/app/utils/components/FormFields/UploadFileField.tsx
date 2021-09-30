@@ -1,22 +1,20 @@
-import { Button, Form, message, Modal, Upload } from 'antd';
+import { Form, message, Modal, Upload } from 'antd';
 import { RcFile, UploadChangeParam } from 'antd/lib/upload';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { IMAGE_TYPE_ACCEPT } from 'app/constants';
 import {
 	selectImageUpload,
-	selectUploadLoading,
 	selectUploadSuccess,
-	uploadActions,
 } from 'app/features/upload/redux/uploadSlice';
-import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { useAppSelector } from 'app/redux/hooks';
 import { getBase64 } from 'app/utils/helper';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 interface Props {
 	name: string;
 	control: Control<any>;
+	maxCount?: number;
 	type?: 'image' | 'file';
 	label?: string;
 	required?: boolean;
@@ -27,12 +25,13 @@ export const UploadFileField = ({
 	name,
 	control,
 	type = 'image',
+	maxCount,
 	label,
 	required,
 	hasUpload,
 }: Props) => {
-	const dispatch = useAppDispatch();
-	const isUploading = useAppSelector(selectUploadLoading);
+	// const dispatch = useAppDispatch();
+	// const isUploading = useAppSelector(selectUploadLoading);
 	const isUploadSuccess = useAppSelector(selectUploadSuccess);
 	const images = useAppSelector(selectImageUpload);
 
@@ -41,7 +40,7 @@ export const UploadFileField = ({
 	const [previewFile, setPreviewFile] = React.useState<string>();
 
 	const {
-		field: { onChange },
+		field: { value, onChange },
 	} = useController({
 		name,
 		control,
@@ -83,23 +82,24 @@ export const UploadFileField = ({
 		setPreviewVisible(false);
 	};
 
-	const handleUpload = async () => {
-		if (!fileList) {
-			message.error(`Không có file để tải lên`);
-			return;
-		}
+	// const handleUpload = async () => {
+	// 	if (!fileList) {
+	// 		message.error(`Không có file để tải lên`);
+	// 		return;
+	// 	}
 
-		dispatch(uploadActions.uploadImages(fileList));
-	};
+	// 	dispatch(uploadActions.uploadImages(fileList));
+	// };
 
 	return (
 		<Form.Item name={name} label={label} required={required}>
 			<Upload
 				listType="picture-card"
-				fileList={fileList}
+				fileList={value}
 				onChange={handleChange}
 				beforeUpload={handleBeforeUpload}
 				onPreview={handlePreview}
+				maxCount={maxCount}
 			>
 				{fileList && fileList.length >= 8 ? null : (
 					<div>
@@ -107,7 +107,7 @@ export const UploadFileField = ({
 					</div>
 				)}
 			</Upload>
-			<Button
+			{/* <Button
 				loading={isUploading}
 				onClick={handleUpload}
 				style={{ alignItems: 'center', display: 'flex' }}
@@ -119,7 +119,7 @@ export const UploadFileField = ({
 						<AiOutlineCloudUpload /> Tải lên
 					</>
 				)}
-			</Button>
+			</Button> */}
 			<Modal visible={previewVisible} footer={null} onCancel={handleCancelPreview}>
 				<img alt="example" style={{ width: '100%' }} src={previewFile} />
 			</Modal>

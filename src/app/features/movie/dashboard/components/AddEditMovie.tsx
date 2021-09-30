@@ -16,6 +16,8 @@ import { useForm } from 'react-hook-form';
 import { movieActions, selectMovieActionLoading } from '../../redux/movieSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import fileUploadApi from 'app/api/fileUploadApi';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 const { TabPane } = Tabs;
 interface Props {
@@ -32,17 +34,17 @@ const AddEditMovie = ({ onCancel }: Props) => {
 	const dispatch = useAppDispatch();
 	const ageRatingOptions = useAppSelector(selectAgeRatingOptions);
 	const loading = useAppSelector(selectMovieActionLoading);
-	const isUploading = useAppSelector(selectUploadLoading);
+
+	const [isSaving, setIsSaving] = React.useState(false);
 
 	const { control, handleSubmit, reset, setValue, watch, getValues } = useForm<any>({
 		resolver: yupResolver(formValidate),
 	});
 
+	// Convert name to slug
 	const watchName = watch('name');
-
 	React.useEffect(() => {
 		const name = getValues('name');
-		console.log(`name`, name);
 		if (name) {
 			setValue('slug', stringToSlug(name));
 		} else {
@@ -51,15 +53,37 @@ const AddEditMovie = ({ onCancel }: Props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [watchName, getValues]);
 
-	const onSubmit = (data: Movie) => {
-		console.log(`data`, data);
+	const onSubmit = async (data: Movie) => {
+		setIsSaving(true);
 
-		dispatch(movieActions.create(data));
+		// Upload Images
+		const posterResponse = await handlePosterUpload(data);
+		const backdropsResponse = await handleBackdropUpload(data);
+
+		// Map images response to number array
+		const newData = {
+			...data,
+			posters: posterResponse.map((poster) => poster.id) as number[],
+			backdrops: backdropsResponse.map((backdrop) => backdrop.id) as number[],
+		};
+
+		// Save movie
+		dispatch(movieActions.create(newData));
+		setIsSaving(false);
 	};
 
-	const handlePosterUpload = (list: ImageUpload[]) => {
-		const result = list.map((el) => el.id);
-		setValue('posters', result);
+	// Image upload handle
+	const handlePosterUpload = async (data: Movie): Promise<ImageUpload[]> => {
+		const response: { data: ImageUpload[] } = await fileUploadApi.image(
+			data.posters as UploadFile<any>[]
+		);
+		return response.data;
+	};
+	const handleBackdropUpload = async (data: Movie): Promise<ImageUpload[]> => {
+		const response: { data: ImageUpload[] } = await fileUploadApi.image(
+			data.backdrops as UploadFile<any>[]
+		);
+		return response.data;
 	};
 
 	return (
@@ -110,15 +134,22 @@ const AddEditMovie = ({ onCancel }: Props) => {
 
 					{/* Poster */}
 					<UploadFileField
-						name="thumbs"
+						name="posters"
 						required
-						label="Ảnh poster"
+						label="Ảnh poster (1)"
 						hasUpload={handlePosterUpload}
 						control={control}
+						maxCount={1}
 					/>
 
-					{/* posters */}
-					<InputField name="posters" label="" control={control} hidden />
+					{/* Backdrops */}
+					<UploadFileField
+						name="backdrops"
+						required
+						label="Ảnh phông nền"
+						hasUpload={handleBackdropUpload}
+						control={control}
+					/>
 				</TabPane>
 				<TabPane tab="Khác" key="2">
 					{/* Actors */}
@@ -143,7 +174,7 @@ const AddEditMovie = ({ onCancel }: Props) => {
 					Hủy
 				</Button>
 				<Button
-					loading={loading || isUploading}
+					loading={loading || isSaving}
 					style={{ margin: '0 8px' }}
 					onClick={handleSubmit(onSubmit)}
 					type="primary"
