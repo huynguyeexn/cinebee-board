@@ -1,5 +1,5 @@
 import { UploadFile } from 'antd/lib/upload/interface';
-import { IBase, ImageUpload } from '.';
+import { Actor, Genre, IBase, ImageUpload } from '.';
 
 export interface Movie extends IBase {
 	name: string;
@@ -12,4 +12,6 @@ export interface Movie extends IBase {
 	age_rating_id: string;
 	posters: ImageUpload[] | UploadFile<any>[] | number[];
 	backdrops: ImageUpload[] | UploadFile<any>[] | number[];
+	actors: Actor[] | number[];
+	genres: Genre[] | number[];
 }

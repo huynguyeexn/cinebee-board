@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initFilterParams, initPaginationParams } from 'app/constants';
 import {
-	Actor,
+	Genre,
 	ListParams,
 	ListResponse,
 	PaginationParams,
@@ -10,10 +10,10 @@ import {
 import { RootState } from 'app/redux/store';
 import { ToastSuccess } from 'app/utils/Toast';
 
-export interface ActorState {
-	list: Actor[];
+export interface GenreState {
+	list: Genre[];
 
-	searchList: Actor[];
+	searchList: { value: string | number; label: string }[];
 
 	filter: ListParams;
 
@@ -24,7 +24,7 @@ export interface ActorState {
 	actionLoading: boolean;
 }
 
-const initialState: ActorState = {
+const initialState: GenreState = {
 	list: [],
 	searchList: [],
 	filter: initFilterParams,
@@ -33,14 +33,14 @@ const initialState: ActorState = {
 	actionLoading: false,
 };
 
-const actorSlice = createSlice({
-	name: 'actor',
+const genreSlice = createSlice({
+	name: 'genre',
 	initialState: initialState,
 	reducers: {
 		getList: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = true;
 		},
-		getListSuccess: (state, action: PayloadAction<ListResponse<Actor>>) => {
+		getListSuccess: (state, action: PayloadAction<ListResponse<Genre>>) => {
 			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
@@ -49,9 +49,14 @@ const actorSlice = createSlice({
 			state.actionLoading = true;
 			state.searchList = [];
 		},
-		searchSuccess: (state, action: PayloadAction<ListResponse<Actor>>) => {
+		searchSuccess: (state, action: PayloadAction<ListResponse<Genre>>) => {
 			state.actionLoading = false;
-			state.searchList = action.payload.data;
+			state.searchList = action.payload.data.map((type, idx) => {
+				return {
+					value: type.id as string | number,
+					label: type.name,
+				};
+			});
 		},
 
 		// SET
@@ -61,13 +66,13 @@ const actorSlice = createSlice({
 		},
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
-		create: (state, action: PayloadAction<Actor>) => {
+		create: (state, action: PayloadAction<Genre>) => {
 			state.actionLoading = true;
 		},
-		update: (state, action: PayloadAction<Actor>) => {
+		update: (state, action: PayloadAction<Genre>) => {
 			state.actionLoading = true;
 		},
-		deleteById: (state, action: PayloadAction<Actor>) => {
+		deleteById: (state, action: PayloadAction<Genre>) => {
 			state.actionLoading = true;
 		},
 
@@ -85,17 +90,17 @@ const actorSlice = createSlice({
 });
 
 // Actions
-export const actorActions = actorSlice.actions;
+export const genreActions = genreSlice.actions;
 
 // Selectors
-export const selectActorList = (state: RootState) => state.actor.list;
-export const selectActorPagination = (state: RootState) => state.actor.pagination;
-export const selectActorFilter = (state: RootState) => state.actor.filter;
-export const selectActorSearchList = (state: RootState) => state.actor.searchList;
+export const selectGenreList = (state: RootState) => state.genre.list;
+export const selectGenrePagination = (state: RootState) => state.genre.pagination;
+export const selectGenreFilter = (state: RootState) => state.genre.filter;
+export const selectGenreSearchList = (state: RootState) => state.genre.searchList;
 
-export const selectActorListLoading = (state: RootState) => state.actor.listLoading;
-export const selectActorActionLoading = (state: RootState) => state.actor.actionLoading;
+export const selectGenreListLoading = (state: RootState) => state.genre.listLoading;
+export const selectGenreActionLoading = (state: RootState) => state.genre.actionLoading;
 
 // Reducer
-const actorReducer = actorSlice.reducer;
-export default actorReducer;
+const genreReducer = genreSlice.reducer;
+export default genreReducer;

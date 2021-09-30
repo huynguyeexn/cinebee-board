@@ -41,6 +41,7 @@ export const UploadFileField = ({
 
 	const {
 		field: { value, onChange },
+		fieldState: { invalid, error },
 	} = useController({
 		name,
 		control,
@@ -92,7 +93,13 @@ export const UploadFileField = ({
 	// };
 
 	return (
-		<Form.Item name={name} label={label} required={required}>
+		<Form.Item
+			name={name}
+			label={label}
+			required={required}
+			help={error?.message}
+			validateStatus={invalid ? 'error' : ''}
+		>
 			<Upload
 				listType="picture-card"
 				fileList={value}

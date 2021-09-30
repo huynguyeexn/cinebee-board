@@ -34,6 +34,7 @@ export const SelectField = ({ label, name, control, options, mode, required }: P
 			validateStatus={invalid ? 'error' : ''}
 		>
 			<Select
+				defaultActiveFirstOption={false}
 				ref={ref}
 				allowClear
 				showSearch

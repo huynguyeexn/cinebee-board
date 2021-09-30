@@ -11,6 +11,7 @@ import {
 	HiOutlineUsers,
 } from 'react-icons/hi';
 import { FiUsers } from 'react-icons/fi';
+import { AiOutlineContainer } from 'react-icons/ai';
 
 interface IMenu {
 	path: string;
@@ -64,5 +65,10 @@ export const menus: IMenu[] = [
 		path: '/admin/actors',
 		label: 'Diễn viên',
 		icon: FiUsers,
+	},
+	{
+		path: '/admin/genres',
+		label: 'Thể loại phim',
+		icon: AiOutlineContainer,
 	},
 ];

@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import PrivateRoute from 'app/router/privateRoute';
 import { routers } from 'app/router/routers';
 import { useState, Suspense } from 'react';
@@ -32,7 +32,7 @@ const AdminLayout = () => {
 					<TopHeader />
 					<Content className="site-content">
 						<div style={{ minHeight: 360 }}>
-							<Suspense fallback={<div>Loading...</div>}>
+							<Suspense fallback={<Spin></Spin>}>
 								<Switch>
 									{routers.map((route, idx) => (
 										<PrivateRoute

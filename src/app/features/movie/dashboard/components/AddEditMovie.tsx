@@ -1,6 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Form, Row, Tabs } from 'antd';
+import { UploadFile } from 'antd/lib/upload/interface';
+import fileUploadApi from 'app/api/fileUploadApi';
+import InputAddActor from 'app/features/actors/components/InputAddActor';
 import { selectAgeRatingOptions } from 'app/features/ageRating/redux/ageRatingSlice';
-import { selectUploadLoading } from 'app/features/upload/redux/uploadSlice';
+import InputAddGenre from 'app/features/genres/component/InputAddGenre';
 import { ImageUpload, Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import {
@@ -10,14 +14,11 @@ import {
 	UploadFileField,
 } from 'app/utils/components/FormFields';
 import { DatePickerField } from 'app/utils/components/FormFields/DatePickerField';
-import { stringToSlug } from 'app/utils/helper';
+import { minutesToHoursMinutes, stringToSlug } from 'app/utils/helper';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { movieActions, selectMovieActionLoading } from '../../redux/movieSlice';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import fileUploadApi from 'app/api/fileUploadApi';
-import { UploadFile } from 'antd/lib/upload/interface';
+import { movieActions, selectMovieActionLoading } from '../../redux/movieSlice';
 
 const { TabPane } = Tabs;
 interface Props {
@@ -25,9 +26,12 @@ interface Props {
 }
 
 const formValidate = yup.object().shape({
-	name: yup.string().required(),
-	slug: yup.string().required(),
-	posters: yup.array().required(),
+	name: yup.string().required('Bạn chưa điền tên phim'),
+	slug: yup.string().required('Bạn chưa điền đường dẫn phim'),
+	release_date: yup.mixed().required('Bạn chưa chọn ngày khởi chiếu'),
+	age_rating_id: yup.number().required('Bạn chưa chọn giới hạn độ tuổi'),
+	posters: yup.mixed().required('Bạn chưa chọn hình ảnh Posters'),
+	backdrops: yup.mixed().required('Bạn chưa chọn hình ảnh Backdrops'),
 });
 
 const AddEditMovie = ({ onCancel }: Props) => {
@@ -36,10 +40,17 @@ const AddEditMovie = ({ onCancel }: Props) => {
 	const loading = useAppSelector(selectMovieActionLoading);
 
 	const [isSaving, setIsSaving] = React.useState(false);
+	const [runningTimeConvert, setRunningTimeConvert] = React.useState('');
 
 	const { control, handleSubmit, reset, setValue, watch, getValues } = useForm<any>({
 		resolver: yupResolver(formValidate),
 	});
+
+	// Convert running time
+	const runningTime = watch('running_time');
+	React.useEffect(() => {
+		setRunningTimeConvert(minutesToHoursMinutes(runningTime));
+	}, [runningTime]);
 
 	// Convert name to slug
 	const watchName = watch('name');
@@ -100,9 +111,10 @@ const AddEditMovie = ({ onCancel }: Props) => {
 					<InputField name="trailer" label="Đường dẫn trailer phim" control={control} />
 
 					{/* description */}
-					<InputField name="description" label="Mô tả" control={control} />
+					<InputField name="description" label="Mô tả" control={control} rows={4} />
 
 					{/* running_time */}
+					<small>{runningTimeConvert}</small>
 					<SliderField
 						name="running_time"
 						label="Độ dài phim"
@@ -152,11 +164,11 @@ const AddEditMovie = ({ onCancel }: Props) => {
 					/>
 				</TabPane>
 				<TabPane tab="Khác" key="2">
-					{/* Actors */}
-					{/* <SelectField control={control} name="actors" label="Diễn viên" options={} /> */}
-
-					{/* Directors */}
 					{/* Genres */}
+					<InputAddGenre name="genres" control={control} />
+					{/* Actors */}
+					<InputAddActor name="actors" control={control} />
+					{/* Directors */}
 				</TabPane>
 			</Tabs>
 
