@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { ToastSuccess } from 'app/constants/Toast';
+import { ToastSuccess } from 'app/utils/Toast';
 import { CustomerType, ListResponse, SuccessResponse } from 'app/interfaces';
 import { RootState } from 'app/redux/store';
 

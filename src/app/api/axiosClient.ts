@@ -1,4 +1,4 @@
-import { HandleAxiosError } from 'app/constants';
+import { HandleAxiosError } from 'app/utils/HandleError';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({

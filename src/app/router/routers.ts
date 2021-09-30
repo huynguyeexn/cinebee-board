@@ -9,6 +9,7 @@ import CustomerDashboard from 'app/features/customer/dashboard';
 import React from 'react';
 import EmployeeDashboard from 'app/features/employee/dashboard';
 import DashboardPage from 'app/features/dashboard';
+import MovieDashboardPage from 'app/features/movie/dashboard';
 
 interface IRoute {
 	path: string;
@@ -67,10 +68,10 @@ export const routers: IRoute[] = [
 	//  * --> Add
 	//  * --> Edit @param id
 	//  */
-	// {
-	// 	path: '/admin/movies',
-	// 	component: MovieDashboard,
-	// },
+	{
+		path: '/admin/movies',
+		component: MovieDashboardPage,
+	},
 	// // {
 	// // 	path: '/admin/customers/create',
 	// // 	component: AddCustomer,

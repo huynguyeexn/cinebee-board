@@ -7,3 +7,5 @@ export * from './employeeRole';
 export * from './movie';
 export * from './room';
 export * from './seat';
+export * from './ageRating';
+export * from './upload';

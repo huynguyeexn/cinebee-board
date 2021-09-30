@@ -28,16 +28,15 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 	return (
 		<Form.Item
 			label={label}
-			name={name}
 			validateStatus={invalid ? 'error' : ''}
 			help={error?.message}
 			required={required}
+			name={name}
 		>
 			<Select
 				allowClear
 				showSearch
-				style={{ width: 200 }}
-				placeholder="Select a person"
+				placeholder={`${label}...`}
 				optionFilterProp="children"
 				onChange={onChange}
 				onBlur={onBlur}

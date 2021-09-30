@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initFilterParams, initPaginationParams } from 'app/constants';
-import { ToastSuccess } from 'app/utils/Toast';
 import {
 	ListParams,
 	ListResponse,
+	Movie,
 	PaginationParams,
 	SuccessResponse,
 } from 'app/interfaces';
-import { Customer } from 'app/interfaces/customer';
 import { RootState } from 'app/redux/store';
+import { ToastSuccess } from 'app/utils/Toast';
 
-export interface CustomerState {
-	list: Customer[];
+export interface MovieState {
+	list: Movie[];
 
 	filter: ListParams;
 
@@ -22,7 +22,7 @@ export interface CustomerState {
 	actionLoading: boolean;
 }
 
-const initialState: CustomerState = {
+const initialState: MovieState = {
 	list: [],
 	filter: initFilterParams,
 	pagination: initPaginationParams,
@@ -30,24 +30,17 @@ const initialState: CustomerState = {
 	actionLoading: false,
 };
 
-const customerSlice = createSlice({
-	name: 'customer',
+const movieSlice = createSlice({
+	name: 'movie',
 	initialState: initialState,
 	reducers: {
-		// GET
 		getList: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = true;
 		},
-		getListSuccess: (state, action: PayloadAction<ListResponse<Customer>>) => {
+		getListSuccess: (state, action: PayloadAction<ListResponse<Movie>>) => {
 			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
-		},
-		getById: (state, action: PayloadAction<Customer>) => {
-			state.listLoading = true;
-		},
-		getByIdSuccess: (state, action: PayloadAction<Customer>) => {
-			state.listLoading = false;
 		},
 
 		// SET
@@ -57,13 +50,13 @@ const customerSlice = createSlice({
 		},
 		setFilterDebounce: (state, action: PayloadAction<ListParams>) => {},
 
-		create: (state, action: PayloadAction<Customer>) => {
+		create: (state, action: PayloadAction<Movie>) => {
 			state.actionLoading = true;
 		},
-		update: (state, action: PayloadAction<Customer>) => {
+		update: (state, action: PayloadAction<Movie>) => {
 			state.actionLoading = true;
 		},
-		deleteById: (state, action: PayloadAction<Customer>) => {
+		deleteById: (state, action: PayloadAction<Movie>) => {
 			state.actionLoading = true;
 		},
 
@@ -81,16 +74,16 @@ const customerSlice = createSlice({
 });
 
 // Actions
-export const customerActions = customerSlice.actions;
+export const movieActions = movieSlice.actions;
 
 // Selectors
-export const selectCustomerList = (state: RootState) => state.customer.list;
-export const selectCustomerListLoading = (state: RootState) => state.customer.listLoading;
-export const selectCustomerActionLoading = (state: RootState) =>
-	state.customer.actionLoading;
-export const selectCustomerFilter = (state: RootState) => state.customer.filter;
-export const selectCustomerPagination = (state: RootState) => state.customer.pagination;
+export const selectMovieList = (state: RootState) => state.movie.list;
+export const selectMoviePagination = (state: RootState) => state.movie.pagination;
+export const selectMovieFilter = (state: RootState) => state.movie.filter;
+
+export const selectMovieListLoading = (state: RootState) => state.movie.listLoading;
+export const selectMovieActionLoading = (state: RootState) => state.movie.actionLoading;
 
 // Reducer
-const customerReducer = customerSlice.reducer;
-export default customerReducer;
+const movieReducer = movieSlice.reducer;
+export default movieReducer;
