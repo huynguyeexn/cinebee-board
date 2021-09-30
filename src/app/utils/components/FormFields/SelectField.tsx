@@ -1,7 +1,6 @@
 import { Form, Select } from 'antd';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
-
 const { Option } = Select;
 
 interface OptionsProps {
@@ -13,11 +12,12 @@ interface Props {
 	label: string;
 	name: string;
 	control: Control<any>;
+	mode?: 'multiple' | 'tags';
 	options: OptionsProps[];
 	required?: boolean;
 }
 
-export const SelectField = ({ label, name, control, options, required }: Props) => {
+export const SelectField = ({ label, name, control, options, mode, required }: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },
@@ -27,21 +27,23 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 	});
 	return (
 		<Form.Item
-			label={label}
-			validateStatus={invalid ? 'error' : ''}
-			help={error?.message}
-			required={required}
 			name={name}
+			label={label}
+			required={required}
+			help={error?.message}
+			validateStatus={invalid ? 'error' : ''}
 		>
 			<Select
+				defaultActiveFirstOption={false}
+				ref={ref}
 				allowClear
 				showSearch
-				placeholder={`${label}...`}
-				optionFilterProp="children"
-				onChange={onChange}
-				onBlur={onBlur}
-				ref={ref}
+				mode={mode}
 				value={value}
+				onBlur={onBlur}
+				onChange={onChange}
+				optionFilterProp="children"
+				placeholder={`${label}...`}
 				filterOption={(input, option: any) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}

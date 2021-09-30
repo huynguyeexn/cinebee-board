@@ -1,6 +1,8 @@
 import { RcFile } from 'antd/lib/upload';
 import moment from 'moment';
 
+moment.locale('vi');
+
 export const makeRows = (length: number) => {
 	const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 	const alphaLength = alpha.length;
@@ -90,4 +92,10 @@ export const stringToSlug = (string: string) => {
 		.replace(/^-+/, '')
 		.replace(/-+$/, '')
 		.replace(/-+/g, '-');
+};
+
+export const minutesToHoursMinutes = (minutes: number): string => {
+	return moment
+		.utc(moment.duration(minutes, 'minutes').asMilliseconds())
+		.format('H [giờ] mm [phút]');
 };

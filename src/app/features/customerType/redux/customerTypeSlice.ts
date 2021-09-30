@@ -64,13 +64,6 @@ export const selectCustomerTypeOptions = createSelector(
 	}
 );
 
-//  createSelector(selectCityList, (cityList: City[]) => {
-// 	return cityList.reduce((map: { [key: string]: City }, city) => {
-// 		map[city.code] = city;
-// 		return map;
-// 	}, {});
-// });
-
 // Reducer
 const customerTypeReducer = customerTypeSlice.reducer;
 export default customerTypeReducer;

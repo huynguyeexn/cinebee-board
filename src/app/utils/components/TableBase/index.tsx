@@ -6,9 +6,9 @@ import { AppPagination } from '../Pagination';
 interface Props {
 	columns: any;
 	dataSource: any;
-	pagination: PaginationParams;
-	loading: boolean;
-	onPageChange: (page: number, pageSize?: number) => void;
+	pagination?: PaginationParams;
+	loading?: boolean;
+	onPageChange?: (page: number, pageSize?: number) => void;
 }
 
 const TableBase = ({ columns, dataSource, pagination, loading, onPageChange }: Props) => {
@@ -22,17 +22,19 @@ const TableBase = ({ columns, dataSource, pagination, loading, onPageChange }: P
 					dataSource={dataSource}
 					rowKey="id"
 					size="small"
-					scroll={{ x: 1000 }}
+					scroll={{ x: 'max-content' }}
 					showSorterTooltip={true}
 				/>
 			</Col>
-			<Col span={24}>
-				<AppPagination
-					page={+pagination.page}
-					total={+pagination.total}
-					onPageChange={onPageChange}
-				/>
-			</Col>
+			{pagination && (
+				<Col span={24}>
+					<AppPagination
+						page={+pagination.page}
+						total={+pagination.total}
+						onPageChange={onPageChange || ((page) => {})}
+					/>
+				</Col>
+			)}
 		</Row>
 	);
 };
