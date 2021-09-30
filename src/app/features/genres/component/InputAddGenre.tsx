@@ -22,7 +22,7 @@ const InputAddGenre = ({ name, control }: Props) => {
 
 	React.useEffect(() => {
 		dispatch(genreActions.searchByName(''));
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<Spin spinning={actionLoading}>
