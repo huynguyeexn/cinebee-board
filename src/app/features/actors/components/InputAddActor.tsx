@@ -1,4 +1,4 @@
-import { Avatar, Button, Col, Form, Popconfirm, Row, Select } from 'antd';
+import { Avatar, Button, Col, Form, Popconfirm, Row, Select, Spin } from 'antd';
 import { Actor } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
@@ -16,16 +16,17 @@ const { Option } = Select;
 interface Props {
 	name: string;
 	control: Control;
+	data?: Actor[];
 }
 
-const InputAddActor = ({ name, control }: Props) => {
+const InputAddActor = ({ name, control, data }: Props) => {
 	const dispatch = useAppDispatch();
 	const selectSearchList = useAppSelector(selectActorSearchList);
 	const actionLoading = useAppSelector(selectActorActionLoading);
 
 	const [options, setOptions] = React.useState<any>([]);
 	const [value, setValue] = React.useState<number>();
-	const [actorSelected, setActorSelected] = React.useState<Actor[]>([]);
+	const [actorSelected, setActorSelected] = React.useState<Actor[]>(data || []);
 
 	const {
 		field: { onChange },
@@ -54,7 +55,12 @@ const InputAddActor = ({ name, control }: Props) => {
 	};
 
 	const handleAddActor = () => {
-		const selected: Actor = selectSearchList.filter((actor) => actor.id === value)[0];
+		if (!selectSearchList.length || !actorSelected) return;
+
+		const selected: Actor = selectSearchList.filter(
+			(actor: Actor) => (actor.id as number) === value
+		)[0];
+
 		if (actorSelected.find((actor) => actor.id === selected.id)) return;
 		const result = [...actorSelected, selected];
 		const idList = result.map((actor) => actor.id);
@@ -63,7 +69,8 @@ const InputAddActor = ({ name, control }: Props) => {
 	};
 
 	const handleDelete = (actor: Actor) => {
-		const result = actorSelected.filter((value) => value.id !== actor.id);
+		const result = actorSelected?.filter((value) => value.id !== actor.id);
+		console.log(`handleDelete`, actorSelected);
 		setActorSelected(result);
 	};
 
@@ -98,23 +105,21 @@ const InputAddActor = ({ name, control }: Props) => {
 	return (
 		<Row gutter={[16, 16]}>
 			<Col span={16}>
-				<Form.Item label="Diễn viên">
+				<Form.Item label="Diễn viên" name={name}>
 					<Select
 						optionLabelProp="label"
 						allowClear
-						loading={actionLoading}
 						showSearch
 						value={value}
 						placeholder={'Nhập tên diễn viên để tìm...'}
 						defaultActiveFirstOption={false}
+						notFoundContent={actionLoading ? <Spin size="small" /> : null}
 						showArrow={false}
 						filterOption={false}
 						onSearch={handleSearch}
 						onChange={(value) => {
-							console.log('onChange', value);
 							setValue(value);
 						}}
-						notFoundContent={null}
 					>
 						{options}
 					</Select>
@@ -122,7 +127,7 @@ const InputAddActor = ({ name, control }: Props) => {
 			</Col>
 			<Col span={6}>
 				<Form.Item label="&nbsp;">
-					<Button onClick={handleAddActor}>Thêm diẽn viên</Button>
+					<Button onClick={handleAddActor}>Thêm diễn viên</Button>
 				</Form.Item>
 			</Col>
 			<Col span={24}>

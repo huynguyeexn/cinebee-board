@@ -6,12 +6,21 @@ export interface Movie extends IBase {
 	slug?: string;
 	trailer: string;
 	likes: string;
+
 	description: string;
 	release_date: string;
 	running_time: string;
 	age_rating_id: string;
-	posters: ImageUpload[] | UploadFile<any>[] | number[];
-	backdrops: ImageUpload[] | UploadFile<any>[] | number[];
-	actors: Actor[] | number[];
-	genres: Genre[] | number[];
+
+	// Request
+	posters: (UploadFile<any> | number)[];
+	backdrops: (UploadFile<any> | number)[];
+	actors: number[];
+	genres: number[];
+
+	// Response
+	posters_full: ImageUpload[];
+	backdrops_full: ImageUpload[];
+	actors_full?: Actor[];
+	genres_full?: Genre[];
 }

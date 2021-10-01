@@ -35,8 +35,20 @@ function* create(actions: PayloadAction<Movie>) {
 	}
 }
 
+function* update(actions: PayloadAction<Movie>) {
+	try {
+		const data: SuccessResponse<Movie> = yield call(movieApi.update, actions.payload);
+		const filter: ListParams = yield select((state) => state.customer.filter);
+		yield put(movieActions.runSuccess(data));
+		yield put(movieActions.getList(filter));
+	} catch (error) {
+		yield put(movieActions.runError());
+	}
+}
+
 export default function* movieSaga() {
 	yield takeLatest(movieActions.getList, getList);
 	yield takeLatest(movieActions.create, create);
+	yield takeLatest(movieActions.update, update);
 	yield takeLatest(movieActions.deleteById, deleteById);
 }

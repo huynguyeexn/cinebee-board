@@ -25,31 +25,32 @@ export const SelectField = ({ label, name, control, options, mode, required }: P
 		name,
 		control,
 	});
+
 	return (
 		<Form.Item
 			name={name}
 			label={label}
 			required={required}
 			help={error?.message}
+			initialValue={
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+			}
 			validateStatus={invalid ? 'error' : ''}
 		>
 			<Select
-				defaultActiveFirstOption={false}
 				ref={ref}
 				allowClear
 				showSearch
 				mode={mode}
-				value={value}
 				onBlur={onBlur}
 				onChange={onChange}
-				optionFilterProp="children"
 				placeholder={`${label}...`}
 				filterOption={(input, option: any) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}
 			>
-				{options.map((option, idx) => (
-					<Option key={`select-option-${option.value}-${idx}`} value={option.value}>
+				{options.map((option) => (
+					<Option key={`${name}-${option.value}`} value={`${option.value}`}>
 						{option.label}
 					</Option>
 				))}
