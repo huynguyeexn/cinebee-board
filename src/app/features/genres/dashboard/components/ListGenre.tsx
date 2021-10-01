@@ -65,7 +65,7 @@ const ListGenre = ({ onEdit }: Props) => {
 			title: 'Phim',
 			dataIndex: 'movies',
 			key: 'movies',
-			render: (movies: Movie[]) => <span>{movies.length}</span>,
+			render: (movies: Movie[]) => <span>{movies.length || 0}</span>,
 		},
 		{
 			title: 'Cập nhật',

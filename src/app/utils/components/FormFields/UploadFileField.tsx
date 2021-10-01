@@ -6,6 +6,7 @@ import {
 	selectImageUpload,
 	selectUploadSuccess,
 } from 'app/features/upload/redux/uploadSlice';
+import { ImageUpload } from 'app/interfaces';
 import { useAppSelector } from 'app/redux/hooks';
 import { getBase64 } from 'app/utils/helper';
 import React from 'react';
@@ -19,6 +20,7 @@ interface Props {
 	label?: string;
 	required?: boolean;
 	hasUpload: (list: any) => void;
+	data?: ImageUpload[];
 }
 
 export const UploadFileField = ({
@@ -27,20 +29,21 @@ export const UploadFileField = ({
 	type = 'image',
 	maxCount,
 	label,
+	data,
 	required,
 	hasUpload,
 }: Props) => {
-	// const dispatch = useAppDispatch();
-	// const isUploading = useAppSelector(selectUploadLoading);
 	const isUploadSuccess = useAppSelector(selectUploadSuccess);
 	const images = useAppSelector(selectImageUpload);
 
-	const [fileList, setFileList] = React.useState<UploadFile[]>();
+	const [fileList, setFileList] = React.useState<UploadFile[]>(
+		(data as UploadFile[]) || []
+	);
 	const [previewVisible, setPreviewVisible] = React.useState(false);
 	const [previewFile, setPreviewFile] = React.useState<string>();
 
 	const {
-		field: { value, onChange },
+		field: { onChange },
 		fieldState: { invalid, error },
 	} = useController({
 		name,
@@ -69,12 +72,13 @@ export const UploadFileField = ({
 		return false;
 	};
 
-	const handlePreview = async (file: UploadFile<any>) => {
-		if (!file.originFileObj) return;
+	const handlePreview = async (file: any) => {
+		let filePreview: any = '';
+		if (!file.url) {
+			filePreview = await getBase64(file.originFileObj);
+		}
 
-		const filePreview: any = await getBase64(file.originFileObj);
-
-		setPreviewFile(filePreview);
+		setPreviewFile(file.url || filePreview);
 		setPreviewVisible(true);
 	};
 
@@ -82,15 +86,6 @@ export const UploadFileField = ({
 		setPreviewFile(undefined);
 		setPreviewVisible(false);
 	};
-
-	// const handleUpload = async () => {
-	// 	if (!fileList) {
-	// 		message.error(`Không có file để tải lên`);
-	// 		return;
-	// 	}
-
-	// 	dispatch(uploadActions.uploadImages(fileList));
-	// };
 
 	return (
 		<Form.Item
@@ -102,7 +97,7 @@ export const UploadFileField = ({
 		>
 			<Upload
 				listType="picture-card"
-				fileList={value}
+				fileList={fileList}
 				onChange={handleChange}
 				beforeUpload={handleBeforeUpload}
 				onPreview={handlePreview}
@@ -114,19 +109,6 @@ export const UploadFileField = ({
 					</div>
 				)}
 			</Upload>
-			{/* <Button
-				loading={isUploading}
-				onClick={handleUpload}
-				style={{ alignItems: 'center', display: 'flex' }}
-			>
-				{isUploading ? (
-					<> Đang tải lên</>
-				) : (
-					<>
-						<AiOutlineCloudUpload /> Tải lên
-					</>
-				)}
-			</Button> */}
 			<Modal visible={previewVisible} footer={null} onCancel={handleCancelPreview}>
 				<img alt="example" style={{ width: '100%' }} src={previewFile} />
 			</Modal>

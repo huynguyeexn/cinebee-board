@@ -99,3 +99,7 @@ export const minutesToHoursMinutes = (minutes: number): string => {
 		.utc(moment.duration(minutes, 'minutes').asMilliseconds())
 		.format('H [giờ] mm [phút]');
 };
+
+export const imageUrl = (folder: string, file_name: string): string => {
+	return `${process.env.REACT_APP_SERVER_URL}/${folder}${file_name}`;
+};
