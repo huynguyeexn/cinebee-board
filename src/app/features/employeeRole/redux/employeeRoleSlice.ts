@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-import { ToastSuccess } from "app/constants/Toast";
+import { ToastSuccess } from "app/utils/Toast";
 import { ListResponse, SuccessResponse } from "app/interfaces";
 import { EmployeeRole } from "app/interfaces/employeeRole";
 import { RootState } from "app/redux/store";

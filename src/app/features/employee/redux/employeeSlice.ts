@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initFilterParams, initPaginationParams } from "app/constants";
-import { ToastSuccess } from "app/constants/Toast";
+import { ToastSuccess } from "app/utils/Toast";
 import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
 import { Employee } from "app/interfaces/employee";
 import { RootState } from "app/redux/store";

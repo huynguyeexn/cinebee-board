@@ -22,6 +22,7 @@ import FilterEmployee from './components/FilterEmployee';
 import ListEmployee from './components/ListEmployee';
 import ModalAddEmployee from './components/ModalAddEmployee';
 import ModalEditEmployee from './components/ModalEditEmployee';
+import StatisticEmployee from './components/StatisticEmployee';
 
 const EmployeeDashboard = () => {
 	const dispatch = useAppDispatch();
@@ -159,6 +160,9 @@ const EmployeeDashboard = () => {
 	return (
 		<>
 			<Row gutter={[16, 16]}>
+				<Col span={24}>
+					<StatisticEmployee />
+				</Col>
 				<Col span={24}>
 					<FilterEmployee searchType={columns} />
 				</Col>
