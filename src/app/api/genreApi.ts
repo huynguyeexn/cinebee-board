@@ -1,33 +1,34 @@
-import { Movie } from '../interfaces/movie';
+import { Genre } from '../interfaces';
 import { ListParams, ListResponse, SuccessResponse } from '../interfaces/common';
 import axiosClient from './axiosClient';
 
-const endpoint = '/movies';
+const endpoint = '/genres';
 
-const movieApi = {
-	getAll(params?: ListParams): Promise<ListResponse<Movie>> {
+const genreApi = {
+	getAll(params?: ListParams): Promise<ListResponse<Genre>> {
 		return axiosClient.get(endpoint, { params });
 	},
-	getById(id: string): Promise<Movie> {
-		const url = `${endpoint}/${id}`;
+	getById(params: Genre): Promise<Genre> {
+		const url = `${endpoint}/${params.id}`;
 		return axiosClient.get(url);
 	},
+
 	// Add
-	create(data: Movie): Promise<Movie> {
+	create(data: Genre): Promise<Genre> {
 		return axiosClient.post(endpoint, data);
 	},
 
-	// Edit
-	update(data: Movie): Promise<Movie> {
+	// Update
+	update(data: Genre): Promise<Genre> {
 		const url = `${endpoint}/${data.id}`;
 		return axiosClient.put(url, data);
 	},
 
 	// Delete
-	deleteById(params: Movie): Promise<SuccessResponse<Movie>> {
+	deleteById(params: Genre): Promise<SuccessResponse<Genre>> {
 		const url = `${endpoint}/${params.id}/delete`;
 		return axiosClient.delete(url);
 	},
 };
 
-export default movieApi;
+export default genreApi;

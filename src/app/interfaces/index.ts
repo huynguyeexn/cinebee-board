@@ -9,3 +9,5 @@ export * from './room';
 export * from './seat';
 export * from './ageRating';
 export * from './upload';
+export * from './actor';
+export * from './genre';

@@ -1,7 +1,6 @@
 import { Form, Select } from 'antd';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
-
 const { Option } = Select;
 
 interface OptionsProps {
@@ -13,11 +12,12 @@ interface Props {
 	label: string;
 	name: string;
 	control: Control<any>;
+	mode?: 'multiple' | 'tags';
 	options: OptionsProps[];
 	required?: boolean;
 }
 
-export const SelectField = ({ label, name, control, options, required }: Props) => {
+export const SelectField = ({ label, name, control, options, mode, required }: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },
@@ -25,29 +25,32 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 		name,
 		control,
 	});
+
 	return (
 		<Form.Item
-			label={label}
-			validateStatus={invalid ? 'error' : ''}
-			help={error?.message}
-			required={required}
 			name={name}
+			label={label}
+			required={required}
+			help={error?.message}
+			initialValue={
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+			}
+			validateStatus={invalid ? 'error' : ''}
 		>
 			<Select
+				ref={ref}
 				allowClear
 				showSearch
-				placeholder={`${label}...`}
-				optionFilterProp="children"
-				onChange={onChange}
+				mode={mode}
 				onBlur={onBlur}
-				ref={ref}
-				value={value}
+				onChange={onChange}
+				placeholder={`${label}...`}
 				filterOption={(input, option: any) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}
 			>
-				{options.map((option, idx) => (
-					<Option key={`select-option-${option.value}-${idx}`} value={option.value}>
+				{options.map((option) => (
+					<Option key={`${name}-${option.value}`} value={`${option.value}`}>
 						{option.label}
 					</Option>
 				))}

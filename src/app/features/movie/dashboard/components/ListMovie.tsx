@@ -1,5 +1,5 @@
 import { blue } from '@ant-design/colors';
-import { Button, Dropdown, Popconfirm, Space, Spin, Tag, Image } from 'antd';
+import { Button, Dropdown, Image, Popconfirm, Space, Spin, Tag } from 'antd';
 import { URL_SERVER } from 'app/constants';
 import {
 	ageRatingActions,
@@ -13,6 +13,7 @@ import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { FiMoreHorizontal } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import {
 	movieActions,
 	selectMovieFilter,
@@ -21,9 +22,7 @@ import {
 	selectMoviePagination,
 } from '../../redux/movieSlice';
 
-interface Props {}
-
-const ListMovie = (props: Props) => {
+const ListMovie = () => {
 	const dispatch = useAppDispatch();
 	const movies = useAppSelector(selectMovieList);
 	const loading = useAppSelector(selectMovieListLoading);
@@ -69,7 +68,7 @@ const ListMovie = (props: Props) => {
 		{
 			title: 'Ảnh poster',
 			dataIndex: 'posters',
-			key: 'name',
+			key: 'posters',
 			render: (posters: ImageUpload[]) => (
 				<>
 					{posters && posters[0] && (
@@ -80,6 +79,43 @@ const ListMovie = (props: Props) => {
 						/>
 					)}
 				</>
+			),
+		},
+		{
+			title: 'Ảnh backdrop',
+			dataIndex: 'backdrops',
+			key: 'backdrops',
+			render: (backdrops: ImageUpload[]) => (
+				<div style={{ display: 'flex', alignItems: 'center' }}>
+					{backdrops && (
+						<>
+							<Image.PreviewGroup>
+								{backdrops[0] && (
+									<Image
+										height={100}
+										src={`${URL_SERVER}/${backdrops[0].folder}${backdrops[0].file_name}`}
+										alt={backdrops[0].alt}
+									/>
+								)}
+								<div className="" style={{ display: 'none' }}>
+									{backdrops.length > 0 &&
+										backdrops.slice(1).map((image, idx) => {
+											return (
+												<Image
+													height={100}
+													src={`${URL_SERVER}/${image.folder}${image.file_name}`}
+													alt={image.alt}
+												/>
+											);
+										})}
+								</div>
+							</Image.PreviewGroup>
+							{backdrops.length > 0 && (
+								<Tag style={{ marginLeft: '8px' }}>+{backdrops.length - 1}</Tag>
+							)}
+						</>
+					)}
+				</div>
 			),
 		},
 		{
@@ -120,13 +156,11 @@ const ListMovie = (props: Props) => {
 				<Dropdown
 					overlay={
 						<Space size="middle">
-							<Button
-								type="text"
-								style={{ color: blue[3] }}
-								// onClick={() => handleEdit(record)}
-							>
-								Sửa <AiOutlineEdit />
-							</Button>
+							<Link to={`movies/${record.id}/edit`}>
+								<Button type="text" style={{ color: blue[3] }}>
+									Sửa <AiOutlineEdit />
+								</Button>
+							</Link>
 							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
 								<Button type="text" danger>
 									Xóa <AiOutlineDelete />
