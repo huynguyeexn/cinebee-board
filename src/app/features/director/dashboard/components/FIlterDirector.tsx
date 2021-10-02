@@ -4,12 +4,12 @@ import { OptionsProps } from 'app/utils/components/FormFields';
 import InputGroupSearch from 'app/utils/components/FormFields/InputGroupSearch';
 import React, { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { actorActions, selectActorFilter } from '../../redux/actorSlice';
+import { directorActions, selectDirectorFilter } from '../../redux/directorSlice';
 
-const FilterActor = () => {
+const FilterDirector = () => {
 	const searchType: OptionsProps[] = [
 		{
-			label: 'Tên diễn viên',
+			label: 'Tên đạo diễn',
 			value: 'fullname',
 			key: 'fullname',
 		},
@@ -21,7 +21,7 @@ const FilterActor = () => {
 	];
 
 	const dispatch = useAppDispatch();
-	const filter = useAppSelector(selectActorFilter);
+	const filter = useAppSelector(selectDirectorFilter);
 
 	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].value as string);
 
@@ -33,7 +33,7 @@ const FilterActor = () => {
 				search: searchBy,
 			};
 
-			dispatch(actorActions.setFilterDebounce(newFilter));
+			dispatch(directorActions.setFilterDebounce(newFilter));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchBy]);
@@ -47,7 +47,7 @@ const FilterActor = () => {
 			search: searchBy,
 		};
 
-		dispatch(actorActions.setFilterDebounce(newFilter));
+		dispatch(directorActions.setFilterDebounce(newFilter));
 	};
 
 	return (
@@ -55,7 +55,7 @@ const FilterActor = () => {
 			<Col sm={24} md={12}>
 				<Form layout="vertical">
 					<InputGroupSearch
-						label="TÌm kiếm diễn viên"
+						label="TÌm kiếm đạo diễn"
 						name="search"
 						inputPlaceHolder="Từ khóa cần tìm"
 						inputIcon={<AiOutlineSearch />}
@@ -70,4 +70,4 @@ const FilterActor = () => {
 	);
 };
 
-export default FilterActor;
+export default FilterDirector;

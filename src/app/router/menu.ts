@@ -1,9 +1,7 @@
 import { IconType } from 'react-icons';
 import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
 import { MdCardTravel } from 'react-icons/md';
-
 import { RiMovie2Line } from 'react-icons/ri';
-
 import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
@@ -62,13 +60,18 @@ export const menus: IMenu[] = [
 		icon: RiMovie2Line,
 	},
 	{
+		path: '/admin/genres',
+		label: 'Thể loại phim',
+		icon: AiOutlineContainer,
+	},
+	{
 		path: '/admin/actors',
 		label: 'Diễn viên',
 		icon: FiUsers,
 	},
 	{
-		path: '/admin/genres',
-		label: 'Thể loại phim',
-		icon: AiOutlineContainer,
+		path: '/admin/directors',
+		label: 'Đạo diễn',
+		icon: FiUsers,
 	},
 ];

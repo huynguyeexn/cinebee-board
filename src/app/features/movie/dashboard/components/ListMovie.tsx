@@ -1,5 +1,5 @@
 import { blue } from '@ant-design/colors';
-import { Button, Dropdown, Image, Popconfirm, Space, Spin, Tag } from 'antd';
+import { Button, Col, Dropdown, Image, Popconfirm, Row, Space, Spin, Tag } from 'antd';
 import { URL_SERVER } from 'app/constants';
 import {
 	ageRatingActions,
@@ -21,6 +21,7 @@ import {
 	selectMovieListLoading,
 	selectMoviePagination,
 } from '../../redux/movieSlice';
+import FilterMovie from './FilterMovie';
 
 const ListMovie = () => {
 	const dispatch = useAppDispatch();
@@ -67,8 +68,8 @@ const ListMovie = () => {
 		},
 		{
 			title: 'Ảnh poster',
-			dataIndex: 'posters',
-			key: 'posters',
+			dataIndex: 'posters_full',
+			key: 'posters_full',
 			render: (posters: ImageUpload[]) => (
 				<>
 					{posters && posters[0] && (
@@ -83,8 +84,8 @@ const ListMovie = () => {
 		},
 		{
 			title: 'Ảnh backdrop',
-			dataIndex: 'backdrops',
-			key: 'backdrops',
+			dataIndex: 'backdrops_full',
+			key: 'backdrops_full',
 			render: (backdrops: ImageUpload[]) => (
 				<div style={{ display: 'flex', alignItems: 'center' }}>
 					{backdrops && (
@@ -179,13 +180,20 @@ const ListMovie = () => {
 	];
 
 	return (
-		<TableBase
-			columns={columns}
-			dataSource={movies}
-			loading={loading}
-			onPageChange={handlePageChange}
-			pagination={pagination}
-		/>
+		<Row gutter={[16, 16]}>
+			<Col span={24}>
+				<FilterMovie />
+			</Col>
+			<Col span={24}>
+				<TableBase
+					columns={columns}
+					dataSource={movies}
+					loading={loading}
+					onPageChange={handlePageChange}
+					pagination={pagination}
+				/>
+			</Col>
+		</Row>
 	);
 };
 

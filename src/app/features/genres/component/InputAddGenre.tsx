@@ -1,13 +1,9 @@
-import { Spin } from 'antd';
+import { Card, Spin } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { SelectField } from 'app/utils/components/FormFields';
 import React from 'react';
 import { Control } from 'react-hook-form';
-import {
-	genreActions,
-	selectGenreActionLoading,
-	selectGenreSearchList,
-} from '../redux/genreSlice';
+import { genreActions, selectGenreActionLoading, selectGenreSearchList } from '../redux/genreSlice';
 
 interface Props {
 	name: string;
@@ -26,13 +22,15 @@ const InputAddGenre = ({ name, control }: Props) => {
 
 	return (
 		<Spin spinning={actionLoading}>
-			<SelectField
-				mode="tags"
-				control={control}
-				options={selectSearchList}
-				name={name}
-				label="Chọn thể loại"
-			/>
+			<Card style={{ marginTop: 16 }} type="inner" title="Thêm diễn viên">
+				<SelectField
+					mode="tags"
+					control={control}
+					options={selectSearchList}
+					name={name}
+					label="Chọn thể loại"
+				/>
+			</Card>
 		</Spin>
 	);
 };
