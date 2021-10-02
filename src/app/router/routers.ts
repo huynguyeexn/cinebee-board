@@ -1,3 +1,4 @@
+import EmployeeRoleDashboardPage from 'app/features/employeeRole/dashboard';
 import React from 'react';
 
 const ActorDashboardPage = React.lazy(() => import('app/features/actors/dashboard'));
@@ -38,15 +39,13 @@ export const routers: IRoute[] = [
 	// 	path: '/admin/movies/:id',
 	// 	component: MovieEdit,
 	// },
-
-	/* @Employee
-	 * --> List
-	 * --> Add
-	 * --> Edit @param id
-	 */
 	{
 		path: '/admin/employees',
 		component: EmployeeDashboard,
+	},
+	{
+		path: '/admin/employee-roles',
+		component: EmployeeRoleDashboardPage,
 	},
 	// {
 	// 	path: '/admin/customers/create',

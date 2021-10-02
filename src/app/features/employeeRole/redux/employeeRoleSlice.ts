@@ -1,18 +1,29 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { ToastSuccess } from "app/utils/Toast";
-import { ListResponse, SuccessResponse } from "app/interfaces";
+import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
 import { EmployeeRole } from "app/interfaces/employeeRole";
 import { RootState } from "app/redux/store";
+import { initFilterParams, initPaginationParams } from "app/constants";
 
 
 export interface EmployeeRoleState {
 	list: EmployeeRole[];
-	loading: boolean;
+
+	filter: ListParams;
+
+	pagination: PaginationParams;
+
+	listLoading: boolean;
+
+	actionLoading: boolean;
 }
 
 const initialState: EmployeeRoleState = {
 	list: [],
-	loading: false,
+	filter: initFilterParams,
+	pagination: initPaginationParams,
+	listLoading: false,
+	actionLoading: false,
 };
 
 const employeeRoleSlice = createSlice({
@@ -20,19 +31,52 @@ const employeeRoleSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		getAll: (state) => {
-			state.loading = true;
+			state.listLoading = true;
 		},
-		getAllSuccess: (state, action: PayloadAction<ListResponse<EmployeeRole>>) => {
-			state.loading = false;
+
+		getList: (state, action: PayloadAction<ListParams>) => {
+			state.listLoading = true;
+		},
+
+		getListSuccess: (state, action: PayloadAction<ListResponse<EmployeeRole>>) => {
+			state.listLoading = false;
 			state.list = action.payload.data;
+			state.pagination = action.payload.pagination;
 		},
+
+		// Set Filter
+		setFilter: (state, action: PayloadAction<ListParams>) => {
+			state.listLoading = true
+			state.filter = action.payload
+		},
+
+		setFilterDebounce: (state, action: PayloadAction<ListParams>) =>{},
+
+		create: (state, action: PayloadAction<EmployeeRole>) => {
+			state.actionLoading = true
+		},
+
+		update: (state, action: PayloadAction<EmployeeRole>) =>{
+			state.actionLoading = true;
+		},
+
+		deleteById: (state, action: PayloadAction<EmployeeRole>) => {
+			state.actionLoading = true
+		},
+
+		// Handle
+
 		runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
 			ToastSuccess(action.payload.message);
-			state.loading = false;
+			state.listLoading = false;
+			state.actionLoading = false;
 		},
+
 		runError: (state) => {
-			state.loading = false;
-		},
+			state.listLoading = false;
+			state.actionLoading = false;
+		}
+
 	},
 });
 
@@ -41,7 +85,11 @@ export const employeeRoleActions = employeeRoleSlice.actions;
 
 // Selectors
 export const selectEmployeeRoleList = (state: RootState) => state.employeeRole.list;
-export const selectEmployeeRoleLoading = (state: RootState) => state.employeeRole.loading;
+export const selectEmployeeRolePagination = (state: RootState) => state.employeeRole.pagination;
+export const selectEmployeeRoleFilter = (state: RootState) => state.employeeRole.filter;
+
+export const selectEmployeeRoleListLoading = (state: RootState) => state.employeeRole.listLoading;
+export const selectEmployeeRoleActionLoading = (state: RootState) => state.employeeRole.actionLoading;
 export const selectemployeeRoleMap = createSelector(
 	selectEmployeeRoleList,
 	(typeList: EmployeeRole[]) => {
