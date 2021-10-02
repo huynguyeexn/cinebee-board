@@ -57,7 +57,7 @@ const MovieAddEditPage = (props: Props) => {
 	const [backdropsFull, setBackdropsFull] = React.useState<ImageUpload[]>();
 	const [initValues, setInitValues] = React.useState<Movie>();
 
-	// Redux Form Hook
+	// Redux Hook Form
 	const { control, handleSubmit, reset, setValue, watch, getValues } = useForm<any>({
 		resolver: yupResolver(formValidate),
 		defaultValues: React.useMemo(() => initValues, [initValues]),
