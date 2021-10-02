@@ -26,17 +26,17 @@ export const FilterEmployeeRole = () => {
     const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
 
     React.useEffect(() => {
-        if(filter.q){
-            const newFilter = {
-                ...filter,
-                q: filter.q,
-                search: searchBy
-            };
+		if (filter.q) {
+			const newFilter = {
+				...filter,
+				q: filter.q,
+				search: searchBy,
+			};
 
-            dispatch(employeeRoleActions.setFilterDebounce(newFilter));
-
-        }
-    }, [searchBy]);
+			dispatch(employeeRoleActions.setFilterDebounce(newFilter));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchBy]);
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
