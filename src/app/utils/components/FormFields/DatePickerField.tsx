@@ -3,7 +3,6 @@ import { DATE_FORMAT } from 'app/constants';
 import 'moment/locale/vi';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
-// import { DatePicker } from 'rsuite';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 

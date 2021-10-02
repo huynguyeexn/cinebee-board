@@ -8,8 +8,9 @@ import {
 	ageRatingActions,
 	selectAgeRatingOptions,
 } from 'app/features/ageRating/redux/ageRatingSlice';
+import InputAddDirector from 'app/features/director/components/InputAddDirector';
 import InputAddGenre from 'app/features/genres/component/InputAddGenre';
-import { Actor, ImageUpload, Movie } from 'app/interfaces';
+import { Actor, Director, ImageUpload, Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import {
 	InputField,
@@ -53,6 +54,7 @@ const MovieAddEditPage = (props: Props) => {
 
 	// Initial Value for Edit mode
 	const [actorsFull, setActorsFull] = React.useState<Actor[]>();
+	const [directorsFull, setDirectorsFull] = React.useState<Director[]>();
 	const [postersFull, setPostersFull] = React.useState<ImageUpload[]>();
 	const [backdropsFull, setBackdropsFull] = React.useState<ImageUpload[]>();
 	const [initValues, setInitValues] = React.useState<Movie>();
@@ -75,6 +77,7 @@ const MovieAddEditPage = (props: Props) => {
 				let response: Movie = await movieApi.getById(id);
 
 				setActorsFull(response.actors_full || []);
+				setDirectorsFull(response.directors_full || []);
 				setPostersFull(response.posters_full || []);
 				setBackdropsFull(response.backdrops_full || []);
 				setInitValues(response);
@@ -128,8 +131,7 @@ const MovieAddEditPage = (props: Props) => {
 		const newData = {
 			...data,
 			posters: (posterResponse?.map((poster) => poster.id) as number[]) || data.posters,
-			backdrops:
-				(backdropsResponse?.map((backdrop) => backdrop.id) as number[]) || data.backdrops,
+			backdrops: (backdropsResponse?.map((backdrop) => backdrop.id) as number[]) || data.backdrops,
 		};
 
 		console.log(`newData`, newData);
@@ -159,9 +161,7 @@ const MovieAddEditPage = (props: Props) => {
 		// Filter image not uploaded
 
 		let backdrops: Array<any> = data.backdrops;
-		backdrops = backdrops.filter(
-			(image) => typeof image === 'object' && Boolean(image.uid)
-		);
+		backdrops = backdrops.filter((image) => typeof image === 'object' && Boolean(image.uid));
 		console.log(`handleBackdropUpload`, backdrops);
 
 		const response: { data: ImageUpload[] } = await fileUploadApi.image(
@@ -195,27 +195,13 @@ const MovieAddEditPage = (props: Props) => {
 										<InputField name="name" label="Tên phim" control={control} required />
 
 										{/* slug */}
-										<InputField
-											name="slug"
-											label="Đường dẫn phim"
-											control={control}
-											required
-										/>
+										<InputField name="slug" label="Đường dẫn phim" control={control} required />
 
 										{/* trailer */}
-										<InputField
-											name="trailer"
-											label="Đường dẫn trailer phim"
-											control={control}
-										/>
+										<InputField name="trailer" label="Đường dẫn trailer phim" control={control} />
 
 										{/* description */}
-										<InputField
-											name="description"
-											label="Mô tả"
-											control={control}
-											rows={4}
-										/>
+										<InputField name="description" label="Mô tả" control={control} rows={4} />
 
 										{/* running_time */}
 										<small>{runningTimeConvert}</small>
@@ -275,6 +261,7 @@ const MovieAddEditPage = (props: Props) => {
 										{/* Actors */}
 										<InputAddActor name="actors" control={control} data={actorsFull} />
 										{/* Directors */}
+										<InputAddDirector name="directors" control={control} data={directorsFull} />
 									</TabPane>
 								</Tabs>
 
