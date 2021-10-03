@@ -1,20 +1,21 @@
 import { IconType } from 'react-icons';
 import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
 import { MdCardTravel } from 'react-icons/md';
-
 import { RiMovie2Line } from 'react-icons/ri';
-
 import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
 	HiOutlineTicket,
 	HiOutlineUsers,
 } from 'react-icons/hi';
+import { FiUsers } from 'react-icons/fi';
+import { AiOutlineContainer } from 'react-icons/ai';
 
 interface IMenu {
 	path: string;
 	label: string;
 	icon: IconType;
+	child?: IMenu[];
 }
 
 export const menus: IMenu[] = [
@@ -57,5 +58,20 @@ export const menus: IMenu[] = [
 		path: '/admin/movies',
 		label: 'Phim',
 		icon: RiMovie2Line,
+	},
+	{
+		path: '/admin/genres',
+		label: 'Thể loại phim',
+		icon: AiOutlineContainer,
+	},
+	{
+		path: '/admin/actors',
+		label: 'Diễn viên',
+		icon: FiUsers,
+	},
+	{
+		path: '/admin/directors',
+		label: 'Đạo diễn',
+		icon: FiUsers,
 	},
 ];

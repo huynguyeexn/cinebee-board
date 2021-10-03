@@ -1,23 +1,33 @@
 import { Form, Select } from 'antd';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
-
 const { Option } = Select;
 
-interface OptionsProps {
-	label?: string;
+export interface OptionsProps {
+	key?: string;
+	label: string;
 	value: number | string;
 }
 
 interface Props {
-	label: string;
+	label?: string;
+	placeHolder?: string;
 	name: string;
 	control: Control<any>;
+	mode?: 'multiple' | 'tags';
 	options: OptionsProps[];
 	required?: boolean;
 }
 
-export const SelectField = ({ label, name, control, options, required }: Props) => {
+export const SelectField = ({
+	label,
+	name,
+	placeHolder,
+	control,
+	options,
+	mode,
+	required,
+}: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },
@@ -25,34 +35,36 @@ export const SelectField = ({ label, name, control, options, required }: Props) 
 		name,
 		control,
 	});
+
 	return (
 		<Form.Item
-			label={label}
 			name={name}
-			validateStatus={invalid ? 'error' : ''}
-			help={error?.message}
+			label={label}
 			required={required}
+			help={error?.message}
+			initialValue={
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+			}
+			validateStatus={invalid ? 'error' : ''}
 		>
 			<Select
-				showSearch
-				style={{ width: 200 }}
-				placeholder="Select a person"
-				optionFilterProp="children"
-				onChange={onChange}
-				onBlur={onBlur}
 				ref={ref}
-				value={value}
+				allowClear
+				showSearch
+				mode={mode}
+				onBlur={onBlur}
+				onChange={onChange}
+				placeholder={label ? `${label}...` : `${placeHolder}...`}
 				filterOption={(input, option: any) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}
 			>
-				{options.map((option, idx) => (
-					<Option key={`select-option-${option.value}-${idx}`} value={option.value}>
+				{options.map((option) => (
+					<Option key={`${name}-${option.value}`} value={`${option.value}`}>
 						{option.label}
 					</Option>
 				))}
 			</Select>
-			,
 		</Form.Item>
 	);
 };

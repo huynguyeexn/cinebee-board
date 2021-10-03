@@ -5,10 +5,10 @@ import { ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
 import { Customer } from 'app/interfaces/customer';
 import { customerActions } from './customerSlice';
 
-function* fetchCustomerList(actions: PayloadAction<ListParams>) {
+function* getList(actions: PayloadAction<ListParams>) {
 	try {
 		const data: ListResponse<Customer> = yield call(customerApi.getAll, actions.payload);
-		yield put(customerActions.fetchCustomerListSuccess(data));
+		yield put(customerActions.getListSuccess(data));
 	} catch (error) {
 		yield put(customerActions.runError());
 	}
@@ -22,7 +22,35 @@ function* deleteById(actions: PayloadAction<Customer>) {
 		);
 		const filter: ListParams = yield select((state) => state.customer.filter);
 		yield put(customerActions.runSuccess(data));
-		yield put(customerActions.fetchCustomerList(filter));
+		yield put(customerActions.getList(filter));
+	} catch (error) {
+		yield put(customerActions.runError());
+	}
+}
+
+function* create(actions: PayloadAction<Customer>) {
+	try {
+		const data: SuccessResponse<Customer> = yield call(
+			customerApi.create,
+			actions.payload
+		);
+		const filter: ListParams = yield select((state) => state.customer.filter);
+		yield put(customerActions.runSuccess(data));
+		yield put(customerActions.getList(filter));
+	} catch (error) {
+		yield put(customerActions.runError());
+	}
+}
+
+function* update(actions: PayloadAction<Customer>) {
+	try {
+		const data: SuccessResponse<Customer> = yield call(
+			customerApi.update,
+			actions.payload
+		);
+		const filter: ListParams = yield select((state) => state.customer.filter);
+		yield put(customerActions.runSuccess(data));
+		yield put(customerActions.getList(filter));
 	} catch (error) {
 		yield put(customerActions.runError());
 	}
@@ -33,8 +61,10 @@ function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 }
 
 export default function* customerSaga() {
-	yield takeLatest(customerActions.fetchCustomerList, fetchCustomerList);
-	yield takeLatest(customerActions.setFilter, fetchCustomerList);
+	yield takeLatest(customerActions.getList, getList);
+	yield takeLatest(customerActions.setFilter, getList);
+	yield takeLatest(customerActions.create, create);
+	yield takeLatest(customerActions.update, update);
 	yield takeLatest(customerActions.deleteById, deleteById);
 	yield debounce(1000, customerActions.setFilterDebounce, setFilterDebounce);
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { ToastSuccess } from 'app/constants/Toast';
+import { ToastSuccess } from 'app/utils/Toast';
 import { CustomerType, ListResponse, SuccessResponse } from 'app/interfaces';
 import { RootState } from 'app/redux/store';
 
@@ -63,13 +63,6 @@ export const selectCustomerTypeOptions = createSelector(
 		});
 	}
 );
-
-//  createSelector(selectCityList, (cityList: City[]) => {
-// 	return cityList.reduce((map: { [key: string]: City }, city) => {
-// 		map[city.code] = city;
-// 		return map;
-// 	}, {});
-// });
 
 // Reducer
 const customerTypeReducer = customerTypeSlice.reducer;

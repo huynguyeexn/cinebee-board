@@ -2,21 +2,33 @@ import { ListParams, ListResponse, SuccessResponse } from '../interfaces/common'
 import { Customer } from '../interfaces/customer';
 import axiosClient from './axiosClient';
 
-const path = '/customers';
+const endpoint = '/customers';
 
 const customerApi = {
+	// Show
 	getAll(params?: ListParams): Promise<ListResponse<Customer>> {
-		return axiosClient.get(path, { params });
+		return axiosClient.get(endpoint, { params });
 	},
-	getById(customer: Customer): Promise<Customer> {
-		const url = `${path}/${customer.id}`;
+	getById(data: Customer): Promise<Customer> {
+		const url = `${endpoint}/${data.id}`;
 		return axiosClient.get(url);
 	},
+
 	// Add
-	// Edit
+	create(data: Customer): Promise<Customer> {
+		return axiosClient.post(endpoint, data);
+	},
+
+	// Update
+	update(data: Customer): Promise<Customer> {
+		const url = `${endpoint}/${data.id}`;
+		console.log(`update data`, data);
+		return axiosClient.put(url, data);
+	},
+
 	// Delete
 	deleteById(params: Customer): Promise<SuccessResponse<Customer>> {
-		const url = `${path}/${params.id}/delete`;
+		const url = `${endpoint}/${params.id}/delete`;
 		return axiosClient.delete(url);
 	},
 };

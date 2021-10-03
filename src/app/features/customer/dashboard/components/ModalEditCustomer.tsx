@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Modal, Spin } from 'antd';
 import { selectCustomerTypeOptions } from 'app/features/customerType/redux/customerTypeSlice';
-import { useAppSelector } from 'app/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import {
 	InputField,
 	RadioGroupField,
@@ -12,37 +12,47 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { Customer } from '../../../../interfaces/customer';
+import { customerActions, selectCustomerActionLoading } from '../../redux/customerSlice';
 
 interface Props {
 	isModalVisible: boolean;
-	onOk: () => void;
-	onCancel: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	customer?: Customer;
 }
 
 const formValidate = yup.object().shape({
 	fullname: yup.string().required(),
 	username: yup.string().required(),
-	phone: yup.string().required(),
-	email: yup.string().required(),
-	address: yup.string().required(),
-	birthday: yup.string().required(),
-	gender: yup.number().required(),
-	customer_type_id: yup.number().required(),
+	phone: yup
+		.string()
+		.matches(/^0[0-9]{9,10}/)
+		.nullable(),
+	email: yup.string().nullable(),
+	address: yup.string().nullable(),
+	birthday: yup.string().nullable(),
+	gender: yup.number().nullable(),
+	customer_type_id: yup.number().nullable(),
 });
 
-const ModalEditCustomer = ({ isModalVisible, onOk, onCancel, customer }: Props) => {
+const ModalEditCustomer = ({ isModalVisible, onCancel, customer }: Props) => {
+	console.log(`data`, customer);
+	const dispatch = useAppDispatch();
 	const typeOptions = useAppSelector(selectCustomerTypeOptions);
+	const loading = useAppSelector(selectCustomerActionLoading);
 
-	console.log(`typeOptions`, typeOptions);
-
-	const { control, handleSubmit } = useForm<any>({
+	const {
+		control,
+		handleSubmit,
+		formState: { isValid },
+	} = useForm<any>({
 		defaultValues: customer,
 		resolver: yupResolver(formValidate),
 	});
 
-	const handleFormSubmit = (formValues: Customer) => {
-		console.log(`formValues`, formValues);
+	const handleFormSubmit = (data: Customer) => {
+		dispatch(customerActions.update(data));
+
+		onCancel();
 	};
 
 	return (
@@ -51,24 +61,19 @@ const ModalEditCustomer = ({ isModalVisible, onOk, onCancel, customer }: Props) 
 			visible={isModalVisible}
 			onOk={handleSubmit(handleFormSubmit)}
 			onCancel={onCancel}
+			okButtonProps={{ disabled: !isValid }}
+			confirmLoading={loading}
 			okText="Lưu"
 		>
 			{customer ? (
 				<Form layout="vertical" initialValues={customer}>
 					<InputField control={control} name="username" label="Tên truy cập" required />
 					<InputField control={control} name="fullname" label="Họ và tên" required />
-					<DatePickerField control={control} name="birthday" label="Ngày sinh" required />
-					<InputField control={control} name="phone" label="Số điện thoại" required />
-					<InputField
-						control={control}
-						name="email"
-						label="Email"
-						type="email"
-						required
-					/>
-					<InputField control={control} name="address" label="Địa chỉ" required />
+					<DatePickerField control={control} name="birthday" label="Ngày sinh" />
+					<InputField control={control} name="phone" label="Số điện thoại" />
+					<InputField control={control} name="email" label="Email" type="email" />
+					<InputField control={control} name="address" label="Địa chỉ" />
 					<RadioGroupField
-						required
 						control={control}
 						label="Giới tính"
 						name="gender"
@@ -92,7 +97,6 @@ const ModalEditCustomer = ({ isModalVisible, onOk, onCancel, customer }: Props) 
 						control={control}
 						name="customer_type_id"
 						label="Hạng"
-						required
 						options={typeOptions}
 					/>
 				</Form>

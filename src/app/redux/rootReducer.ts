@@ -1,14 +1,22 @@
+import actorReducer from 'app/features/actors/redux/actorSlice';
+import ageRatingReducer from 'app/features/ageRating/redux/ageRatingSlice';
 import customerReducer from 'app/features/customer/redux/customerSlice';
 import customerTypeReducer from 'app/features/customerType/redux/customerTypeSlice';
-// import movieReducer from 'app/features/movie/Redux/movieSlice';
-// import roomReducer from 'app/features/room/Redux/roomSlice';
+import directorReducer from 'app/features/director/redux/directorSlice';
+import genreReducer from 'app/features/genres/redux/genreSlice';
+import movieReducer from 'app/features/movie/redux/movieSlice';
+import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
-	// room: roomReducer,
-	// movie: movieReducer,
+	ageRating: ageRatingReducer,
+	movie: movieReducer,
 	customer: customerReducer,
 	customerType: customerTypeReducer,
+	upload: uploadReducer,
+	actor: actorReducer,
+	genre: genreReducer,
+	director: directorReducer,
 });
 
 export default rootReducer;
