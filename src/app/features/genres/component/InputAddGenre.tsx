@@ -22,7 +22,7 @@ const InputAddGenre = ({ name, control }: Props) => {
 
 	return (
 		<Spin spinning={actionLoading}>
-			<Card style={{ marginTop: 16 }} type="inner" title="Thêm diễn viên">
+			<Card style={{ marginTop: 16 }} type="inner" title="Thêm thể loại phim">
 				<SelectField
 					mode="tags"
 					control={control}

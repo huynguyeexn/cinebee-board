@@ -50,6 +50,7 @@ const MovieAddEditPage = (props: Props) => {
 
 	// State
 	const [loading, setLoading] = React.useState(false);
+	const [isSaving, setIsSaving] = React.useState(false);
 	const [runningTimeConvert, setRunningTimeConvert] = React.useState('');
 
 	// Initial Value for Edit mode
@@ -121,7 +122,7 @@ const MovieAddEditPage = (props: Props) => {
 
 	// Form Methods
 	const onSubmit = async (data: Movie) => {
-		// setLoading(true);
+		setIsSaving(true);
 
 		// Upload Images
 		const posterResponse = await handlePosterUpload(data);
@@ -142,7 +143,7 @@ const MovieAddEditPage = (props: Props) => {
 		} else {
 			dispatch(movieActions.create(newData));
 		}
-		setLoading(false);
+		setIsSaving(false);
 	};
 
 	// Image upload handle
@@ -278,7 +279,7 @@ const MovieAddEditPage = (props: Props) => {
 										Hủy
 									</Button>
 									<Button
-										loading={loading}
+										loading={loading || isSaving}
 										style={{ margin: '0 8px' }}
 										onClick={handleSubmit(onSubmit)}
 										type="primary"
