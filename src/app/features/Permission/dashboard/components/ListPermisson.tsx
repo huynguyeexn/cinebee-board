@@ -58,7 +58,7 @@ const ListPermisson = ({ onEdit }: Props) => {
         key: 'name',
     },
     {
-        title: 'Tên nhóm quyền',
+        title: 'Tên chi tiết quyền',
         dataIndex: 'display_name',
         key: 'display_name',
     },
