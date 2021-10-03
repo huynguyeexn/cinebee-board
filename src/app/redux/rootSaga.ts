@@ -5,6 +5,7 @@ import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
 import genreSaga from 'app/features/genres/redux/genreSaga';
 import movieSaga from 'app/features/movie/redux/movieSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
+import PermissionSaga from 'app/features/Permission/redux/PermissionSaga';
 import { all } from 'redux-saga/effects';
 
 export default function* rootSaga() {
@@ -16,5 +17,6 @@ export default function* rootSaga() {
 		uploadSaga(),
 		actorSaga(),
 		genreSaga(),
+		PermissionSaga(),
 	]);
 }

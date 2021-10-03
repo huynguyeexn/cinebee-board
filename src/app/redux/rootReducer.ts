@@ -5,6 +5,7 @@ import customerTypeReducer from 'app/features/customerType/redux/customerTypeSli
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
+import permissinReducer from 'app/features/Permission/redux/PermissionSlide';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
 	upload: uploadReducer,
 	actor: actorReducer,
 	genre: genreReducer,
+	permission: permissinReducer,
 });
 
 export default rootReducer;

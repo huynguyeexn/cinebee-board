@@ -11,7 +11,8 @@ import {
 	HiOutlineUsers,
 } from 'react-icons/hi';
 import { FiUsers } from 'react-icons/fi';
-import { AiOutlineContainer } from 'react-icons/ai';
+import { AiOutlineContainer,AiOutlineUsergroupAdd } from 'react-icons/ai';
+import {FaLock} from 'react-icons/fa';
 
 interface IMenu {
 	path: string;
@@ -71,4 +72,14 @@ export const menus: IMenu[] = [
 		label: 'Thể loại phim',
 		icon: AiOutlineContainer,
 	},
+	{
+		path: '/admin/role',
+		label: "Phân quyền",
+		icon: FaLock,
+	},
+	{
+		path: '/admin/permission',
+		label: "Nhóm quyền",
+		icon: AiOutlineUsergroupAdd,
+	}
 ];

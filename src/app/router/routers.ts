@@ -6,6 +6,7 @@ const DashboardPage = React.lazy(() => import('app/features/dashboard'));
 const MovieDashboardPage = React.lazy(() => import('app/features/movie/dashboard'));
 const GenresDashboardPage = React.lazy(() => import('app/features/genres/dashboard'));
 const MovieAddEditPage = React.lazy(() => import('app/features/movie/addEditPage/AddEditPage'));
+const PermissionDashboad = React.lazy(()=> import('app/features/Permission/dashboard'))
 
 interface IRoute {
 	path: string;
@@ -41,4 +42,8 @@ export const routers: IRoute[] = [
 		path: '/admin/genres',
 		component: GenresDashboardPage,
 	},
+	{
+		path: '/admin/permission',
+		component: PermissionDashboad,
+	}
 ];
