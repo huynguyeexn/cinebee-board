@@ -22,17 +22,17 @@ interface Props {
 const formValidate = yup.object().shape({
 	fullname: yup.string().required(),
 	username: yup.string().required(),
-	password: yup.string().min(8).nullable(),
+	password: yup.string().min(8).required(),
 	phone: yup
 		.string()
 		.matches(/^0[0-9]{9,10}/)
-		.nullable(),
+		.required(),
 	email: yup.string().email().nullable(),
 	address: yup.string().nullable(),
-	birthday: yup.string().nullable(),
+	birthday: yup.string().required(),
 	id_card: yup.string().nullable(),
-	gender: yup.number().nullable(),
-	employee_role_id: yup.number().nullable(),
+	gender: yup.number().required(),
+	employee_role_id: yup.number().required(),
 });
 
 const ModalAddEmployee = ({ isModalVisible, onCancel }: Props) => {
@@ -67,8 +67,8 @@ const ModalAddEmployee = ({ isModalVisible, onCancel }: Props) => {
 					type="password"
 				/>
 				<InputField control={control} name="fullname" label="Họ và tên" required />
-				<DatePickerField control={control} name="birthday" label="Ngày sinh" />
-				<InputField control={control} name="phone" label="Số điện thoại" />
+				<DatePickerField control={control} name="birthday" label="Ngày sinh" required/>
+				<InputField control={control} name="phone" label="Số điện thoại" required />
 				<InputField control={control} name="email" label="Email" type="email" />
 				<InputField control={control} name="address" label="Địa chỉ" />
 				<RadioGroupField
@@ -89,13 +89,13 @@ const ModalAddEmployee = ({ isModalVisible, onCancel }: Props) => {
 							value: 2,
 						},
 					]}
-				/>
+					required/>
 				<SelectField
 					control={control}
 					name="employee_role_id"
 					label="Chức vụ"
 					options={typeOptions}
-				/>
+					required/>
 			</Form>
 		</Modal>
 	);

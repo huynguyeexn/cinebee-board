@@ -26,13 +26,13 @@ const formValidate = yup.object().shape({
 	phone: yup
 		.string()
 		.matches(/^0[0-9]{9,10}/)
-		.nullable(),
+		.required(),
 	email: yup.string().nullable(),
 	address: yup.string().nullable(),
-	birthday: yup.string().nullable(),
+	birthday: yup.string().required(),
 	id_card: yup.string().nullable(),
-	gender: yup.number().nullable(),
-	employee_role_id: yup.number().nullable(),
+	gender: yup.number().required(),
+	employee_role_id: yup.number().required(),
 });
 
 const ModalEditEmployee = ({ isModalVisible, onCancel, employee }: Props) => {
@@ -65,8 +65,8 @@ const ModalEditEmployee = ({ isModalVisible, onCancel, employee }: Props) => {
 				<Form layout="vertical" initialValues={employee}>
 					<InputField control={control} name="username" label="Tên truy cập" required />
 					<InputField control={control} name="fullname" label="Họ và tên" required />
-					<DatePickerField control={control} name="birthday" label="Ngày sinh" />
-					<InputField control={control} name="phone" label="Số điện thoại" />
+					<DatePickerField control={control} name="birthday" label="Ngày sinh" required/>
+					<InputField control={control} name="phone" label="Số điện thoại" required/>
 					<InputField control={control} name="email" label="Email" type="email" />
 					<InputField control={control} name="address" label="Địa chỉ" />
 					<RadioGroupField
@@ -88,13 +88,13 @@ const ModalEditEmployee = ({ isModalVisible, onCancel, employee }: Props) => {
 								value: 2,
 							},
 						]}
-					/>
+					required/>
 					<SelectField
 						control={control}
 						name="employee_role_id"
 						label="Chức vụ"
 						options={typeOptions}
-					/>
+						required/>
 				</Form>
 			) : (
 				<Spin />

@@ -89,7 +89,7 @@ const EmployeeDashboard = () => {
 			width: 80,
 		},
 		{
-			title: 'Tên khách hàng',
+			title: 'Tên Nhân Viên',
 			dataIndex: 'fullname',
 			key: 'fullname',
 		},
