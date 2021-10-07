@@ -8,6 +8,7 @@ const MovieDashboardPage = React.lazy(() => import('app/features/movie/dashboard
 const GenresDashboardPage = React.lazy(() => import('app/features/genres/dashboard'));
 const MovieAddEditPage = React.lazy(() => import('app/features/movie/addEditPage/AddEditPage'));
 const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
+const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 
 interface IRoute {
 	path: string;
@@ -74,5 +75,9 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/genres',
 		component: GenresDashboardPage,
+	},
+	{
+		path: '/admin/directors',
+		component: DirectorDashboardPage,
 	},
 ];

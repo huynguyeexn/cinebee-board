@@ -6,6 +6,7 @@ import employeeSaga from 'app/features/employee/redux/employeeSaga';
 import employeeRoleSaga from 'app/features/employeeRole/redux/employeeRoleSaga';
 // import movieSaga from 'app/features/movie/Redux/movieSaga';
 // import roomSaga from 'app/features/room/Redux/roomSaga';
+import directorSaga from 'app/features/director/redux/directorSaga';
 import genreSaga from 'app/features/genres/redux/genreSaga';
 import movieSaga from 'app/features/movie/redux/movieSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
@@ -22,5 +23,6 @@ export default function* rootSaga() {
 		uploadSaga(),
 		actorSaga(),
 		genreSaga(),
+		directorSaga(),
 	]);
 }

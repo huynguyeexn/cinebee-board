@@ -6,6 +6,7 @@ import employeeReducer from 'app/features/employee/redux/employeeSlice';
 import employeeRoleReducer from 'app/features/employeeRole/redux/employeeRoleSlice';
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';
+import directorReducer from 'app/features/director/redux/directorSlice';
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
 	upload: uploadReducer,
 	actor: actorReducer,
 	genre: genreReducer,
+	director: directorReducer,
 });
 
 export default rootReducer;
