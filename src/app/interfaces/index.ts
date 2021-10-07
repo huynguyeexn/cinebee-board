@@ -10,3 +10,5 @@ export * from './movie';
 export * from './room';
 export * from './seat';
 export * from './upload';
+export * from './Role';
+export * from './Permission';

@@ -6,6 +6,7 @@ import directorReducer from 'app/features/director/redux/directorSlice';
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
+import RoleReducer from 'app/features/Role/redux/RoleSlide';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	actor: actorReducer,
 	genre: genreReducer,
 	director: directorReducer,
+	role: RoleReducer,
 });
 
 export default rootReducer;

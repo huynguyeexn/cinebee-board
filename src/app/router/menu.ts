@@ -10,6 +10,7 @@ import {
 } from 'react-icons/hi';
 import { FiUsers } from 'react-icons/fi';
 import { AiOutlineContainer } from 'react-icons/ai';
+import { FaLock } from 'react-icons/fa';
 
 interface IMenu {
 	path: string;
@@ -73,5 +74,10 @@ export const menus: IMenu[] = [
 		path: '/admin/directors',
 		label: 'Đạo diễn',
 		icon: FiUsers,
+	},
+	{
+		path: '/admin/role',
+		label: 'Phân quyền',
+		icon: FaLock,
 	},
 ];
