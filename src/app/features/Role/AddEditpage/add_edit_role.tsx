@@ -13,11 +13,10 @@ interface Props {
 }
 
 const Add_edit_role = (props: Props) => {
-   
+    const [form] = Form.useForm();
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectRoleLoading);
 	const permission = useAppSelector(selectPemissionlist);
-	const [check,setCheck] = useState({checkAll:false});
     const prefix = ['actors','genres','seat-status',
 	           'room-status','items','rooms','seats','role',
 	           'directors','employee','age-ratings','movies',
@@ -26,7 +25,11 @@ const Add_edit_role = (props: Props) => {
     React.useEffect(()=>{
        dispatch(RoleActions.getListPermission({}));
 	},[dispatch]);
-    
+    React.useEffect(() => {
+		form.setFieldsValue({
+		  permission: [],
+		});
+	  }, []);
     const onSubmit = (data: []) => {
 		dispatch(RoleActions.create(data));
 	}
@@ -34,13 +37,18 @@ const Add_edit_role = (props: Props) => {
 		console.log('Failed:', errorInfo);
 	};
 	const onCheck = (e: any) =>{
-		console.log(e.target.checked);
+		const peid = [] as any;
 		if(e.target.checked){
-            setCheck({checkAll: true});
+			for(var pe of permission){
+				peid.push(pe.id);
+			}
+			form.setFieldsValue({permission:peid});
 		}else{
-			setCheck({checkAll: false});
+			form.setFieldsValue({permission:peid});
 		}
+	  
 	}
+
     return (
        <PageHeader
         ghost={false}
@@ -52,7 +60,11 @@ const Add_edit_role = (props: Props) => {
 					<Row gutter={[16, 16]}>
 						{/* List table */}
 						<Col span={24}>
-							<Form layout="vertical" onFinish={onSubmit} onFinishFailed={onFinishFailed} >	
+							<Form layout="vertical" 
+							onFinish={onSubmit} 
+							onFinishFailed={onFinishFailed}
+							form={form}
+							>	
 							      <Form.Item
 									label="Tên quyền"
 									name="name"
@@ -62,19 +74,19 @@ const Add_edit_role = (props: Props) => {
 								</Form.Item>
 								<Title>Chọn tất cả</Title>
 								<Checkbox onChange={onCheck}>Chọn tất cả</Checkbox>
-								<Form.Item name="permission" rules={[{ required: true, message: 'Hãy chọn 1 quyền' }]}>
-                                   {/* <Checkbox.Group> */}
+								<Form.Item name="permission" rules={[{ required: true, message: 'Không được bỏ trống' }]}>
+                                   <Checkbox.Group >
 								     <Row>
-								   {prefix.map((pre,key)=>{
-									   return(
-									       <Col span={6} key={key}>
-										       <Title level={2}>{pre}</Title>
-											   <ListPermission data={permission} name={pre} checkbox={check.checkAll}  />
-										   </Col>
-									   )
-                                     })}
-									 </Row>	
-									{/* </Checkbox.Group> */}
+										{prefix.map((pre,key)=>{
+											return(
+												<Col span={6} key={key}> 
+													<Title level={2} style={{ marginTop: "30px" }}>{pre}</Title>
+													<ListPermission data={permission} name={pre} />
+												</Col>
+											)
+											})}
+										</Row>	
+									</Checkbox.Group>
                                 </Form.Item>
 									
 								<Col span={24} style={{ textAlign: 'right' }}>

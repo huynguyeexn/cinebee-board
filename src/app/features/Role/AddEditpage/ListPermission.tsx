@@ -5,17 +5,16 @@ import { Checkbox, Col } from 'antd';
 interface Props {
     data: Permission[];
     name: string;
-    checkbox: boolean;
 }
 
-const ListPermission = ({data,name,checkbox}: Props) => {
-    // const check =  checkbox === true ? "checked":"";
-
+const ListPermission = ({data,name}: Props) => {
+ 
     return (
         <>
+        
           {data.filter((prefix)=> prefix.prefix === name).map((val) => (
                 <Col span={24} key={val.display_name}>
-                    <Checkbox value={val.id} checked={checkbox}>{val.display_name}</Checkbox>
+                    <Checkbox value={val.id} >{val.display_name}</Checkbox>
                 </Col>
             ))}   
         </>
