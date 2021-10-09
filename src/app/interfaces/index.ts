@@ -9,3 +9,5 @@ export * from './ageRating';
 export * from './upload';
 export * from './actor';
 export * from './genre';
+export * from './combo';
+export * from './item';

@@ -5,7 +5,10 @@ import customerTypeReducer from 'app/features/customerType/redux/customerTypeSli
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
+import comboReducer from 'app/features/combo/redux/comboSlice';
+import itemReducer from 'app/features/item/redux/itemSilce';
 import { combineReducers } from 'redux';
+
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -15,6 +18,8 @@ const rootReducer = combineReducers({
 	upload: uploadReducer,
 	actor: actorReducer,
 	genre: genreReducer,
+	combo: comboReducer,
+	item: itemReducer,
 });
 
 export default rootReducer;

@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { actorActions, selectActorActionLoading } from '../../redux/actorSlice';
 
 interface Props {
-	onCancel: () => void;
+	onCancel: ()=> void;
 	isEdit?: boolean;
 	data?: Actor;
 }
