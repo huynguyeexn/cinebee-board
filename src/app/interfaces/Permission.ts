@@ -1,6 +1,6 @@
 import { IBase } from './base';
 
-export interface Permisssion extends IBase{
+export interface Permission extends IBase{
     name: string;
     display_name: string;
     prefix: string;

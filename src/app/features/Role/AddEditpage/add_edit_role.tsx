@@ -1,7 +1,7 @@
 import React from 'react'
 import { PageHeader, Button, Spin, Row, Col, Form, Input, Typography, Checkbox } from 'antd';
 
-import { RoleActions, selectPemissionlist, selectRoleLoading  } from '../redux/RoleSlide';
+import { RoleActions, selectPemissionlist, selectRoleActionLoading, selectRoleLoading  } from '../redux/RoleSlide';
 import { useAppSelector } from 'app/redux/hooks';
 import { useAppDispatch } from 'app/redux/hooks';
 
@@ -19,10 +19,10 @@ const Add_edit_role = (props: Props) => {
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectRoleLoading);
+	const saveLoading = useAppSelector(selectRoleActionLoading);
 	const permission = useAppSelector(selectPemissionlist);
 	const { id } = useParams<{ id: string }>();
 	const isEdit = Boolean(id);
-	console.log(isEdit);
     const prefix = ['actors','genres','seat-status',
 	           'room-status','items','rooms','seats','role',
 	           'directors','employee','age-ratings','movies',
@@ -53,7 +53,6 @@ const Add_edit_role = (props: Props) => {
 	})
     const onSubmit = (data: Role) => {
 		if(isEdit){
-			// console.log(data);
            dispatch(RoleActions.update(data));
 		}else{
 		   dispatch(RoleActions.create(data));
@@ -65,6 +64,7 @@ const Add_edit_role = (props: Props) => {
 	const reset = () =>{
 		form.resetFields();
 	}
+	
 	const onCheck = (e: any) =>{
 		const peid = [] as any;
 		if(e.target.checked){
@@ -77,13 +77,14 @@ const Add_edit_role = (props: Props) => {
 		}
 	  
 	}
+   
     return (
        <PageHeader
         ghost={false}
         onBack={() => window.history.back()}
         title={'Thêm mới quyền'}
         >
-         <Spin spinning={loading}>
+         <Spin spinning={loading || saveLoading}>
 				{!loading && (
 					<Row gutter={[16, 16]}>
 						{/* List table */}
@@ -102,7 +103,7 @@ const Add_edit_role = (props: Props) => {
 								</Form.Item>
 								<Form.Item name="id" hidden><Input placeholder="Tên quyền" /></Form.Item>
 								<Title>Chọn tất cả</Title>
-								<Checkbox onChange={onCheck}>Chọn tất cả</Checkbox>
+								<Checkbox onChange={onCheck} >Chọn tất cả</Checkbox>
 								<Form.Item name="permission" rules={[{ required: true, message: 'Không được bỏ trống' }]}>
                                    <Checkbox.Group >
 								     <Row>
@@ -130,7 +131,7 @@ const Add_edit_role = (props: Props) => {
 										Hủy
 									</Button>
 									<Button
-										loading={loading}
+										loading={loading || saveLoading}
 										style={{ margin: '0 8px' }}
 										htmlType="submit"
 										type="primary"

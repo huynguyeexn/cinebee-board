@@ -66,15 +66,8 @@ const ListRole = (props: Props) => {
 				<Dropdown
 					overlay={
 						<Space size="middle">
-							{/* <Button
-								type="text"
-								style={{ color: blue[3] }}
-								onClick={() => onEdit(render)}
-							>
-								Sửa <AiOutlineEdit />
-							</Button> */}
 							<Link to={`role/${render.id}/edit`}>
-								<Button type="text" style={{ color: blue[3] }}>
+								<Button type="text" style={{ color: blue[3], }}>
 									Sửa <AiOutlineEdit />
 								</Button>
 							</Link>
