@@ -57,6 +57,13 @@ const RoleSlide = createSlice({
         setFilterDebounce: (state, action: PayloadAction<ListParams>)=>{
            state.actionLoading = true;
         },
+        // update
+        update: (state, action: PayloadAction<any>)=>{
+            state.actionLoading = true;
+        },
+		deleteById: (state, action: PayloadAction<Role>) => {
+			state.actionLoading = true;
+		},
         runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
 			state.listLoading = false;
 			state.actionLoading = false;

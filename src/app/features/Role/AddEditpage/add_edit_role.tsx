@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { PageHeader, Button, Spin, Row, Col, Form, Input, Typography, Checkbox } from 'antd';
 
 import { RoleActions, selectPemissionlist, selectRoleLoading  } from '../redux/RoleSlide';
@@ -6,6 +6,9 @@ import { useAppSelector } from 'app/redux/hooks';
 import { useAppDispatch } from 'app/redux/hooks';
 
 import ListPermission from './ListPermission';
+import { useParams } from 'react-router-dom';
+import roleApi from 'app/api/RoleApi';
+import { Role } from 'app/interfaces';
 const { Title } = Typography;
 
 interface Props {
@@ -17,6 +20,9 @@ const Add_edit_role = (props: Props) => {
     const dispatch = useAppDispatch();
     const loading = useAppSelector(selectRoleLoading);
 	const permission = useAppSelector(selectPemissionlist);
+	const { id } = useParams<{ id: string }>();
+	const isEdit = Boolean(id);
+	console.log(isEdit);
     const prefix = ['actors','genres','seat-status',
 	           'room-status','items','rooms','seats','role',
 	           'directors','employee','age-ratings','movies',
@@ -27,15 +33,38 @@ const Add_edit_role = (props: Props) => {
 	},[dispatch]);
     React.useEffect(() => {
 		form.setFieldsValue({
+		  id: "",
+		  name: "",
 		  permission: [],
 		});
-	  }, []);
-    const onSubmit = (data: []) => {
-		dispatch(RoleActions.create(data));
+	});
+	//edit
+	React.useEffect(()=>{
+		if(isEdit){
+			(async () => {
+				let response: any = await roleApi.getById(id);
+				const id_pe = [] as any;
+				for(var permission of response.premission){
+					id_pe.push(permission.id);
+				}
+				form.setFieldsValue({id:response.id,name: response.name , permission: id_pe});
+			})();
+		}
+	})
+    const onSubmit = (data: Role) => {
+		if(isEdit){
+			// console.log(data);
+           dispatch(RoleActions.update(data));
+		}else{
+		   dispatch(RoleActions.create(data));
+		}
 	}
 	const onFinishFailed = (errorInfo: any) => {
 		console.log('Failed:', errorInfo);
 	};
+	const reset = () =>{
+		form.resetFields();
+	}
 	const onCheck = (e: any) =>{
 		const peid = [] as any;
 		if(e.target.checked){
@@ -48,7 +77,6 @@ const Add_edit_role = (props: Props) => {
 		}
 	  
 	}
-
     return (
        <PageHeader
         ghost={false}
@@ -72,6 +100,7 @@ const Add_edit_role = (props: Props) => {
 								   >
 									<Input placeholder="Tên quyền" />
 								</Form.Item>
+								<Form.Item name="id" hidden><Input placeholder="Tên quyền" /></Form.Item>
 								<Title>Chọn tất cả</Title>
 								<Checkbox onChange={onCheck}>Chọn tất cả</Checkbox>
 								<Form.Item name="permission" rules={[{ required: true, message: 'Không được bỏ trống' }]}>
@@ -95,7 +124,7 @@ const Add_edit_role = (props: Props) => {
 									</Button>
 									<Button
 										onClick={() => {
-											// reset();
+											reset();
 										}}
 									>
 										Hủy

@@ -9,6 +9,9 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'app/redux/hooks';
 import { selectRoleList, selectRoleLoading, selectRolePagination, selectRoleFilter } from './../../redux/RoleSlide';
 import {RoleActions} from '../../redux/RoleSlide';
+import { Role } from 'app/interfaces';
+import { Link } from 'react-router-dom';
+
 interface Props {
     
 }
@@ -31,11 +34,11 @@ const ListRole = (props: Props) => {
 		};
 		dispatch(RoleActions.setFilter(newFilter));
 	}
-
-
-    const handleDelete = (customer: []) => {
-		// dispatch(actorActions.deleteById(customer));
-	};
+    // xóa
+	const handleDelete = (role: Role)=>{
+        dispatch(RoleActions.deleteById(role));
+	}
+	
     const columns = [
         {
 			title: 'ID',
@@ -59,18 +62,23 @@ const ListRole = (props: Props) => {
 			key: 'action',
 			fixed: 'right',
 			width: 65,
-			render: (record: []) => (
+			render: (render: Role) => (
 				<Dropdown
 					overlay={
 						<Space size="middle">
-							<Button
+							{/* <Button
 								type="text"
 								style={{ color: blue[3] }}
-								// onClick={() => onEdit(record)}
+								onClick={() => onEdit(render)}
 							>
 								Sửa <AiOutlineEdit />
-							</Button>
-							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
+							</Button> */}
+							<Link to={`role/${render.id}/edit`}>
+								<Button type="text" style={{ color: blue[3] }}>
+									Sửa <AiOutlineEdit />
+								</Button>
+							</Link>
+							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(render)}>
 								<Button type="text" danger>
 									Xóa <AiOutlineDelete />
 								</Button>

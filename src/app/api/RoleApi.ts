@@ -1,4 +1,4 @@
-import { ListParams, ListResponse, Permission, Role } from "app/interfaces";
+import { ListParams, ListResponse, Permission, Role,SuccessResponse } from "app/interfaces";
 import axiosClient from "./axiosClient";
 
 
@@ -15,7 +15,21 @@ const roleApi = {
     //Thêm mới
     create(data: any): Promise<any>{
         return axiosClient.post(endpoint,data);
-    }
+    },
+    getById(id: string): Promise<any> {
+		const url = `${endpoint}/${id}`;
+		return axiosClient.get(url);
+	},
+    // cập nhật
+    update(data: any): Promise<any>{
+        const url = `${endpoint}/${data.id}`;
+        return axiosClient.put(url, data);
+    },
+    // Delete
+	deleteById(params: Role): Promise<SuccessResponse<Role>> {
+		const url = `${endpoint}/${params.id}/delete`;
+		return axiosClient.delete(url);
+	},
 }
 
 

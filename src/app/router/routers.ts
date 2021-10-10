@@ -55,4 +55,8 @@ export const routers: IRoute[] = [
 		path: '/admin/role/new',
 		component: RoleAddnew,
 	},
+	{
+		path: '/admin/role/:id/edit',
+		component: RoleAddnew,
+	}
 ];
