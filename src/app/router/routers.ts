@@ -1,3 +1,4 @@
+import { CategoryDashboardPage } from 'app/features/category/dashboard';
 import EmployeeRoleDashboardPage from 'app/features/employeeRole/dashboard';
 import React from 'react';
 
@@ -79,5 +80,9 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/directors',
 		component: DirectorDashboardPage,
+	},
+	{
+		path: '/admin/categories',
+		component: CategoryDashboardPage,
 	},
 ];

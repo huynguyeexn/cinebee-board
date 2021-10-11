@@ -80,4 +80,9 @@ export const menus: IMenu[] = [
 		label: 'Đạo diễn',
 		icon: FiUsers,
 	},
+	{
+		path: '/admin/categories',
+		label: 'Thể Loại bài viết',
+		icon: AiOutlineContainer,
+	},
 ];

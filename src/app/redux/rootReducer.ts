@@ -11,6 +11,7 @@ import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import { combineReducers } from 'redux';
+import categoryReducer from 'app/features/category/redux/categorySlice';
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	actor: actorReducer,
 	genre: genreReducer,
 	director: directorReducer,
+	category: categoryReducer,
 });
 
 export default rootReducer;
