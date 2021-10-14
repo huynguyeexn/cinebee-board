@@ -135,8 +135,6 @@ const MovieAddEditPage = (props: Props) => {
 			backdrops: (backdropsResponse?.map((backdrop) => backdrop.id) as number[]) || data.backdrops,
 		};
 
-		console.log(`newData`, newData);
-
 		// Save movie
 		if (isEdit) {
 			dispatch(movieActions.update(newData));

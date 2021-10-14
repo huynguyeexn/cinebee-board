@@ -5,6 +5,7 @@ import customerTypeReducer from 'app/features/customerType/redux/customerTypeSli
 import directorReducer from 'app/features/director/redux/directorSlice';
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
+import roomReducer from 'app/features/room/redux/roomSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import { combineReducers } from 'redux';
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	actor: actorReducer,
 	genre: genreReducer,
 	director: directorReducer,
+	room: roomReducer,
 });
 
 export default rootReducer;
