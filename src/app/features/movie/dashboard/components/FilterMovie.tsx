@@ -1,5 +1,4 @@
 import { Button, Col, Form } from 'antd';
-import { MOVIE_STATUS } from 'app/constants';
 import {
 	ageRatingActions,
 	selectAgeRatingOptions,

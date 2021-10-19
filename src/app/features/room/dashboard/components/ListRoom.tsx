@@ -38,6 +38,16 @@ const ListRoom = (props: Props) => {
 		}, 60000);
 	});
 
+	const handlePageChange = (page: number, pageSize?: number) => {
+		const newFilter = {
+			...filter,
+			page: page,
+			per_page: pageSize,
+		};
+
+		dispatch(roomActions.setFilter(newFilter));
+	};
+
 	return (
 		<Spin spinning={loading}>
 			<Row gutter={[16, 16]}>
@@ -65,13 +75,6 @@ const ListRoom = (props: Props) => {
 									</Space>
 								</div>
 								<Badge status="success" text={`Fast 9 - ${minutesToHoursMinutes(time)}`} />
-								{/* <Collapse ghost expandIconPosition="right">
-									<Panel header="14:15-16:00: Giải Cứu Guy" key="1">
-										<p>16:30-19:00: Venom: Đối Mặt Tử Thù</p>
-										<p>19:15-20:40: Biệt Đội G.I. Joe: Xà Nhãn Báo Thù</p>
-										<p>20:55-21:30: Siêu Sát Thủ Và Rồng</p>
-									</Panel>
-								</Collapse> */}
 							</Card>
 						</Col>
 					))}
@@ -81,7 +84,7 @@ const ListRoom = (props: Props) => {
 						<AppPagination
 							page={+pagination.page}
 							total={+pagination.total}
-							onPageChange={(page) => {}}
+							onPageChange={handlePageChange}
 						/>
 					</Col>
 				)}

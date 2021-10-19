@@ -1,12 +1,12 @@
 import { PageHeader } from 'antd';
 import React from 'react';
-import ShowtimeSchedulerNew from '../componetns/showtimeSchedulerNew';
+import ShowtimeScheduler from '../components/showtimeScheduler';
 interface Props {}
 
 const ShowtimeDashboardPage = (props: Props) => {
 	return (
 		<PageHeader ghost={false}>
-			<ShowtimeSchedulerNew />
+			<ShowtimeScheduler />
 		</PageHeader>
 	);
 };

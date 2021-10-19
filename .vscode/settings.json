@@ -5,14 +5,16 @@
 		"**/.hg": true,
 		"**/CVS": true,
 		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
 		"**/.classpath": true,
 		"**/.project": true,
 		"**/.settings": true,
 		"**/.factorypath": true,
-		"**/node_modules": false,
-		".vscode": true,
+		"**/node_modules": true,
+		".vscode": true
 	},
 	"cSpell.words": [
 		"undroppable"
-	]
+	],
+	"explorerExclude.backup": null
 }
