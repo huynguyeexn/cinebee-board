@@ -1,5 +1,6 @@
 import { CategoryDashboardPage } from 'app/features/category/dashboard';
 import EmployeeRoleDashboardPage from 'app/features/employeeRole/dashboard';
+import { PaymentDashboardPage } from 'app/features/payment/dashboard';
 import React from 'react';
 
 const ActorDashboardPage = React.lazy(() => import('app/features/actors/dashboard'));
@@ -84,5 +85,9 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/categories',
 		component: CategoryDashboardPage,
+	},
+	{
+		path: '/admin/payments',
+		component: PaymentDashboardPage,
 	},
 ];

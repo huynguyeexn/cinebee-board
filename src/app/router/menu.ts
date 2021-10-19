@@ -1,6 +1,6 @@
 import { IconType } from 'react-icons';
 import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
-import { MdCardTravel, MdSubtitles } from 'react-icons/md';
+import { MdCardTravel, MdSubtitles, MdPayment } from 'react-icons/md';
 
 import { RiMovie2Line } from 'react-icons/ri';
 import {
@@ -84,5 +84,10 @@ export const menus: IMenu[] = [
 		path: '/admin/categories',
 		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
+	},
+	{
+		path: '/admin/payments',
+		label: 'Thanh Toán',
+		icon: MdPayment,
 	},
 ];

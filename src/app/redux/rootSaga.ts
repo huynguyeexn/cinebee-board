@@ -12,6 +12,8 @@ import movieSaga from 'app/features/movie/redux/movieSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
 import { all } from 'redux-saga/effects';
 import categorySaga from 'app/features/category/redux/categorySaga';
+import paymentSaga from 'app/features/payment/redux/paymentSaga';
+import paymentStatusSaga from 'app/features/paymentStatus/redux/paymentStatusSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -26,5 +28,7 @@ export default function* rootSaga() {
 		genreSaga(),
 		directorSaga(),
 		categorySaga(),
+		paymentSaga(),
+		paymentStatusSaga(),
 	]);
 }

@@ -9,6 +9,7 @@ const employeeApi = {
 	getAll(params?: ListParams): Promise<ListResponse<Employee>> {
 		return axiosClient.get(path, { params });
 	},
+	
 	getById(employee: Employee): Promise<Employee> {
 		const url = `${path}/${employee.id}`;
 		return axiosClient.get(url);

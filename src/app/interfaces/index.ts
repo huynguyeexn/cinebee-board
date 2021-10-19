@@ -12,3 +12,5 @@ export * from './movie';
 export * from './room';
 export * from './seat';
 export * from './upload';
+export * from './payment';
+export * from './paymentStatus';
