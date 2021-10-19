@@ -1,4 +1,5 @@
 import { CategoryDashboardPage } from 'app/features/category/dashboard';
+import { CustomerTypeDashboardPage } from 'app/features/customerType/dashboard';
 import EmployeeRoleDashboardPage from 'app/features/employeeRole/dashboard';
 import { PaymentDashboardPage } from 'app/features/payment/dashboard';
 import React from 'react';
@@ -89,5 +90,9 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/payments',
 		component: PaymentDashboardPage,
+	},
+	{
+		path: '/admin/customer-types',
+		component: CustomerTypeDashboardPage,
 	},
 ];
