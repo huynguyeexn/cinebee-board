@@ -1,6 +1,7 @@
 import { IconType } from 'react-icons';
 import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
-import { MdCardTravel } from 'react-icons/md';
+import { MdCardTravel, MdSubtitles } from 'react-icons/md';
+
 import { RiMovie2Line } from 'react-icons/ri';
 import {
 	HiOutlineCalendar,
@@ -40,9 +41,14 @@ export const menus: IMenu[] = [
 		icon: HiOutlineCalendar,
 	},
 	{
-		path: '/admin/staff',
+		path: '/admin/employees',
 		label: 'Nhân viên',
 		icon: MdCardTravel,
+	},
+	{
+		path: '/admin/employee-roles',
+		label: 'Chức Vụ',
+		icon: MdSubtitles,
 	},
 	{
 		path: '/admin/customers',
@@ -73,5 +79,10 @@ export const menus: IMenu[] = [
 		path: '/admin/directors',
 		label: 'Đạo diễn',
 		icon: FiUsers,
+	},
+	{
+		path: '/admin/categories',
+		label: 'Thể Loại bài viết',
+		icon: AiOutlineContainer,
 	},
 ];

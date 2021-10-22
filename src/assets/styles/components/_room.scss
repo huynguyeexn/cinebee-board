@@ -1,0 +1,76 @@
+.room {
+	padding: 50px;
+	background: #222222;
+	min-width: fit-content;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// min-height: 90vh;
+
+	.screen {
+		height: 70px;
+		background: white;
+		width: 100%;
+		transform: perspective(500px) rotateX(-20deg);
+		box-shadow: white 0 3px 10px 2px;
+		margin-bottom: 50px;
+	}
+
+	.seats {
+		display: grid;
+		grid-gap: 6px;
+		align-items: center;
+		max-width: 100%;
+	}
+
+	.seat {
+		cursor: pointer;
+		display: inline-block;
+		background: #626262;
+		width: 40px;
+		height: 34px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		transition: transform 0.3s ease-in-out;
+
+		position: relative;
+		top: 1px;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		font-size: 0.7rem;
+		font-weight: 500;
+
+		&:hover,
+		&.occupied {
+			background-color: #cfcfcf;
+			color: #222222;
+		}
+
+		&.selected {
+			background-color: #ff9900;
+			color: white;
+		}
+	}
+}
+
+.room-card {
+	.ant-badge-status-success {
+		animation: 2s fade-out-in infinite;
+	}
+}
+
+@keyframes fade-out-in {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

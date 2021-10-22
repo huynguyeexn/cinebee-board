@@ -18,10 +18,10 @@ import {
 	selectCustomerListLoading,
 	selectCustomerPagination,
 } from '../redux/customerSlice';
-import FilterCustomer from './components/FilterCustomer';
 import ListCustomer from './components/ListCustomer';
 import ModalAddCustomer from './components/ModalAddCustomer';
 import ModalEditCustomer from './components/ModalEditCustomer';
+import FilterCustomer from './components/FilterCustomer';
 import StatisticCustomer from './components/StatisticCustomer';
 
 const CustomerDashboard = () => {

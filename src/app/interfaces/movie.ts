@@ -11,6 +11,7 @@ export interface Movie extends IBase {
 	release_date: string;
 	running_time: string;
 	age_rating_id: string;
+	status: number;
 
 	// Request
 	posters: (UploadFile<any> | number)[];

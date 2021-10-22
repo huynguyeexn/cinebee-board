@@ -36,6 +36,9 @@ export const SelectField = ({
 		control,
 	});
 
+	console.log(`options`, options);
+	console.log(`value`, value as string);
+
 	return (
 		<Form.Item
 			name={name}
@@ -43,7 +46,7 @@ export const SelectField = ({
 			required={required}
 			help={error?.message}
 			initialValue={
-				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value && `${value}`
 			}
 			validateStatus={invalid ? 'error' : ''}
 		>
