@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initFilterParams, initPaginationParams } from "app/constants";
-import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
-import { Showtime } from "app/interfaces/showtime";
-import { RootState } from "app/redux/store";
-import { ToastSuccess } from "app/utils/Toast";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { initFilterParams, initPaginationParams } from 'app/constants';
+import { ListParams, ListResponse, PaginationParams, SuccessResponse } from 'app/interfaces';
+import { Showtime, ShowtimeRequest } from 'app/interfaces/showtime';
+import { RootState } from 'app/redux/store';
+import { ToastSuccess } from 'app/utils/Toast';
 
 export interface ShowtimeState {
-    list: Showtime[];
+	list: Showtime[];
 
 	filter: ListParams;
 
@@ -26,16 +26,20 @@ const initialState: ShowtimeState = {
 };
 
 const showtimeSlice = createSlice({
-    name: "showtime",
-    initialState: initialState,
-    reducers: {
-        getList: (state, action: PayloadAction<ListParams>) => {
+	name: 'showtime',
+	initialState: initialState,
+	reducers: {
+		getList: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = true;
 		},
 		getListSuccess: (state, action: PayloadAction<ListResponse<Showtime>>) => {
 			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
+		},
+
+		save: (state, action: PayloadAction<ShowtimeRequest>) => {
+			state.actionLoading = true;
 		},
 
 		// Handle
@@ -48,8 +52,8 @@ const showtimeSlice = createSlice({
 			state.listLoading = false;
 			state.actionLoading = false;
 		},
-    }
-})
+	},
+});
 
 // Actions
 export const showtimeActions = showtimeSlice.actions;
@@ -61,7 +65,6 @@ export const selectShowtimeFilter = (state: RootState) => state.showtime.filter;
 
 export const selectShowtimeListLoading = (state: RootState) => state.showtime.listLoading;
 export const selectShowtimeActionLoading = (state: RootState) => state.showtime.actionLoading;
-
 
 // Reducer
 const showtimeReducer = showtimeSlice.reducer;

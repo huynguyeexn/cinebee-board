@@ -1,16 +1,17 @@
-import { Button, Col, List, Row, Space, Spin } from 'antd';
-import showtimeApi from 'app/api/showtimeApi';
+import { Button, Col, DatePicker, List, Row, Space, Spin, Typography } from 'antd';
 import {
 	movieActions,
 	selectMovieFilter,
-	selectMovieList,
-	selectMovieListLoading
+	selectMovieListComing,
+	selectMovieListComingLoading,
+	selectMovieListPlaying,
+	selectMovieListPlayingLoading,
 } from 'app/features/movie/redux/movieSlice';
 import {
 	roomActions,
 	selectRoomFilter,
 	selectRoomList,
-	selectRoomListLoading
+	selectRoomListLoading,
 } from 'app/features/room/redux/roomSlice';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import moment from 'moment';
@@ -18,13 +19,15 @@ import React from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
-import { selectShowtimeList, selectShowtimeListLoading, showtimeActions } from '../redux/showtimeSlice';
+import {
+	selectShowtimeList,
+	selectShowtimeListLoading,
+	showtimeActions,
+} from '../redux/showtimeSlice';
 
 const localizer = momentLocalizer(moment);
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
-
-// const actions = SHOWTIME_ACTIONS;
 
 const minTime = new Date().setHours(8, 0, 0);
 const maxTime = new Date().setHours(23, 0, 0);
@@ -32,8 +35,12 @@ const maxTime = new Date().setHours(23, 0, 0);
 const ShowtimeScheduler = () => {
 	const dispatch = useAppDispatch();
 	const movieFilter = useAppSelector(selectMovieFilter);
-	const movieLoading = useAppSelector(selectMovieListLoading);
-	const movies = useAppSelector(selectMovieList);
+
+	const moviesPlaying = useAppSelector(selectMovieListPlaying);
+	const moviePlayingLoading = useAppSelector(selectMovieListPlayingLoading);
+
+	const moviesComing = useAppSelector(selectMovieListComing);
+	const movieComingLoading = useAppSelector(selectMovieListComingLoading);
 
 	const roomFilter = useAppSelector(selectRoomFilter);
 	const roomLoading = useAppSelector(selectRoomListLoading);
@@ -42,43 +49,50 @@ const ShowtimeScheduler = () => {
 	const showtimeLoading = useAppSelector(selectShowtimeListLoading);
 	const showtimes = useAppSelector(selectShowtimeList);
 
+	const [dateSelected, setDateSelected] = React.useState();
 	const [events, setEvents] = React.useState([]);
 	const [draggedEvent, setDraggedEvent] = React.useState(null);
 	const [deletedEvents, setDeletedEvents] = React.useState([]);
 	const [displayDragItemInCell] = React.useState(true);
+	// const [touched, setTouched] = React.useState(false);
 
 	React.useEffect(() => {
-		console.log(`events`, events);
-	}, [events]);
+		dispatch(
+			showtimeActions.getList({
+				date: moment(dateSelected).format(),
+			})
+		);
+	}, [dispatch, dateSelected]);
 
 	React.useEffect(() => {
-		const eventsMap = showtimes.map(el => ({
+		const eventsMap = showtimes.map((el) => ({
 			allDay: false,
-			end: moment(el.end).add(7, "hours").toDate(),
+			end: moment(el.end).add(7, 'hours').toDate(),
 			id: el.id,
 			movie_id: el.movie_id,
 			resource: el.room_id,
 			resourceId: el.room_id,
 			room_id: el.room_id,
-			start: moment(el.start).add(7, "hours").toDate(),
+			start: moment(el.start).add(7, 'hours').toDate(),
 			title: el.movie.name,
-		}))
+		}));
 		setEvents(eventsMap);
 	}, [showtimes]);
 
 	React.useEffect(() => {
 		const filterMovie = {
 			...movieFilter,
-			filter_by: 'status',
-			filter: 1,
+			per_page: 100,
 		};
 		const filterRooms = {
 			...roomFilter,
+			sort_by: 'name',
+			sort_type: 'asc',
 			per_page: 100,
 		};
-		dispatch(movieActions.getList(filterMovie));
+		dispatch(movieActions.getListPlaying(filterMovie));
+		dispatch(movieActions.getListComing(filterMovie));
 		dispatch(roomActions.getList(filterRooms));
-		dispatch(showtimeActions.getList({}));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 
@@ -137,13 +151,12 @@ const ShowtimeScheduler = () => {
 	const removeEvent = (event) => {
 		const newEvents = [...events];
 		setEvents(newEvents.filter((e) => e.id !== event.id));
-		setDeletedEvents([...deletedEvents, event.id])
+		setDeletedEvents([...deletedEvents, event.id]);
 	};
 
 	const handleOnSave = async () => {
-		await showtimeApi.update(
-		{
-			events: events.map(el => ({
+		const value = {
+			events: events.map((el) => ({
 				id: el.id,
 				movie_id: el.movie_id,
 				room_id: el.resourceId,
@@ -151,83 +164,150 @@ const ShowtimeScheduler = () => {
 				start: new Date(el.start),
 			})),
 			deleted: deletedEvents,
-		});
-	}
+		};
+
+		dispatch(showtimeActions.save(value));
+	};
+
+	const handleDateNavigate = (action) => {
+		switch (action) {
+			case 'today':
+				return setDateSelected(moment().toDate());
+			case 'tomorrow':
+				return setDateSelected(moment(dateSelected).add(1, 'day').toDate());
+			case 'yesterday':
+				return setDateSelected(moment(dateSelected).subtract(1, 'day').toDate());
+			default:
+				break;
+		}
+		if (!moment(action).isValid()) {
+			return setDateSelected(moment().toDate());
+		} else {
+			return setDateSelected(moment(action).toDate());
+		}
+	};
 
 	return (
 		<div>
-			<Row gutter={[8, 8]}>
-				<Col span={18}>
-					<Spin spinning={roomLoading && showtimeLoading}>
-						<DragAndDropCalendar
-							onDoubleClickEvent={removeEvent}
-							selectable
-							localizer={localizer}
-							events={events}
-							onEventDrop={moveEvent}
-							resizable={false}
-							resources={rooms}
-							resourceIdAccessor="id"
-							resourceTitleAccessor="name"
-							showMultiDayTimes={true}
-							defaultDate={new Date(2021, 9, 11)}
-							defaultView={Views.DAY}
-							min={minTime}
-							max={maxTime}
-							timeslots={6}
-							step={5}
-							views={['day', 'work_week']}
-							dragFromOutsideItem={displayDragItemInCell ? dragFromOutsideItem : null}
-							onDropFromOutside={onDropFromOutside}
-							onDragOver={customOnDragOver}
-							onD
-						/>
-					</Spin>
-				</Col>
-				<Col span={6}>
-					<div className="" style={{ position: 'sticky', top: 0 }}>
-						<Space size={8} style={{ marginBottom: '16px' }}>
-							<Button>Xóa hết</Button>
-							<Button type="primary" onClick={handleOnSave}>Lưu</Button>
-						</Space>
-						{/* <List
-							style={{ marginBottom: '16px' }}
-							size="small"
-							header={<div>Hành động</div>}
-							bordered
-							dataSource={actions}
-							renderItem={(action) => (
-								<List.Item
-									key={action.id}
-									draggable="true"
-									onDragStart={() => handleDragStart(action)}
-									style={{ cursor: 'grab' }}
-								>
-									<List.Item.Meta title={action.name} description={`${action.running_time} phút`} />
-								</List.Item>
-							)}
-						/> */}
-						<List
-							loading={movieLoading}
-							style={{ marginBottom: '16px' }}
-							size="small"
-							header={<div>Phim đang chiếu</div>}
-							bordered
-							dataSource={movies}
-							renderItem={(action) => (
-								<List.Item
-									key={action.id}
-									draggable="true"
-									onDragStart={() => handleDragStart(action)}
-									style={{ cursor: 'grab' }}
-								>
-									<List.Item.Meta title={action.name} description={`${action.running_time} phút`} />
-								</List.Item>
-							)}
-						/>
-					</div>
-				</Col>
-			</Row>
+			{!roomLoading && !rooms.length ? (
+				<p>Chưa có phòng chiếu</p>
+			) : (
+				<Row gutter={[8, 8]}>
+					<Col span={18}>
+						<Spin spinning={showtimeLoading || roomLoading}>
+							<DragAndDropCalendar
+								onDoubleClickEvent={removeEvent}
+								selectable
+								localizer={localizer}
+								events={events}
+								onEventDrop={moveEvent}
+								resizable={false}
+								resources={rooms}
+								resourceIdAccessor="id"
+								resourceTitleAccessor="name"
+								showMultiDayTimes={true}
+								defaultDate={new Date()}
+								defaultView={Views.DAY}
+								min={minTime}
+								max={maxTime}
+								timeslots={6}
+								date={dateSelected}
+								step={5}
+								views={['day']}
+								dragFromOutsideItem={displayDragItemInCell ? dragFromOutsideItem : null}
+								onDropFromOutside={onDropFromOutside}
+								onDragOver={customOnDragOver}
+								toolbar={false}
+								onD
+							/>
+							<Typography.Paragraph type="danger" italic>
+								Double click (Nhấp đôi chuột) vào suất chiếu để xóa
+							</Typography.Paragraph>
+						</Spin>
+					</Col>
+					<Col span={6}>
+						<div className="" style={{ position: 'sticky', top: 0 }}>
+							<Row>
+								<Col span={24}>
+									<Typography.Paragraph strong>
+										{moment(dateSelected).format('dddd, DD MMMM [năm] YYYY').toLocaleUpperCase()}
+									</Typography.Paragraph>
+									<Space size={8} style={{ marginBottom: '16px' }} wrap>
+										<Button onClick={() => handleDateNavigate('yesterday')}>Hôm trước</Button>
+										<Button
+											type={moment(dateSelected).isSame(new Date(), 'day') ? 'primary' : ''}
+											onClick={() => handleDateNavigate('today')}
+										>
+											Hôm nay
+										</Button>
+										<Button onClick={() => handleDateNavigate('tomorrow')}>Hôm sau</Button>
+										<DatePicker onChange={handleDateNavigate} />
+									</Space>
+								</Col>
+							</Row>
+							<List
+								loading={moviePlayingLoading}
+								style={{ marginBottom: '16px' }}
+								size="small"
+								header={
+									<Typography.Text type="success" strong>
+										Phim đang chiếu
+									</Typography.Text>
+								}
+								bordered
+								dataSource={moviesPlaying}
+								renderItem={(action) => (
+									<List.Item
+										key={action.id}
+										draggable="true"
+										onDragStart={() => handleDragStart(action)}
+										style={{ cursor: 'grab' }}
+									>
+										<List.Item.Meta
+											title={action.name}
+											description={`${action.running_time} phút`}
+										/>
+									</List.Item>
+								)}
+							/>
+							<List
+								loading={movieComingLoading}
+								style={{ marginBottom: '16px' }}
+								size="small"
+								header={
+									<Typography.Text type="warning" strong>
+										Phim sắp chiếu
+									</Typography.Text>
+								}
+								bordered
+								dataSource={moviesComing}
+								renderItem={(action) => (
+									<List.Item
+										key={action.id}
+										draggable="true"
+										onDragStart={() => handleDragStart(action)}
+										style={{ cursor: 'grab' }}
+									>
+										<List.Item.Meta
+											title={action.name}
+											description={`${action.running_time} phút`}
+										/>
+									</List.Item>
+								)}
+							/>
+							<Row>
+								<Col span={24}>
+									<Space size={8} style={{ marginBottom: '16px' }}>
+										<Button type="primary" onClick={handleOnSave}>
+											Lưu
+										</Button>
+									</Space>
+								</Col>
+							</Row>
+						</div>
+					</Col>
+				</Row>
+			)}
 		</div>
 	);
 };
