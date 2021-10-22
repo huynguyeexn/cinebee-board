@@ -3,6 +3,7 @@ import { Button, Col, Form, PageHeader, Row, Spin, Tabs } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
 import fileUploadApi from 'app/api/fileUploadApi';
 import movieApi from 'app/api/movieApi';
+import { MOVIE_STATUS } from 'app/constants';
 import InputAddActor from 'app/features/actors/components/InputAddActor';
 import {
 	ageRatingActions,
@@ -35,6 +36,7 @@ const formValidate = yup.object().shape({
 	slug: yup.string().required('Bạn chưa điền đường dẫn phim'),
 	release_date: yup.mixed().required('Bạn chưa chọn ngày khởi chiếu'),
 	age_rating_id: yup.number().required('Bạn chưa chọn giới hạn độ tuổi'),
+	status: yup.number().required('Bạn chưa chọn trạng thái phim'),
 	posters: yup.mixed().required('Bạn chưa chọn hình ảnh Posters'),
 	backdrops: yup.mixed().required('Bạn chưa chọn hình ảnh Backdrops'),
 });
@@ -47,6 +49,7 @@ const MovieAddEditPage = (props: Props) => {
 	// Variables
 	const { id } = useParams<{ id: string }>();
 	const isEdit = Boolean(id);
+	const movieStatusOptions = MOVIE_STATUS.map((status, idx) => ({ label: status, value: idx }));
 
 	// State
 	const [loading, setLoading] = React.useState(false);
@@ -135,8 +138,6 @@ const MovieAddEditPage = (props: Props) => {
 			backdrops: (backdropsResponse?.map((backdrop) => backdrop.id) as number[]) || data.backdrops,
 		};
 
-		console.log(`newData`, newData);
-
 		// Save movie
 		if (isEdit) {
 			dispatch(movieActions.update(newData));
@@ -176,13 +177,6 @@ const MovieAddEditPage = (props: Props) => {
 			ghost={false}
 			onBack={() => window.history.back()}
 			title={isEdit ? 'Cập nhật thông tin phim' : 'Thêm mới phim'}
-			extra={[
-				<Button key="3">Operation</Button>,
-				<Button key="2">Operation</Button>,
-				<Button key="1" type="primary">
-					Primary
-				</Button>,
-			]}
 		>
 			<Spin spinning={loading}>
 				{!loading && (
@@ -214,7 +208,7 @@ const MovieAddEditPage = (props: Props) => {
 										/>
 
 										<Row gutter={16}>
-											<Col span={12}>
+											<Col span={8}>
 												{/* release_date */}
 												<DatePickerField
 													name="release_date"
@@ -223,13 +217,24 @@ const MovieAddEditPage = (props: Props) => {
 													required
 												/>
 											</Col>
-											<Col span={12}>
-												{/* age_rating_id" */}
+											<Col span={8}>
+												{/* age_rating_id */}
 												<SelectField
 													control={control}
 													name="age_rating_id"
 													label="Giới hạn độ tuổi"
 													options={ageRatingOptions}
+													required
+												/>
+											</Col>
+
+											<Col span={8}>
+												{/* status */}
+												<SelectField
+													control={control}
+													name="status"
+													label="Trạng thái"
+													options={movieStatusOptions}
 													required
 												/>
 											</Col>

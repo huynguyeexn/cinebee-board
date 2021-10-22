@@ -66,7 +66,7 @@ const ListActor = ({ onEdit }: Props) => {
 					<Image
 						fallback={IMAGE_PLACEHOLDER}
 						height={100}
-						src={avatar}
+						src={avatar || IMAGE_PLACEHOLDER}
 						alt={record.fullname}
 					/>
 				</>
@@ -87,11 +87,7 @@ const ListActor = ({ onEdit }: Props) => {
 				<Dropdown
 					overlay={
 						<Space size="middle">
-							<Button
-								type="text"
-								style={{ color: blue[3] }}
-								onClick={() => onEdit(record)}
-							>
+							<Button type="text" style={{ color: blue[3] }} onClick={() => onEdit(record)}>
 								Sửa <AiOutlineEdit />
 							</Button>
 							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>

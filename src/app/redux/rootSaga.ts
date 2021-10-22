@@ -9,9 +9,11 @@ import employeeRoleSaga from 'app/features/employeeRole/redux/employeeRoleSaga';
 import directorSaga from 'app/features/director/redux/directorSaga';
 import genreSaga from 'app/features/genres/redux/genreSaga';
 import movieSaga from 'app/features/movie/redux/movieSaga';
+import roomSaga from 'app/features/room/redux/roomSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
 import { all } from 'redux-saga/effects';
 import categorySaga from 'app/features/category/redux/categorySaga';
+import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -25,6 +27,8 @@ export default function* rootSaga() {
 		actorSaga(),
 		genreSaga(),
 		directorSaga(),
+		roomSaga(),
 		categorySaga(),
+		showtimeSaga(),
 	]);
 }
