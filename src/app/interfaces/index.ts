@@ -14,3 +14,4 @@ export * from './seat';
 export * from './upload';
 export * from './item';
 export * from './combo';
+export * from './comboTicket';

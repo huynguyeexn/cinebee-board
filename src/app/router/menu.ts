@@ -90,4 +90,9 @@ export const menus: IMenu[] = [
 		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
 	},
+	{
+		path: '/admin/comboticket',
+		label: 'Combo vé',
+		icon: AiOutlineContainer,
+	},
 ];

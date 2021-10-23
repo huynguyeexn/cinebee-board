@@ -16,6 +16,7 @@ import categorySaga from 'app/features/category/redux/categorySaga';
 import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 import itemSaga from 'app/features/item/redux/itemSaga';
 import comboSaga from 'app/features/combo/redux/comboSaga';
+import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -34,5 +35,6 @@ export default function* rootSaga() {
 		showtimeSaga(),
 		itemSaga(),
 		comboSaga(),
+		comboTicketSaga(),
 	]);
 }

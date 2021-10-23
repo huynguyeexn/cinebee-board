@@ -16,6 +16,7 @@ import categoryReducer from 'app/features/category/redux/categorySlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
 import itemReducer from 'app/features/item/redux/itemSilce';
 import comboReducer from 'app/features/combo/redux/comboSlice';
+import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
 	showtime: showtimeReducer,
 	item: itemReducer,
 	combo: comboReducer,
+	comboTicket: comboTicketReducer,
 });
 
 export default rootReducer;

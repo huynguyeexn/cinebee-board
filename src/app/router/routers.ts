@@ -19,6 +19,8 @@ const DetailRoomPage = React.lazy(() => import('app/features/room/detailRoomPage
 const ItemDashboardPage = React.lazy(() => import('app/features/item/dashboard'));
 const ComboDashboardPage = React.lazy(() => import('app/features/combo/dashboard'));
 const ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
+const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTicket/dashboard'));
+const ComboTicketAddEditPage = React.lazy(() => import('app/features/comboTicket/addEditPage/AddEditPage'));
 
 interface IRoute {
 	path: string;
@@ -129,5 +131,17 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/combo/:id/edit',
 		component: ComboAddEditPage,
+	},
+	{
+		path: '/admin/comboticket',
+		component: ComboTicketDashboardPage,
+	},
+	{
+		path: '/admin/comboticket/:id/edit',
+		component: ComboTicketAddEditPage,
+	},
+	{
+		path: '/admin/comboticket/new',
+		component: ComboTicketAddEditPage,
 	},
 ];
