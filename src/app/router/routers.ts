@@ -16,6 +16,9 @@ const AddEditRoomPage = React.lazy(
 	() => import('app/features/room/addEditRoomPage/AddEditRoomPage')
 );
 const DetailRoomPage = React.lazy(() => import('app/features/room/detailRoomPage/DetailRoomPage'));
+const ItemDashboardPage = React.lazy(() => import('app/features/item/dashboard'));
+const ComboDashboardPage = React.lazy(() => import('app/features/combo/dashboard'));
+const ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
 
 interface IRoute {
 	path: string;
@@ -110,5 +113,21 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/categories',
 		component: CategoryDashboardPage,
+	},
+	{
+		path: '/admin/item',
+		component: ItemDashboardPage,
+	},
+	{
+		path: '/admin/combo',
+		component: ComboDashboardPage,
+	},
+	{
+		path: '/admin/combo/new',
+		component: ComboAddEditPage,
+	},
+	{
+		path: '/admin/combo/:id/edit',
+		component: ComboAddEditPage,
 	},
 ];

@@ -14,6 +14,8 @@ import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
+import itemReducer from 'app/features/item/redux/itemSilce';
+import comboReducer from 'app/features/combo/redux/comboSlice';
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
 	room: roomReducer,
 	category: categoryReducer,
 	showtime: showtimeReducer,
+	item: itemReducer,
+	combo: comboReducer,
 });
 
 export default rootReducer;

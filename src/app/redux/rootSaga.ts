@@ -14,6 +14,8 @@ import uploadSaga from 'app/features/upload/redux/uploadSage';
 import { all } from 'redux-saga/effects';
 import categorySaga from 'app/features/category/redux/categorySaga';
 import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
+import itemSaga from 'app/features/item/redux/itemSaga';
+import comboSaga from 'app/features/combo/redux/comboSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -30,5 +32,7 @@ export default function* rootSaga() {
 		roomSaga(),
 		categorySaga(),
 		showtimeSaga(),
+		itemSaga(),
+		comboSaga(),
 	]);
 }

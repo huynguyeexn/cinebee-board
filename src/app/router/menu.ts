@@ -61,6 +61,11 @@ export const menus: IMenu[] = [
 		icon: GiPopcorn,
 	},
 	{
+		path: '/admin/item',
+		label: 'Thức ăn',
+		icon: AiOutlineContainer,
+	},
+	{
 		path: '/admin/movies',
 		label: 'Phim',
 		icon: RiMovie2Line,
