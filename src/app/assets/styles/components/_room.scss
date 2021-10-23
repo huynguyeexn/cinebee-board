@@ -1,0 +1,77 @@
+.room {
+	padding: 20px;
+	// min-width: fit-content;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	// 	// min-height: 90vh;
+
+	.screen {
+		display: flex;
+		justify-content: center;
+		img {
+			width: 100%;
+		}
+	}
+
+	.seats {
+		display: grid;
+		align-items: center;
+		max-width: 80%;
+		margin: 0 auto;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.seat {
+		cursor: pointer;
+		display: inline-block;
+		width: 35px;
+		border: none;
+		cursor: pointer;
+		height: 35px;
+		margin: 5px;
+		min-width: unset;
+		border-radius: 5px;
+		background-color: rgb(224, 224, 224);
+		color: rgba(0, 0, 0, 0.87);
+
+		position: relative;
+		top: 1px;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 0.7rem;
+		font-weight: 500;
+
+		transition: transform 0.3s ease-in-out;
+		&:hover {
+			background-color: #cfcfcf;
+			color: #222222;
+		}
+
+		&.selected {
+			background-color: #ff9900;
+			color: white;
+		}
+	}
+
+	// .room-card {
+	// 	.ant-badge-status-success {
+	// 		animation: 2s fade-out-in infinite;
+	// 	}
+	// }
+
+	// @keyframes fade-out-in {
+	// 	0% {
+	// 		opacity: 1;
+	// 	}
+	// 	50% {
+	// 		opacity: 0;
+	// 	}
+	// 	100% {
+	// 		opacity: 1;
+	// 	}
+}
