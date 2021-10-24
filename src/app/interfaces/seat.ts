@@ -1,9 +1,10 @@
 import { IBase } from './base';
 
-export interface ISeat extends IBase {
-	name: string;
-	row: number;
-	col: number;
+export interface Seat extends IBase {
+	index: string;
+	label: string;
 	room_id: number | string;
-	seat_status_id: 1;
+	seat_status_id?: number;
+	customer_username?: string;
+	customer_id?: number;
 }

@@ -1,0 +1,12 @@
+.rbc-event {
+	font-weight: bold;
+	&.sap-chieu {
+		background-color: #faad14;
+	}
+	&.dang-chieu {
+		background-color: #52c41a;
+	}
+	&.ngung-chieu {
+		background-color: #8c8c8c;
+	}
+}
