@@ -1,7 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Col, Form, PageHeader, Row } from 'antd';
+import { Button, Col, Form, PageHeader, Row, Typography } from 'antd';
 import { useAppDispatch } from 'app/redux/hooks';
 import { InputField } from 'app/utils/components/FormFields';
+import { makeRows } from 'app/utils/helper';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -12,6 +13,7 @@ const formValidate = yup.object().shape({
 	name: yup.string().required('Bạn chưa điền tên rạp'),
 	rows: yup.mixed().required('Bạn chưa điền số hàng'),
 	cols: yup.mixed().required('Bạn chưa điền số cột'),
+	price: yup.mixed().required('Bạn chưa điền giá vé'),
 });
 
 const AddEditRoomPage = () => {
@@ -39,15 +41,20 @@ const AddEditRoomPage = () => {
 	}, []);
 
 	const onSubmit = (values: any) => {
-		const seats = Array(rows)
-			.fill(null)
-			.map(() => Array(cols).fill(0));
+		let seats: any[] = [];
+		makeRows(rows).forEach((row, rowIdx) => {
+			for (let colIndex = 0; colIndex < cols; colIndex++) {
+				seats.push({
+					label: `${row}${colIndex + 1}`,
+					index: `[${rowIdx}][${colIndex}]`,
+				});
+			}
+		});
 
 		const newData = {
 			...values,
 			seats: JSON.stringify(seats),
 		};
-
 		dispatch(roomActions.create(newData));
 	};
 
@@ -57,6 +64,7 @@ const AddEditRoomPage = () => {
 			onBack={() => window.history.back()}
 			title="Thêm mới rạp phim"
 			extra={[
+				<Typography.Text>Số ghế: {rows * cols}</Typography.Text>,
 				<Button style={{ margin: '0 8px' }} onClick={handleSubmit(onSubmit)} type="primary">
 					Lưu
 				</Button>,
@@ -86,10 +94,20 @@ const AddEditRoomPage = () => {
 							control={control}
 							required
 						/>
+
+						{/* price */}
+						<InputField
+							name="price"
+							placeholder="Giá vé"
+							label="Giá vé (VNĐ)"
+							type="number"
+							control={control}
+							required
+						/>
 					</Form>
 				</Col>
-				<Col span={24} style={{ overflow: 'scroll' }}>
-					<p>Xem trước</p>
+				<Col span={24}>
+					{/* <p>Xem trước</p> */}
 					<RoomShowcase rows={rows} cols={cols} />
 				</Col>
 			</Row>

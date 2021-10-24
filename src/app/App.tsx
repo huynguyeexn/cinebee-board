@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../assets/styles/app.scss';
+import 'app/assets/styles/app.scss';
 import LoginPage from './features/auth/login/loginPage';
 import PrivateRoute from './router/privateRoute';
 import AdminLayout from './utils/layouts/adminLayout';
