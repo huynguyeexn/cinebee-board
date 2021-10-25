@@ -7,6 +7,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	name: string;
 	control: Control<any>;
 	label?: string;
+	placeholder?: string;
 	required?: boolean;
 	hidden?: boolean;
 	rows?: number;
@@ -16,6 +17,7 @@ export const InputField = ({
 	name,
 	control,
 	label,
+	placeholder,
 	required,
 	hidden,
 	rows,
@@ -44,7 +46,7 @@ export const InputField = ({
 					onChange={onChange}
 					onBlur={onBlur}
 					ref={ref}
-					placeholder={`${label}...`}
+					placeholder={placeholder ? placeholder : `${label}...`}
 					rows={rows}
 				/>
 			) : (
@@ -54,7 +56,7 @@ export const InputField = ({
 					onChange={onChange}
 					onBlur={onBlur}
 					ref={ref}
-					placeholder={`${label}...`}
+					placeholder={placeholder ? placeholder : `${label}...`}
 					{...(inputProps as InputProps)}
 				/>
 			)}

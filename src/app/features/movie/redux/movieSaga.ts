@@ -13,6 +13,34 @@ function* getList(action: PayloadAction<ListParams>) {
 	}
 }
 
+function* getListComing(action: PayloadAction<ListParams>) {
+	try {
+		const newParams = {
+			...(action.payload as ListParams),
+			filter: '2',
+			filter_by: 'status',
+		};
+		const data: ListResponse<Movie> = yield call(movieApi.getAll, newParams);
+		yield put(movieActions.getListComingSuccess(data));
+	} catch (error) {
+		yield put(movieActions.runError());
+	}
+}
+
+function* getListPlaying(action: PayloadAction<ListParams>) {
+	try {
+		const newParams = {
+			...(action.payload as ListParams),
+			filter: '1',
+			filter_by: 'status',
+		};
+		const data: ListResponse<Movie> = yield call(movieApi.getAll, newParams);
+		yield put(movieActions.getListPlayingSuccess(data));
+	} catch (error) {
+		yield put(movieActions.runError());
+	}
+}
+
 function* deleteById(actions: PayloadAction<Movie>) {
 	try {
 		const data: SuccessResponse<Movie> = yield call(movieApi.deleteById, actions.payload);
@@ -52,6 +80,8 @@ function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 
 export default function* movieSaga() {
 	yield takeLatest(movieActions.getList, getList);
+	yield takeLatest(movieActions.getListComing, getListComing);
+	yield takeLatest(movieActions.getListPlaying, getListPlaying);
 	yield takeLatest(movieActions.create, create);
 	yield takeLatest(movieActions.update, update);
 	yield takeLatest(movieActions.deleteById, deleteById);

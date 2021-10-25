@@ -4,6 +4,8 @@ export * from './base';
 export * from './common';
 export * from './customer';
 export * from './customerType';
+export * from './employee';
+export * from './employeeRole';
 export * from './director';
 export * from './genre';
 export * from './movie';
