@@ -1,34 +1,36 @@
 import { Button, Col, Modal, Row } from 'antd';
-import { Category } from 'app/interfaces/category';
+import { Item } from 'app/interfaces/item';
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai';
-import { AddEditCategory } from './components/AddEditCategory';
-import { FilterCategory } from './components/FilterCategory';
-import { ListCategory } from './components/ListCategory';
+import FilterItem from './components/FilterItem';
+import ListItem from './components/ListItem';
+import AddEditItem from './components/AddEditItem';
 
+interface Props {};
 
-const CategoryDashboardPage = () => {
+const ItemDashboardPage = (props: Props) => {
     const [isOpenModal, setIsOpenModal] = React.useState(false);
-    const  [data, setData ] = React.useState<Category>();
     const [isEdit, setIsEdit] = React.useState(false);
+    const [data, setData] = React.useState<Item>();
 
     const handleAddButtonClick = () => {
-        setIsOpenModal(true)
-    }
+        setIsOpenModal(true);
+    };
 
     const handleCancel = () => {
-        setIsOpenModal(false);
         setData(undefined);
+        setIsOpenModal(false);
         setIsEdit(false);
-    }
+    };
 
-    const handleEdit = (category: Category) => {
+    const handleEdit = (item: Item) => {
+        setData(item);
         setIsOpenModal(true);
-        setData(category);
         setIsEdit(true);
-    }
+    };
+
     return (
-        <Row gutter={[16, 16]}>
+<Row gutter={[16, 16]}>
 			<Col span={24}>
 				<Button
 					icon={<AiOutlinePlus />}
@@ -38,14 +40,14 @@ const CategoryDashboardPage = () => {
 					}}
 					onClick={handleAddButtonClick}
 				>
-					Thêm thể loại bài viết
+					Thêm Sản Phẩm
 				</Button>
 			</Col>
 			<Col span={24}>
-				<FilterCategory />
+				<FilterItem />
 			</Col>
 			<Col span={24}>
-				<ListCategory onEdit={handleEdit} />
+				<ListItem onEdit={handleEdit} />
 			</Col>
 			{/* Add edit */}
 			<Modal
@@ -55,10 +57,10 @@ const CategoryDashboardPage = () => {
 				title={false}
 				footer={null}
 			>
-				<AddEditCategory onCancel={handleCancel} isEdit={isEdit} data={data} />
+				<AddEditItem onCancel={handleCancel} isEdit={isEdit} data={data} />
 			</Modal>
 		</Row>
-    )
-}
+	);
+};
 
-export default CategoryDashboardPage;
+export default ItemDashboardPage;

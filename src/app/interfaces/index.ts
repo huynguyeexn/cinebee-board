@@ -12,3 +12,8 @@ export * from './movie';
 export * from './room';
 export * from './seat';
 export * from './upload';
+export * from './actor';
+export * from './genre';
+export * from './combo';
+export * from './item';
+export * from './comboTicket';
