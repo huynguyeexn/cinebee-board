@@ -35,11 +35,11 @@ const AddEditCombo = ({ onCancel, isEdit = false, data}: Props) => {
     // For edit
     React.useEffect(() => {
         if (isEdit) {
-            if (!data) return;
+            if (!data || !data.id) return;
             setLoading(true);
             // get user and set form fields
             (async () => {
-                const response: Combo = await comboApi.getById(data);
+                const response: Combo = await comboApi.getById(data.id as string);
                 Object.keys(response).forEach((key) => {
                     setValue(key, response[key as keyof Combo]);
                 });
