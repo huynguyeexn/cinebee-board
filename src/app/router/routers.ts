@@ -8,7 +8,9 @@ const GenresDashboardPage = React.lazy(() => import('app/features/genres/dashboa
 const MovieAddEditPage = React.lazy(() => import('app/features/movie/addEditPage/AddEditPage'));
 const ComboDashboardPage = React.lazy(() => import('app/features/combo/dashboard'));
 const ItemDashboardPage = React.lazy(() => import('app/features/item/dashboard'));
-const  ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
+const ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
+const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTicket/dashboard'));
+const ComboTicketAddEditPage = React.lazy(() => import('app/features/comboTicket/addEditPage/AddEditPage'));
 interface IRoute {
 	path: string;
 	component: React.FC;
@@ -54,8 +56,22 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/combo/new',
 		component: ComboAddEditPage,
-	}
+	},
+	{
+		path: '/admin/combo/:id/edit',
+		component: ComboAddEditPage,
+	},
+	{
+		path: '/admin/comboticket',
+		component: ComboTicketDashboardPage,
+	},
+	{
+		path: '/admin/comboticket/:id/edit',
+		component: ComboTicketAddEditPage,
+	},
+	{
+		path: '/admin/comboticket/new',
+		component: ComboTicketAddEditPage,
+	},
 
-
-	
 ];

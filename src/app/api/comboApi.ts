@@ -8,9 +8,8 @@ const comboApi = {
     getAll(params?: ListParams): Promise<ListResponse<Combo>> {
         return axiosClient.get(endpoint, { params });
     },
-
-    getById(params: Combo): Promise<Combo> {
-        const url = `${endpoint}/${params.id}`;
+    getById(id: string): Promise<Combo> {
+        const url = `${endpoint}/${id}`;
         return axiosClient.get(url);
     },
 
@@ -22,6 +21,7 @@ const comboApi = {
         const url = `${endpoint}/${data.id}`;
         return axiosClient.put(url, data);
     },
+
 
     deleteById(params: Combo): Promise<SuccessResponse<Combo>> {
         const url = `${endpoint}/${params.id}/delete`;

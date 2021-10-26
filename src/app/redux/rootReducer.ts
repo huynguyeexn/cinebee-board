@@ -7,7 +7,9 @@ import movieReducer from 'app/features/movie/redux/movieSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import comboReducer from 'app/features/combo/redux/comboSlice';
 import itemReducer from 'app/features/item/redux/itemSilce';
+import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 import { combineReducers } from 'redux';
+
 
 
 const rootReducer = combineReducers({
@@ -20,6 +22,7 @@ const rootReducer = combineReducers({
 	genre: genreReducer,
 	combo: comboReducer,
 	item: itemReducer,
+	comboTicket: comboTicketReducer
 });
 
 export default rootReducer;

@@ -22,12 +22,12 @@ export const FilterItem = () => {
             key: 'id',
         }
     ];
-    
+
     const dispatch = useAppDispatch();
     const filter = useAppSelector(selectItemFilter);
 
     const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
-    
+
     React.useEffect(() => {
         if (filter.q) {
             const newFilter = {
@@ -38,16 +38,17 @@ export const FilterItem = () => {
 
             dispatch(itemActions.setFilterDebounce(newFilter));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchBy]);
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value; 
-    
+        const value = event.target.value;
+
         const newFilter = {
             ...filter,
             q: value,
             search: searchBy,
         };
-    
+
         dispatch(itemActions.setFilterDebounce(newFilter));
 }
 return (

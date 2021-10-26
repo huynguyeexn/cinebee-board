@@ -1,8 +1,8 @@
-import { Col, Form, Input, Row, Select } from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { Col, Input, Row, Form, Select } from "antd";
+import { useAppDispatch, useAppSelector } from "app/redux/hooks";
 import React, { ChangeEvent } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { comboActions, selectComboFilter } from '../../redux/comboSlice';
+import { AiOutlineSearch } from "react-icons/ai";
+import { comboTicketActions, selectComboTicketFilter } from "../../redux/comboTicketSlice";
 
 const { Option } = Select;
 
@@ -11,10 +11,10 @@ interface searchType {
     key: string;
 }
 
-const FilterCombo = () => {
+const FilterComboTicket = () => {
     const searchType: searchType[] = [
         {
-            title: 'Combo',
+            title: 'Combo Ticket',
             key: 'name',
         },
         {
@@ -24,7 +24,7 @@ const FilterCombo = () => {
     ];
 
     const dispatch = useAppDispatch();
-    const filter = useAppSelector(selectComboFilter);
+    const filter = useAppSelector(selectComboTicketFilter);
 
 	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
 
@@ -36,7 +36,7 @@ const FilterCombo = () => {
 				search: searchBy,
 			};
 
-			dispatch(comboActions.setFilterDebounce(newFilter));
+			dispatch(comboTicketActions.setFilterDebounce(newFilter));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchBy]);
@@ -50,7 +50,7 @@ const FilterCombo = () => {
 			search: searchBy,
 		};
 
-		dispatch(comboActions.setFilterDebounce(newFilter));
+		dispatch(comboTicketActions.setFilterDebounce(newFilter));
 	}
 	return (
 	<Row gutter={16} style={{ width: '100%' }}>
@@ -80,4 +80,4 @@ const FilterCombo = () => {
 		);
 	};
 
-export default FilterCombo;
+export default FilterComboTicket;

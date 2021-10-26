@@ -1,6 +1,7 @@
 import actorSaga from 'app/features/actors/redux/actorSaga';
 import ageRatingSaga from 'app/features/ageRating/redux/ageRatingSaga';
 import comboSaga from 'app/features/combo/redux/comboSaga';
+import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
 import customerSaga from 'app/features/customer/redux/customerSaga';
 import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
 import genreSaga from 'app/features/genres/redux/genreSaga';
@@ -20,5 +21,6 @@ export default function* rootSaga() {
 		genreSaga(),
 		comboSaga(),
 		itemSaga(),
+		comboTicketSaga(),
 	]);
 }

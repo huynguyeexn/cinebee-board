@@ -55,6 +55,7 @@ const AddEditItem = ({ onCancel, isEdit = false, data}: Props) => {
         } else {
             setValue('slug', name);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [watchName, getValues]);
 
     const onSubmit = async (data: Item) => {

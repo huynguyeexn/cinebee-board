@@ -17,7 +17,7 @@ function* getList(action: PayloadAction<ListParams>) {
 function* deleteById(actions: PayloadAction<Combo>) {
     try {
         const data: SuccessResponse<Combo> = yield call(comboApi.deleteById, actions.payload);
-        const filter: ListParams = yield select((state) => state.actor.filter);
+        const filter: ListParams = yield select((state) => state.combo.filter);
         yield put(comboActions.runSuccess(data));
         yield put(comboActions.getList(filter));
     } catch (error) {
@@ -28,7 +28,7 @@ function* deleteById(actions: PayloadAction<Combo>) {
 function* create(actions: PayloadAction<Combo>) {
     try {
         const data: SuccessResponse<Combo> = yield call(comboApi.create, actions.payload);
-        const filter: ListParams = yield select((state) => state.actor.filter);
+        const filter: ListParams = yield select((state) => state.combo.filter);
         yield put(comboActions.runSuccess(data));
         yield put(comboActions.getList(filter));
     } catch (error) {
@@ -39,7 +39,7 @@ function* create(actions: PayloadAction<Combo>) {
 function* update (actions: PayloadAction<Combo>) {
     try {
         const data: SuccessResponse<Combo> = yield call(comboApi.update, actions.payload);
-        const filter: ListParams = yield select((state) => state.actor.filter);
+        const filter: ListParams = yield select((state) => state.combo.filter);
         yield put(comboActions.runSuccess(data));
         yield put(comboActions.getList(filter));
     } catch (error) {
@@ -57,7 +57,7 @@ function* searchByName(actions: PayloadAction<string>) {
         search: 'name', 
         q: actions.payload,
         per_page: 10,
-        sort_by: 'fullname',
+        sort_by: 'name',
         sort_type: 'asc',
     };
     try {

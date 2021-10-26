@@ -26,16 +26,16 @@ const InputAddItem = ({ name, control, data, }: Props) => {
 
 	const [options, setOptions] = React.useState<any>([]);
 	const [value, setValue] = React.useState<number>();
-	const [itemSelected, setItemSelected] = React.useState<Item[]>(data || []); 
+	const [itemSelected, setItemSelected] = React.useState<Item[]>(data || []);
 
 	const {
 		field: { onChange },
 	} = useController<any>({ name, control });
 
 	React.useEffect(() => {
-		const element = 
+		const element =
 		selectSearchList?.map((item) =>(
-			<Option 
+			<Option
 				key={`search-actor-${item.id}`}
 				value={item.id as number}
 				style={{ display: 'flex', alignItems: 'center' }}
@@ -123,9 +123,9 @@ const InputAddItem = ({ name, control, data, }: Props) => {
 				</Form.Item>
 			</Col>
 			<Col span={24}>
-						<TableBase 
-						columns={tableColumns} 
-						dataSource={itemSelected} loading={false}/>
+						<TableBase
+						columns={tableColumns}
+						dataSource={itemSelected} loading={false} />
 			</Col>
 		</Row>
 	);

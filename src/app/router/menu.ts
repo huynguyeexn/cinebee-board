@@ -1,8 +1,8 @@
 import { IconType } from 'react-icons';
-import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
-import { 
+import { GiTempleDoor} from 'react-icons/gi';
+import {
 	MdCardTravel,
- } from 'react-icons/md';
+} from 'react-icons/md';
 
 import { RiMovie2Line } from 'react-icons/ri';
 
@@ -52,6 +52,11 @@ export const menus: IMenu[] = [
 		path: '/admin/customers',
 		label: 'Khách hàng',
 		icon: HiOutlineUsers,
+	},
+	{
+		path: '/admin/comboticket',
+		label: 'Combo vé',
+		icon: AiOutlineContainer,
 	},
 	{
 		path: '/admin/combo',

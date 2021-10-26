@@ -1,18 +1,19 @@
-import { Button, Col, Row } from 'antd';
 import React from 'react'
+import { Button, Col, Row } from 'antd';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import FilterCombo from './components/FilterCombo';
-import ListCombo from './components/ListCombo';
+import ListComboTicket from './components/ListComboTicket';
+import FilterComboTicket from './components/FilterComboTicket';
 
 interface Props {};
 
-const ComboDashboardPage = (props: Props) => {
+export const ComboTicketDashboardPage = (props: Props) => {
     return (
-		<Row gutter={[16, 16]}>
+<Row gutter={[16, 16]}>
 			<Col span={24}>
-			<Link to="combo/new">
+			<Link to="comboticket/new">
 				<Button
+
 					icon={<AiOutlinePlus />}
 					style={{
 						display: 'flex',
@@ -24,15 +25,14 @@ const ComboDashboardPage = (props: Props) => {
 				</Link>
 			</Col>
 			<Col span={24}>
-				<FilterCombo />
+				<FilterComboTicket />
 			</Col>
 			<Col span={24}>
-				<ListCombo />
+				<ListComboTicket />
 			</Col>
 			{/* Add edit */}
 		</Row>
 	);
 };
 
-export default ComboDashboardPage;
-
+export default ComboTicketDashboardPage;
