@@ -253,17 +253,15 @@ const ShowtimeScheduler = () => {
 	};
 
 	const eventPropGetter = (event) => {
-		if (event?.movie_status_id) {
-			switch (event.movie_status_id) {
-				case 0:
-					return { className: 'ngung-chieu' };
-				case 1:
-					return { className: 'dang-chieu' };
-				case 2:
-					return { className: 'sap-chieu' };
-				default:
-					return;
-			}
+		switch (event.movie_status_id) {
+			case 0:
+				return { className: 'ngung-chieu' };
+			case 1:
+				return { className: 'dang-chieu' };
+			case 2:
+				return { className: 'sap-chieu' };
+			default:
+				return;
 		}
 	};
 
