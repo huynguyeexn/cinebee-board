@@ -1,19 +1,18 @@
 import { IconType } from 'react-icons';
-import { GiTempleDoor} from 'react-icons/gi';
-import {
-	MdCardTravel,
-} from 'react-icons/md';
-
-import { RiMovie2Line } from 'react-icons/ri';
-
+import { AiOutlineContainer } from 'react-icons/ai';
+import { FiUsers } from 'react-icons/fi';
+import { GiTempleDoor } from 'react-icons/gi';
 import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
 	HiOutlineTicket,
-	HiOutlineUsers,
+	HiOutlineUsers
 } from 'react-icons/hi';
-import { FiUsers } from 'react-icons/fi';
-import { AiOutlineContainer } from 'react-icons/ai';
+import {
+	MdCardTravel, MdSubtitles
+} from 'react-icons/md';
+import { RiMovie2Line } from 'react-icons/ri';
+
 
 interface IMenu {
 	path: string;
@@ -44,9 +43,14 @@ export const menus: IMenu[] = [
 		icon: HiOutlineCalendar,
 	},
 	{
-		path: '/admin/staff',
+		path: '/admin/employees',
 		label: 'Nhân viên',
 		icon: MdCardTravel,
+	},
+	{
+		path: '/admin/employee-roles',
+		label: 'Chức Vụ',
+		icon: MdSubtitles,
 	},
 	{
 		path: '/admin/customers',
@@ -74,13 +78,23 @@ export const menus: IMenu[] = [
 		icon: RiMovie2Line,
 	},
 	{
+		path: '/admin/genres',
+		label: 'Thể loại phim',
+		icon: AiOutlineContainer,
+	},
+	{
 		path: '/admin/actors',
 		label: 'Diễn viên',
 		icon: FiUsers,
 	},
 	{
-		path: '/admin/genres',
-		label: 'Thể loại phim',
+		path: '/admin/directors',
+		label: 'Đạo diễn',
+		icon: FiUsers,
+	},
+	{
+		path: '/admin/categories',
+		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
 	},
 ];

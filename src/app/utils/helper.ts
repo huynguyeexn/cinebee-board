@@ -103,3 +103,15 @@ export const minutesToHoursMinutes = (minutes: number): string => {
 export const imageUrl = (folder: string, file_name: string): string => {
 	return `${process.env.REACT_APP_SERVER_URL}/${folder}${file_name}`;
 };
+
+export const movieStatusTagColor = (status: number): string => {
+	switch (status) {
+		case 1:
+			return 'success';
+		case 2:
+			return 'warning';
+		case 0:
+		default:
+			return 'default';
+	}
+};

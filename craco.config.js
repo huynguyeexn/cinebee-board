@@ -5,13 +5,13 @@ module.exports = {
     {
       plugin: sassResourcesLoader,
       options: {
-        resources: './src/assets/styles/app.scss',
+        resources: './src/app/assets/styles/app.scss',
       },
     },
   ],
   style: {
     postcss: {
-      
+
     },
   },
 }

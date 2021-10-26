@@ -20,6 +20,8 @@ export interface ListParams {
 	sort_type?: 'desc' | 'asc';
 	q?: string | null;
 	search?: string;
+	filter?: string;
+	filter_by?: string;
 }
 
 export interface SuccessResponse<T> {

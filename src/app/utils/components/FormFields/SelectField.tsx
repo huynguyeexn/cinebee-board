@@ -3,13 +3,15 @@ import React from 'react';
 import { Control, useController } from 'react-hook-form';
 const { Option } = Select;
 
-interface OptionsProps {
-	label?: string;
+export interface OptionsProps {
+	key?: string;
+	label: string;
 	value: number | string;
 }
 
 interface Props {
-	label: string;
+	label?: string;
+	placeHolder?: string;
 	name: string;
 	control: Control<any>;
 	mode?: 'multiple' | 'tags';
@@ -17,7 +19,15 @@ interface Props {
 	required?: boolean;
 }
 
-export const SelectField = ({ label, name, control, options, mode, required }: Props) => {
+export const SelectField = ({
+	label,
+	name,
+	placeHolder,
+	control,
+	options,
+	mode,
+	required,
+}: Props) => {
 	const {
 		field: { value, onChange, onBlur, ref },
 		fieldState: { invalid, error },
@@ -26,6 +36,9 @@ export const SelectField = ({ label, name, control, options, mode, required }: P
 		control,
 	});
 
+	console.log(`options`, options);
+	console.log(`value`, value as string);
+
 	return (
 		<Form.Item
 			name={name}
@@ -33,7 +46,7 @@ export const SelectField = ({ label, name, control, options, mode, required }: P
 			required={required}
 			help={error?.message}
 			initialValue={
-				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value && `${value}`
 			}
 			validateStatus={invalid ? 'error' : ''}
 		>
@@ -44,7 +57,7 @@ export const SelectField = ({ label, name, control, options, mode, required }: P
 				mode={mode}
 				onBlur={onBlur}
 				onChange={onChange}
-				placeholder={`${label}...`}
+				placeholder={label ? `${label}...` : `${placeHolder}...`}
 				filterOption={(input, option: any) =>
 					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 				}

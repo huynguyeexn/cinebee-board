@@ -1,24 +1,21 @@
-import { Col, Form, Input, Row, Select } from 'antd';
+import { Col, Form, Row } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import { OptionsProps } from 'app/utils/components/FormFields';
+import InputGroupSearch from 'app/utils/components/FormFields/InputGroupSearch';
 import React, { ChangeEvent } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { actorActions, selectActorFilter } from '../../redux/actorSlice';
 
-const { Option } = Select;
-
-interface searchType {
-	title: string;
-	key: string;
-}
-
 const FilterActor = () => {
-	const searchType: searchType[] = [
+	const searchType: OptionsProps[] = [
 		{
-			title: 'Tên diễn viên',
-			key: 'name',
+			label: 'Tên diễn viên',
+			value: 'fullname',
+			key: 'fullname',
 		},
 		{
-			title: 'ID',
+			label: 'ID',
+			value: 'id',
 			key: 'id',
 		},
 	];
@@ -26,7 +23,7 @@ const FilterActor = () => {
 	const dispatch = useAppDispatch();
 	const filter = useAppSelector(selectActorFilter);
 
-	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].key);
+	const [searchBy, setSearchBy] = React.useState<string>(searchType[0].value as string);
 
 	React.useEffect(() => {
 		if (filter.q) {
@@ -57,23 +54,16 @@ const FilterActor = () => {
 		<Row gutter={16} style={{ width: '100%' }}>
 			<Col sm={24} md={12}>
 				<Form layout="vertical">
-					<Form.Item label="Tìm kiếm" name="search" style={{ marginBottom: 0 }}>
-						<Input.Group compact>
-							<Select onChange={setSearchBy} value={searchBy} style={{ width: '120px' }}>
-								{searchType.map((type) => (
-									<Option key={type.key} value={type.key}>
-										{type.title}
-									</Option>
-								))}
-							</Select>
-							<Input
-								style={{ width: 'auto' }}
-								placeholder="Từ khóa tìm kiếm..."
-								suffix={<AiOutlineSearch />}
-								onChange={handleSearchChange}
-							/>
-						</Input.Group>
-					</Form.Item>
+					<InputGroupSearch
+						label="TÌm kiếm diễn viên"
+						name="search"
+						inputPlaceHolder="Từ khóa cần tìm"
+						inputIcon={<AiOutlineSearch />}
+						selectOptions={searchType}
+						selectValue={searchBy}
+						onChangeSelect={setSearchBy}
+						onChangeInput={handleSearchChange}
+					/>
 				</Form>
 			</Col>
 		</Row>

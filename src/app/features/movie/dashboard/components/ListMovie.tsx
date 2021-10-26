@@ -1,14 +1,11 @@
 import { blue } from '@ant-design/colors';
-import { Button, Dropdown, Image, Popconfirm, Space, Spin, Tag } from 'antd';
-import { URL_SERVER } from 'app/constants';
-import {
-	ageRatingActions,
-	selectAgeRatingMap,
-} from 'app/features/ageRating/redux/ageRatingSlice';
+import { Button, Col, Dropdown, Image, Popconfirm, Row, Space, Spin, Tag } from 'antd';
+import { IMAGE_PLACEHOLDER, MOVIE_STATUS } from 'app/constants';
+import { ageRatingActions, selectAgeRatingMap } from 'app/features/ageRating/redux/ageRatingSlice';
 import { ImageUpload, Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
-import { ageRatingColor } from 'app/utils/helper';
+import { ageRatingColor, movieStatusTagColor } from 'app/utils/helper';
 import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
@@ -21,6 +18,7 @@ import {
 	selectMovieListLoading,
 	selectMoviePagination,
 } from '../../redux/movieSlice';
+import FilterMovie from './FilterMovie';
 
 const ListMovie = () => {
 	const dispatch = useAppDispatch();
@@ -67,15 +65,16 @@ const ListMovie = () => {
 		},
 		{
 			title: 'Ảnh poster',
-			dataIndex: 'posters',
-			key: 'posters',
+			dataIndex: 'posters_full',
+			key: 'posters_full',
 			render: (posters: ImageUpload[]) => (
 				<>
 					{posters && posters[0] && (
 						<Image
 							height={100}
-							src={`${URL_SERVER}/${posters[0].folder}${posters[0].file_name}`}
+							src={posters[0]?.url}
 							alt={posters[0].alt}
+							fallback={IMAGE_PLACEHOLDER}
 						/>
 					)}
 				</>
@@ -83,8 +82,8 @@ const ListMovie = () => {
 		},
 		{
 			title: 'Ảnh backdrop',
-			dataIndex: 'backdrops',
-			key: 'backdrops',
+			dataIndex: 'backdrops_full',
+			key: 'backdrops_full',
 			render: (backdrops: ImageUpload[]) => (
 				<div style={{ display: 'flex', alignItems: 'center' }}>
 					{backdrops && (
@@ -92,18 +91,20 @@ const ListMovie = () => {
 							<Image.PreviewGroup>
 								{backdrops[0] && (
 									<Image
+										fallback={IMAGE_PLACEHOLDER}
 										height={100}
-										src={`${URL_SERVER}/${backdrops[0].folder}${backdrops[0].file_name}`}
+										src={backdrops[0]?.url}
 										alt={backdrops[0].alt}
 									/>
 								)}
 								<div className="" style={{ display: 'none' }}>
 									{backdrops.length > 0 &&
-										backdrops.slice(1).map((image, idx) => {
+										backdrops.slice(1).map((image) => {
 											return (
 												<Image
+													fallback={IMAGE_PLACEHOLDER}
 													height={100}
-													src={`${URL_SERVER}/${image.folder}${image.file_name}`}
+													src={image?.url}
 													alt={image.alt}
 												/>
 											);
@@ -134,6 +135,14 @@ const ListMovie = () => {
 						)}
 					</span>
 				</>
+			),
+		},
+		{
+			title: 'Trạng thái',
+			dataIndex: 'status',
+			key: 'status',
+			render: (status: number) => (
+				<Tag color={movieStatusTagColor(status)}>{MOVIE_STATUS[status]}</Tag>
 			),
 		},
 		{
@@ -179,13 +188,20 @@ const ListMovie = () => {
 	];
 
 	return (
-		<TableBase
-			columns={columns}
-			dataSource={movies}
-			loading={loading}
-			onPageChange={handlePageChange}
-			pagination={pagination}
-		/>
+		<Row gutter={[16, 16]}>
+			<Col span={24}>
+				<FilterMovie />
+			</Col>
+			<Col span={24}>
+				<TableBase
+					columns={columns}
+					dataSource={movies}
+					loading={loading}
+					onPageChange={handlePageChange}
+					pagination={pagination}
+				/>
+			</Col>
+		</Row>
 	);
 };
 

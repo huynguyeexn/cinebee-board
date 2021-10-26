@@ -1,15 +1,11 @@
-import { Avatar, Button, Col, Form, Popconfirm, Row, Select, Spin } from 'antd';
+import { Avatar, Button, Card, Col, Form, Popconfirm, Row, Select, Spin } from 'antd';
 import { Actor } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 import { AiOutlineDelete } from 'react-icons/ai';
-import {
-	actorActions,
-	selectActorActionLoading,
-	selectActorSearchList,
-} from '../redux/actorSlice';
+import { actorActions, selectActorActionLoading, selectActorSearchList } from '../redux/actorSlice';
 
 const { Option } = Select;
 
@@ -103,37 +99,39 @@ const InputAddActor = ({ name, control, data }: Props) => {
 	];
 
 	return (
-		<Row gutter={[16, 16]}>
-			<Col span={16}>
-				<Form.Item label="Diễn viên" name={name}>
-					<Select
-						optionLabelProp="label"
-						allowClear
-						showSearch
-						value={value}
-						placeholder={'Nhập tên diễn viên để tìm...'}
-						defaultActiveFirstOption={false}
-						notFoundContent={actionLoading ? <Spin size="small" /> : null}
-						showArrow={false}
-						filterOption={false}
-						onSearch={handleSearch}
-						onChange={(value) => {
-							setValue(value);
-						}}
-					>
-						{options}
-					</Select>
-				</Form.Item>
-			</Col>
-			<Col span={6}>
-				<Form.Item label="&nbsp;">
-					<Button onClick={handleAddActor}>Thêm diễn viên</Button>
-				</Form.Item>
-			</Col>
-			<Col span={24}>
-				<TableBase columns={tableColumns} dataSource={actorSelected} loading={false} />
-			</Col>
-		</Row>
+		<Card style={{ marginTop: 16 }} type="inner" title="Thêm diễn viên">
+			<Row gutter={[16, 16]}>
+				<Col span={16}>
+					<Form.Item label="Diễn viên" name={name}>
+						<Select
+							optionLabelProp="label"
+							allowClear
+							showSearch
+							value={value}
+							placeholder={'Nhập tên diễn viên để tìm...'}
+							defaultActiveFirstOption={false}
+							notFoundContent={actionLoading ? <Spin size="small" /> : null}
+							showArrow={false}
+							filterOption={false}
+							onSearch={handleSearch}
+							onChange={(value) => {
+								setValue(value);
+							}}
+						>
+							{options}
+						</Select>
+					</Form.Item>
+				</Col>
+				<Col span={6}>
+					<Form.Item label="&nbsp;">
+						<Button onClick={handleAddActor}>Thêm diễn viên</Button>
+					</Form.Item>
+				</Col>
+				<Col span={24}>
+					<TableBase columns={tableColumns} dataSource={actorSelected} loading={false} />
+				</Col>
+			</Row>
+		</Card>
 	);
 };
 
