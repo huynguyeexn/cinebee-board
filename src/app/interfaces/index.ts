@@ -17,3 +17,4 @@ export * from './genre';
 export * from './combo';
 export * from './item';
 export * from './comboTicket';
+export * from './account';

@@ -1,6 +1,7 @@
 import { blue } from '@ant-design/colors';
-import { Button, Dropdown, Popconfirm, Space } from 'antd';
-import { Combo } from 'app/interfaces';
+import { Button, Dropdown, Image, Popconfirm, Space } from 'antd';
+import { IMAGE_PLACEHOLDER } from 'app/constants';
+import { Combo, ImageUpload } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import moment from 'moment';
@@ -58,10 +59,26 @@ const ListCombo = () => {
             key: 'name',
         },
         {
+            title: 'Ảnh Combo',
+            dataIndex: 'imgcombos_full',
+            key: 'imgcombos_full',
+            render: (imgcombos: ImageUpload[]) => (
+                <>
+                    {imgcombos && imgcombos[0] && (
+                        <Image
+                            height={100}
+                            src={imgcombos[0]?.url}
+                            alt={imgcombos[0].alt}
+                            fallback={IMAGE_PLACEHOLDER}
+                        />
+                    )}
+                </>
+            ),
+        },
+        {
             title: 'Ngày tạo',
             dataIndex: 'created_at',
             key: 'created_at',
-            render: (text: string) => <span>{moment(text).fromNow()}</span>
         },
         {
             title: 'Cập nhật',
