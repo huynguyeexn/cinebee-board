@@ -289,7 +289,7 @@ const MovieAddEditPage = (props: Props) => {
 										onClick={handleSubmit(onSubmit)}
 										type="primary"
 									>
-										Lưu hả
+										Lưu
 									</Button>
 								</Col>
 							</Form>
