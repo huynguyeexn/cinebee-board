@@ -54,8 +54,8 @@ const ListActor = ({ onEdit }: Props) => {
 		},
 		{
 			title: 'Tên diễn viên',
-			dataIndex: 'name',
-			key: 'name',
+			dataIndex: 'fullname',
+			key: 'fullname',
 		},
 		{
 			title: 'Ảnh',
