@@ -2,15 +2,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, PageHeader, Row, Spin, Form} from 'antd';
 import * as yup from 'yup';
 import React from 'react'
-import { useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { Combo, Item } from 'app/interfaces';
-import { InputField } from 'app/utils/components/FormFields';
+import { useParams } from 'react-router-dom';
+import { Combo, ImageUpload, Item } from 'app/interfaces';
+import { InputField, UploadFileField } from 'app/utils/components/FormFields';
 import InputAddItem from 'app/features/item/components/InputAddItem';
 import { comboActions } from '../redux/comboSlice';
 import { useAppDispatch } from 'app/redux/hooks';
 import comboApi from 'app/api/comboApi';
 import { stringToSlug } from 'app/utils/helper';
+import fileUploadApi from 'app/api/fileUploadApi';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 
 interface Props {}
@@ -34,7 +36,7 @@ export const ComboAddEditPage = (props: Props) => {
     // Initial Value for Edit mode
     const [itemsFull, setItemsFull] = React.useState<Item[]>();
     const [initValues, setInitValues] = React.useState<Combo>();
-
+	const [imgcombosFull, setImgCombosFull] = React.useState<ImageUpload[]>();
     //Redux Form Hook
     const {control, handleSubmit, reset, setValue, watch, getValues} = useForm<any>({
         resolver: yupResolver(formValidate),
@@ -49,6 +51,7 @@ export const ComboAddEditPage = (props: Props) => {
 			(async () => {
 				let response: Combo = await comboApi.getById(id);
 
+				setImgCombosFull(response.imgcombos_full || []);
 				setItemsFull(response.items_full || []);
 				setInitValues(response);
 
@@ -84,14 +87,37 @@ export const ComboAddEditPage = (props: Props) => {
 
 	const onSubmit = async (data: Combo) => {
 		setIsSaving(true);
-		if (isEdit) {
-			dispatch(comboActions.update(data));
 
+		// Upload Images
+		const imgcombosResponse = await handleImgCombosUpload(data);
+
+		// Map images response to number array
+		const newData = {
+			...data,
+			imgcombos: (imgcombosResponse?.map((imgcombos) => imgcombos.id) as number[]) || data.imgcombos 
+		};
+
+		if (isEdit) {
+			dispatch(comboActions.update(newData));
 		} else {
-			dispatch(comboActions.create(data));
+			dispatch(comboActions.create(newData));
 		}
 		setIsSaving(false);
 	};
+
+	//Image upload handle
+	const handleImgCombosUpload = async (data: Combo): Promise<ImageUpload[] | undefined> => {
+		// thay thế hình ảnh nếu ko upload
+		let imgcombos: Array<any> = data.imgcombos;
+		imgcombos = imgcombos.filter((image) => typeof image === 'object' && Boolean(image.uid));
+
+		console.log(`handleImgCombosUpload`, imgcombos);
+		const response: {data: ImageUpload[] } = await fileUploadApi.image(
+			imgcombos as UploadFile<any>[]
+		);
+		return response.data;
+	};
+
 
     return (
         <PageHeader
@@ -112,9 +138,20 @@ export const ComboAddEditPage = (props: Props) => {
 
                                     <InputField name="slug" label="Url Combo" control={control} />
 
+									<InputField name="description" label="Mô tả" control={control} rows={4} />
+
 									<InputAddItem name="items" control={control} data={itemsFull}/>
 
-
+								{/* upload image */}
+								<UploadFileField
+									name="imgcombos"
+									required
+									label="Ảnh combo (1)"
+									hasUpload={handleImgCombosUpload}
+									data={imgcombosFull}
+									control={control}
+									maxCount={1}
+								/>
                             {/* Form actions */}
 								<Col span={24} style={{ textAlign: 'right' }}>
 									<Button style={{ margin: '0 8px' }} onClick={() => reset()} type="link">
