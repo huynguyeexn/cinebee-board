@@ -1,3 +1,5 @@
+import AccountAboutPage from 'app/features/accounts/aboutPage/accountAboutPage';
+import Page403 from 'app/features/common/403';
 import React from 'react';
 
 const ActorDashboardPage = React.lazy(() => import('app/features/actors/dashboard'));
@@ -10,7 +12,9 @@ const ComboDashboardPage = React.lazy(() => import('app/features/combo/dashboard
 const ItemDashboardPage = React.lazy(() => import('app/features/item/dashboard'));
 const ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
 const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTicket/dashboard'));
-const ComboTicketAddEditPage = React.lazy(() => import('app/features/comboTicket/addEditPage/AddEditPage'));
+const ComboTicketAddEditPage = React.lazy(
+	() => import('app/features/comboTicket/addEditPage/AddEditPage')
+);
 const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
 const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 const RoomDashboardPage = React.lazy(() => import('app/features/room/dashboard'));
@@ -143,5 +147,13 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/categories',
 		component: CategoryDashboardPage,
+	},
+	{
+		path: '/admin/about',
+		component: AccountAboutPage,
+	},
+	{
+		path: '/403',
+		component: Page403,
 	},
 ];
