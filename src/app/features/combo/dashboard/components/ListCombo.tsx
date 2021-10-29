@@ -79,6 +79,7 @@ const ListCombo = () => {
             title: 'Ngày tạo',
             dataIndex: 'created_at',
             key: 'created_at',
+            render: (text: string) => <span>{moment(text).fromNow()}</span>,
         },
         {
             title: 'Cập nhật',
