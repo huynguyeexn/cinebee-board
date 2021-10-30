@@ -12,9 +12,14 @@ import movieReducer from 'app/features/movie/redux/movieSlice';
 import roomReducer from 'app/features/room/redux/roomSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
 import RoleReducer from 'app/features/Role/redux/RoleSlide';
+import comboReducer from 'app/features/combo/redux/comboSlice';
+import itemReducer from 'app/features/item/redux/itemSilce';
+import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
+
+
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -26,6 +31,9 @@ const rootReducer = combineReducers({
 	upload: uploadReducer,
 	actor: actorReducer,
 	genre: genreReducer,
+	combo: comboReducer,
+	item: itemReducer,
+	comboTicket: comboTicketReducer,
 	director: directorReducer,
 	role: RoleReducer,
 	room: roomReducer,
