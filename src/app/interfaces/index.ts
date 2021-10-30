@@ -14,3 +14,4 @@ export * from './seat';
 export * from './upload';
 export * from './Role';
 export * from './Permission';
+export * from './Permission_Role';

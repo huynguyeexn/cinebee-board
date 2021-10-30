@@ -1,13 +1,15 @@
 import { initFilterParams, initPaginationParams } from 'app/constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ListParams,Role,PaginationParams,ListResponse, Permission, SuccessResponse } from "app/interfaces";
+import { ListParams,Role,PaginationParams,ListResponse, Permission, SuccessResponse, permission_role } from "app/interfaces";
 import { RootState } from 'app/redux/store';
+import { ToastSuccess } from 'app/utils/Toast';
 
 
 
 export interface RoleState{
      list: Role[];
      searchList: Role[];
+     permission_role: permission_role[];
      permission: Permission[];
      filter: ListParams;
      pagination: PaginationParams;
@@ -19,6 +21,7 @@ export interface RoleState{
 const initialState: RoleState = {
     list: [],
     searchList: [],
+    permission_role: [],
     permission: [],
     filter: initFilterParams,
     pagination: initPaginationParams,
@@ -41,7 +44,18 @@ const RoleSlide = createSlice({
         getListPermission: (state, action: PayloadAction<ListParams>) => {
             state.listLoading = true;
         },
-        listPermissionSuccess: (state,action: PayloadAction<ListResponse<Permission>>)=>{
+        getListRolePermission:(state)=>{
+            state.listLoading = true;
+        },
+        listPermissionRoleSuccess: (state,action: PayloadAction<ListResponse<permission_role>>)=>{
+            state.listLoading = false;
+            state.permission_role = action.payload.data;
+        },
+        //
+        getListPermissionALL:(state )=>{
+            state.listLoading = true;
+        },
+        listPermissionSuccess:(state,action: PayloadAction<ListResponse<Permission>>)=>{
             state.listLoading = false;
             state.permission = action.payload.data;
         },
@@ -65,6 +79,7 @@ const RoleSlide = createSlice({
 			state.actionLoading = true;
 		},
         runSuccess: (state, action: PayloadAction<SuccessResponse<any>>) => {
+            ToastSuccess(action.payload.message);
 			state.listLoading = false;
 			state.actionLoading = false;
 		},
@@ -82,7 +97,9 @@ export const RoleActions = RoleSlide.actions;
 export const selectRoleList = (state: RootState) => state.role.list;
 export const selectRolePagination = (state: RootState) => state.role.pagination;
 export const selectRoleFilter = (state: RootState) => state.role.filter;
-export const selectPemissionlist = (state: RootState) => state.role.permission;
+export const selectPemissionRolelist = (state: RootState) => state.role.permission_role;
+
+export const selectPermsission = (state: RootState) => state.role.permission;
 
 //loading
 export const selectRoleLoading = (state: RootState) => state.role.listLoading;

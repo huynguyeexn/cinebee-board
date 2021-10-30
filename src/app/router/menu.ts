@@ -83,7 +83,7 @@ export const menus: IMenu[] = [
 	},
 	{
 		path: '/admin/role',
-		label: 'Vai trò',
+		label: 'Quyền',
 		icon: FaLock,	
 	},
 	{

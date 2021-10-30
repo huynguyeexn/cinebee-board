@@ -8,10 +8,9 @@ const DashboardPage = React.lazy(() => import('app/features/dashboard'));
 const MovieDashboardPage = React.lazy(() => import('app/features/movie/dashboard'));
 const GenresDashboardPage = React.lazy(() => import('app/features/genres/dashboard'));
 const MovieAddEditPage = React.lazy(() => import('app/features/movie/addEditPage/AddEditPage'));
-const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
+const EmployeeDashboard = React.lazy(() => import('app/features/Employee/dashboard'));
 const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 const RoleDashboardPage = React.lazy(()=>import('app/features/Role/dashboard'));
-const RoleAddnew = React.lazy(()=>import('app/features/Role/AddEditpage/add_edit_role'));
 const RoomDashboardPage = React.lazy(() => import('app/features/room/dashboard'));
 const ShowtimeDashboardPage = React.lazy(() => import('app/features/showtime/dashboard'));
 const AddEditRoomPage = React.lazy(
@@ -94,15 +93,8 @@ export const routers: IRoute[] = [
 		component: RoleDashboardPage,
 	},
 	{
-		path: '/admin/role/new',
-		component: RoleAddnew,
-	},
-	{
-		path: '/admin/role/:id/edit',
-		component: RoleAddnew,
-	},
 		path: '/admin/rooms',
-		component: RoomDashboardPage,
+		component: RoomDashboardPage
 	},
 	{
 		path: '/admin/rooms/new',

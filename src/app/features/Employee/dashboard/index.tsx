@@ -17,12 +17,13 @@ import {
 	selectEmployeeList,
 	selectEmployeeListLoading,
 	selectEmployeePagination,
-} from '../redux/employeeSlice';
+} from './../redux/employeeSlice';
 import FilterEmployee from './components/FilterEmployee';
 import ListEmployee from './components/ListEmployee';
 import ModalAddEmployee from './components/ModalAddEmployee';
 import ModalEditEmployee from './components/ModalEditEmployee';
 import StatisticEmployee from './components/StatisticEmployee';
+
 
 const EmployeeDashboard = () => {
 	const dispatch = useAppDispatch();

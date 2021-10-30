@@ -1,28 +1,31 @@
-import { ListParams, ListResponse, Permission, Role,SuccessResponse } from "app/interfaces";
+import { ListResponse, Permission, permission_role, Role,SuccessResponse } from "app/interfaces";
 import axiosClient from "./axiosClient";
 
 
-const endpoint = 'role';
+const endpoint = 'permission';
 
 const roleApi = {
-    getAll(params?: ListParams): Promise<ListResponse<Role>> {
-        return axiosClient.get(endpoint, {params});
-    },
-    getAllPermission(params?: ListParams): Promise<ListResponse<Permission>>{
-       const url = `${endpoint}/permission`;
+    // getAll(): Promise<ListResponse<Permission>> {
+    //     return axiosClient.get(endpoint);
+    // },
+    getAllPermission_Role(): Promise<ListResponse<permission_role>>{
+       const url = `${endpoint}/permission_role`;
        return axiosClient.get(url);
+    },
+    getListPermission(): Promise<ListResponse<Permission>>{
+        return axiosClient.get(endpoint);
     },
     //Thêm mới
     create(data: any): Promise<any>{
         return axiosClient.post(endpoint,data);
     },
-    getById(id: string): Promise<any> {
+    getById(id: any): Promise<any> {
 		const url = `${endpoint}/${id}`;
 		return axiosClient.get(url);
 	},
     // cập nhật
     update(data: any): Promise<any>{
-        const url = `${endpoint}/${data.id}`;
+        const url = `${endpoint}/${data.role}`;
         return axiosClient.put(url, data);
     },
     // Delete
