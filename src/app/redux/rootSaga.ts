@@ -14,7 +14,9 @@ import { all } from 'redux-saga/effects';
 import categorySaga from 'app/features/category/redux/categorySaga';
 import paymentSaga from 'app/features/payment/redux/paymentSaga';
 import paymentStatusSaga from 'app/features/paymentStatus/redux/paymentStatusSaga';
-import movieTicketSaga from 'app/features/movieTicket/redux/movieTicketSara';
+import movieTicketSaga from 'app/features/movieTicket/redux/movieTicketSaga';
+import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
+import orderSaga from 'app/features/order/redux/orderSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -32,5 +34,7 @@ export default function* rootSaga() {
 		paymentSaga(),
 		paymentStatusSaga(),
 		movieTicketSaga(),
+		comboTicketSaga(),
+		orderSaga(),
 	]);
 }

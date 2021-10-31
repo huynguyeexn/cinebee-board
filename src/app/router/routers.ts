@@ -1,6 +1,9 @@
 import { CategoryDashboardPage } from 'app/features/category/dashboard';
+import { ComboTicketDashboard } from 'app/features/comboTicket/dasboard';
 import { CustomerTypeDashboardPage } from 'app/features/customerType/dashboard';
 import EmployeeRoleDashboardPage from 'app/features/employeeRole/dashboard';
+import { MovieTicketDashboard } from 'app/features/movieTicket/dashboard';
+import { orderDashboard } from 'app/features/order/dashboard';
 import { PaymentDashboardPage } from 'app/features/payment/dashboard';
 import React from 'react';
 
@@ -94,5 +97,17 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/customer-types',
 		component: CustomerTypeDashboardPage,
+	},
+	{
+		path: '/admin/movie-tickets',
+		component: MovieTicketDashboard,
+	},
+	{
+		path: '/admin/combo-tickets',
+		component: ComboTicketDashboard,
+	},
+	{
+		path: '/admin/orders',
+		component: orderDashboard,
 	},
 ];

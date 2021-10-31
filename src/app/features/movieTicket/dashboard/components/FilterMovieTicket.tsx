@@ -1,7 +1,6 @@
-import { Col, Input, Row, Form} from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/redux/hooks';\
-import Select from 'rc-select';
-import React from 'react'
+import { Col, Input, Row, Form, Select} from 'antd';
+import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
+import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { ChangeEvent } from 'react-router/node_modules/@types/react';
 import { movieTicketActions, selectMovieTicketFilter } from '../../redux/movieTicketSlice';
@@ -16,12 +15,32 @@ interface searchType {
 export const FilterMovieTicket = () => {
     const searchType: searchType[] = [
         {
+            title: "ID",
+            key: "id"
+        },
+        {
             title: "Ngày",
             key: "get_at"
         },
         {
-            title: "ID",
-            key: "id"
+            title: "Giá",
+            key: "price"
+        },
+        {
+            title: "Đơn Hàng",
+            key: "order_id"
+        },
+        {
+            title: "Xuất Chiếu",
+            key: "showtime_id"
+        },
+        {
+            title: "Phòng",
+            key: "room_id"
+        },
+        {
+            title: "Ghế",
+            key: "seat_id"
         },
     ];
 

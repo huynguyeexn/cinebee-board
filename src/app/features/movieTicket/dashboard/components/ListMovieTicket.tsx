@@ -1,5 +1,3 @@
-import { Dropdown, Space } from 'antd'
-import { MovieTicket } from 'app/interfaces/movieTicket'
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks'
 import TableBase from 'app/utils/components/TableBase'
 import React from 'react'

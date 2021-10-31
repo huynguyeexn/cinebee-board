@@ -7,9 +7,9 @@ interface Props {
     
 }
 
-export const index = (props: Props) => {
+export const MovieTicketDashboard = (props: Props) => {
     return (
-        <Row gutter={[16, 16]}>
+		<Row gutter={[16, 16]}>
 			<Col span={24}>
 				<FilterMovieTicket />
 			</Col>
