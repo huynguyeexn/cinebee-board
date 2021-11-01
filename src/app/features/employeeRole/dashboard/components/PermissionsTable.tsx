@@ -2,7 +2,7 @@ import { Collapse, Spin } from 'antd';
 import { Permissions } from 'app/interfaces';
 import { useAppSelector } from 'app/redux/hooks';
 import React, { ChangeEvent } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 import { selectPermissionsLoading, selectPermissionsOptions } from '../../redux/employeeRoleSlice';
 interface Props {
 	permissions_full: Permissions[];
@@ -35,12 +35,6 @@ const PermissionsTable = ({ permissions_full, name, control }: Props) => {
 	const options = useAppSelector(selectPermissionsOptions);
 	const [checkboxSelect, setCheckboxSelect] = React.useState<number[]>([]);
 
-	const {
-		field: { onChange },
-	} = useController({
-		name,
-		control,
-	});
 
 	const handleOnchange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = Number(event.target.value);
