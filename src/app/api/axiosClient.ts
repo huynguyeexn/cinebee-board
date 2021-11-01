@@ -11,9 +11,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
 	function (config: AxiosRequestConfig) {
-		console.log(`config`, config);
-		let newConfig = config;
-		newConfig.headers.Authorization = `Bearer ${
+		config.headers.Authorization = `Bearer ${
 			JSON.parse(localStorage.getItem('cinebee-board') || 'null')?.access_token
 		}`;
 		return config;

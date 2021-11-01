@@ -139,9 +139,9 @@ const ShowtimeScheduler = () => {
 			sort_type: 'asc',
 			per_page: 100,
 		};
+		dispatch(roomActions.getList(filterRooms));
 		dispatch(movieActions.getListPlaying(filterMovie));
 		dispatch(movieActions.getListComing(filterMovie));
-		dispatch(roomActions.getList(filterRooms));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 

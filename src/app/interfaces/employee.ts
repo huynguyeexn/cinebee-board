@@ -1,4 +1,4 @@
-import { IBase } from '.';
+import { EmployeeRole, IBase, Permissions } from '.';
 
 export interface Employee extends IBase {
 	fullname: string;
@@ -11,4 +11,7 @@ export interface Employee extends IBase {
 	birthday: number | string | Date;
 	gender: 0 | 1 | 2;
 	employee_role_id: number | string;
+	permissions: string[];
+	permissions_full: Permissions[];
+	role: EmployeeRole;
 }

@@ -1,5 +1,6 @@
+import { permissionsConfig } from 'app/constants';
 import AccountAboutPage from 'app/features/accounts/aboutPage/accountAboutPage';
-import Page403 from 'app/features/common/403';
+
 import React from 'react';
 
 const ActorDashboardPage = React.lazy(() => import('app/features/actors/dashboard'));
@@ -29,131 +30,128 @@ const EmployeeRoleDashboardPage = React.lazy(() => import('app/features/employee
 interface IRoute {
 	path: string;
 	component: React.FC;
+	permissions?: string[];
 }
 
 export const routers: IRoute[] = [
 	{
 		path: '/admin/dashboard',
 		component: DashboardPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/customers',
 		component: CustomerDashboard,
+		permissions: [permissionsConfig.customers.list],
 	},
-	{
-		path: '/admin/movies',
-		component: MovieDashboardPage,
-	},
-	// // {
-	// // 	path: '/admin/customers/create',
-	// // 	component: AddCustomer,
-	// // },
-	// // {
-	// // 	path: '/admin/movies/:id',
-	// // 	component: DetailCustomer,
-	// // },
-	// {
-	// 	path: '/admin/movies/:id',
-	// 	component: MovieEdit,
-	// },
 	{
 		path: '/admin/employees',
 		component: EmployeeDashboard,
+		permissions: [permissionsConfig.employee.list],
 	},
 	{
 		path: '/admin/employee-roles',
 		component: EmployeeRoleDashboardPage,
+		permissions: [permissionsConfig.role.list],
 	},
-	// {
-	// 	path: '/admin/customers/create',
-	// 	component: AddCustomer,
-	// },
-	// {
-	// 	path: '/admin/customers/:id',
-	// 	component: DetailCustomer,
-	// },
-	// {
-	// 	path: '/admin/customers/edit/:id',
-	// 	component: RoomEditPage,
-	// },
+	{
+		path: '/admin/movies',
+		component: MovieDashboardPage,
+		permissions: [permissionsConfig.movies.list],
+	},
 	{
 		path: '/admin/movies/new',
 		component: MovieAddEditPage,
+		permissions: [permissionsConfig.movies.list],
 	},
 	{
 		path: '/admin/movies/:id/edit',
 		component: MovieAddEditPage,
+		permissions: [permissionsConfig.movies.list],
 	},
 	{
 		path: '/admin/actors',
 		component: ActorDashboardPage,
+		permissions: [permissionsConfig.actors.list],
 	},
 	{
 		path: '/admin/genres',
 		component: GenresDashboardPage,
+		permissions: [permissionsConfig.genres.list],
 	},
 	{
 		path: '/admin/combo',
 		component: ComboDashboardPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/item',
 		component: ItemDashboardPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/combo/new',
 		component: ComboAddEditPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/combo/:id/edit',
 		component: ComboAddEditPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/comboticket',
 		component: ComboTicketDashboardPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/comboticket/:id/edit',
 		component: ComboTicketAddEditPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/comboticket/new',
 		component: ComboTicketAddEditPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/directors',
 		component: DirectorDashboardPage,
+		permissions: [permissionsConfig.directors.list],
 	},
 	{
 		path: '/admin/rooms',
 		component: RoomDashboardPage,
+		permissions: [permissionsConfig.rooms.list],
 	},
 	{
 		path: '/admin/rooms/new',
 		component: AddEditRoomPage,
+		permissions: [permissionsConfig.rooms.list],
 	},
 	{
 		path: '/admin/rooms/:id',
 		component: DetailRoomPage,
+		permissions: [permissionsConfig.rooms.list],
 	},
 	{
 		path: '/admin/rooms/:id/edit',
 		component: AddEditRoomPage,
+		permissions: [permissionsConfig.rooms.list],
 	},
 	{
 		path: '/admin/showtime',
 		component: ShowtimeDashboardPage,
+		permissions: [permissionsConfig.rooms.list],
 	},
 	{
 		path: '/admin/categories',
 		component: CategoryDashboardPage,
+		permissions: [],
 	},
 	{
 		path: '/admin/about',
 		component: AccountAboutPage,
-	},
-	{
-		path: '/403',
-		component: Page403,
+		permissions: [],
 	},
 ];
