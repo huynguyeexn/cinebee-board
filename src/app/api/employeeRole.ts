@@ -1,8 +1,7 @@
-import { ListResponse, EmployeeRole, ListParams  } from "app/interfaces";
-import axiosClient from "./axiosClient";
+import { ListResponse, EmployeeRole, ListParams, Permissions } from 'app/interfaces';
+import axiosClient from './axiosClient';
 
-
-const path = '/employee-roles';
+const path = '/role';
 
 const employeeRoleApi = {
 	getAll(): Promise<ListResponse<EmployeeRole>> {
@@ -15,25 +14,30 @@ const employeeRoleApi = {
 	},
 
 	getList(params?: ListParams): Promise<ListResponse<EmployeeRole>> {
-		return axiosClient.get(path, {params});
+		return axiosClient.get(path, { params });
+	},
+
+	getAllPermissions(): Promise<ListResponse<Permissions>> {
+		const url = `${path}/permissions`;
+		return axiosClient.get(url);
 	},
 
 	// Add
 	create(data: EmployeeRole): Promise<EmployeeRole> {
-		return axiosClient.post(path, data)
+		return axiosClient.post(path, data);
 	},
 
 	// Edit
 	update(data: EmployeeRole): Promise<EmployeeRole> {
 		const url = `${path}/${data.id}`;
-		return axiosClient.put(url, data)
+		return axiosClient.put(url, data);
 	},
 
 	// Delete
 	deleteById(params: EmployeeRole): Promise<EmployeeRole> {
-		const url = `${path}/${params.id}/delete`
-		return axiosClient.delete(url)
-	}
+		const url = `${path}/${params.id}/delete`;
+		return axiosClient.delete(url);
+	},
 };
 
 export default employeeRoleApi;

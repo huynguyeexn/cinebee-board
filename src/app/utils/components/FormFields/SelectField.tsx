@@ -36,9 +36,6 @@ export const SelectField = ({
 		control,
 	});
 
-	console.log(`options`, options);
-	console.log(`value`, value as string);
-
 	return (
 		<Form.Item
 			name={name}

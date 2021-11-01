@@ -3,7 +3,7 @@ import { Button, Col, Popconfirm, Row, Space, Spin } from 'antd';
 import employeeApi from 'app/api/employee';
 import {
 	employeeRoleActions,
-	selectemployeeRoleMap,
+	selectEmployeeRoleMap,
 } from 'app/features/employeeRole/redux/employeeRoleSlice';
 import { Employee } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
@@ -30,7 +30,7 @@ const EmployeeDashboard = () => {
 	const loading = useAppSelector(selectEmployeeListLoading);
 	const pagination = useAppSelector(selectEmployeePagination);
 	const filter = useAppSelector(selectEmployeeFilter);
-	const employeeRole = useAppSelector(selectemployeeRoleMap);
+	const employeeRole = useAppSelector(selectEmployeeRoleMap);
 
 	const [isAdd, setIsAdd] = React.useState(false);
 	const [isEdit, setIsEdit] = React.useState(false);
@@ -191,11 +191,7 @@ const EmployeeDashboard = () => {
 
 			<ModalAddEmployee isModalVisible={isAdd} onCancel={() => setIsAdd(false)} />
 			{employee && (
-				<ModalEditEmployee
-					isModalVisible={isEdit}
-					onCancel={handleCloseEdit}
-					employee={employee}
-				/>
+				<ModalEditEmployee isModalVisible={isEdit} onCancel={handleCloseEdit} employee={employee} />
 			)}
 		</>
 	);
