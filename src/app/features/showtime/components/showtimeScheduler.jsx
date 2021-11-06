@@ -98,7 +98,7 @@ const ShowtimeScheduler = () => {
 	const showtimeLoading = useAppSelector(selectShowtimeListLoading);
 	const showtimes = useAppSelector(selectShowtimeList);
 
-	const [dateSelected, setDateSelected] = React.useState();
+	const [dateSelected, setDateSelected] = React.useState(new Date());
 	const [events, setEvents] = React.useState([]);
 	const [draggedEvent, setDraggedEvent] = React.useState(null);
 	const [deletedEvents, setDeletedEvents] = React.useState([]);
@@ -107,7 +107,7 @@ const ShowtimeScheduler = () => {
 	React.useEffect(() => {
 		dispatch(
 			showtimeActions.getList({
-				date: moment(dateSelected).format(),
+				date: moment(new Date(dateSelected)).format(),
 			})
 		);
 	}, [dispatch, dateSelected]);
@@ -115,13 +115,13 @@ const ShowtimeScheduler = () => {
 	React.useEffect(() => {
 		const eventsMap = showtimes.map((el) => ({
 			allDay: false,
-			end: moment(el.end).add(7, 'hours').toDate(),
+			end: moment(new Date(el.end)).toDate(),
 			id: el.id,
 			movie_id: el.movie_id,
 			resource: el.room_id,
 			resourceId: el.room_id,
 			room_id: el.room_id,
-			start: moment(el.start).add(7, 'hours').toDate(),
+			start: moment(new Date(el.start)).toDate(),
 			title: el.movie.name,
 			movie_status_id: el.movie.status,
 		}));
@@ -218,6 +218,7 @@ const ShowtimeScheduler = () => {
 		};
 
 		dispatch(showtimeActions.save(value));
+		setDeletedEvents([]);
 	};
 
 	const handleClear = () => {
