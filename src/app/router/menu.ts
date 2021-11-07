@@ -57,11 +57,11 @@ export const menus: IMenu[] = [
 		label: 'Khách hàng',
 		icon: HiOutlineUsers,
 	},
-	{
+/* 	{
 		path: '/admin/comboticket',
 		label: 'Combo vé',
 		icon: AiOutlineContainer,
-	},
+	}, */
 	{
 		path: '/admin/combo',
 		label: 'Combo thức ăn',

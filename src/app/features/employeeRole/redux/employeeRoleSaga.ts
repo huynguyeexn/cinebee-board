@@ -1,12 +1,10 @@
-import { call, debounce, put, select, takeLatest } from "@redux-saga/core/effects";
-import { PayloadAction } from "@reduxjs/toolkit";
-// import { PayloadAction } from "@reduxjs/toolkit";
-import employeeRoleApi from "app/api/employeeRole";
-import { ListParams, ListResponse, SuccessResponse } from "app/interfaces";
-import { EmployeeRole } from "app/interfaces/employeeRole";
-import { RootState } from "app/redux/store";
-import { employeeRoleActions } from "./employeeRoleSlice";
-
+import { call, debounce, put, select, takeLatest } from '@redux-saga/core/effects';
+import { PayloadAction } from '@reduxjs/toolkit';
+import employeeRoleApi from 'app/api/employeeRole';
+import { ListParams, ListResponse, SuccessResponse, Permissions } from 'app/interfaces';
+import { EmployeeRole } from 'app/interfaces/employeeRole';
+import { RootState } from 'app/redux/store';
+import { employeeRoleActions } from './employeeRoleSlice';
 
 function* getAll() {
 	try {
@@ -19,8 +17,20 @@ function* getAll() {
 
 function* getList(action: PayloadAction<ListParams>) {
 	try {
-		const response: ListResponse<EmployeeRole> = yield call(employeeRoleApi.getList, action.payload);
+		const response: ListResponse<EmployeeRole> = yield call(
+			employeeRoleApi.getList,
+			action.payload
+		);
 		yield put(employeeRoleActions.getListSuccess(response));
+	} catch (error) {
+		yield put(employeeRoleActions.runError);
+	}
+}
+
+function* getPermissions() {
+	try {
+		const response: ListResponse<Permissions> = yield call(employeeRoleApi.getAllPermissions);
+		yield put(employeeRoleActions.getPermissionsSuccess(response));
 	} catch (error) {
 		yield put(employeeRoleActions.runError);
 	}
@@ -28,7 +38,10 @@ function* getList(action: PayloadAction<ListParams>) {
 
 function* deleteById(actions: PayloadAction<EmployeeRole>) {
 	try {
-		const data: SuccessResponse<EmployeeRole> = yield call(employeeRoleApi.deleteById, actions.payload);
+		const data: SuccessResponse<EmployeeRole> = yield call(
+			employeeRoleApi.deleteById,
+			actions.payload
+		);
 		const filter: ListParams = yield select((state) => state.employeeRole.filter);
 		yield put(employeeRoleActions.runSuccess(data));
 		yield put(employeeRoleActions.getList(filter));
@@ -66,6 +79,7 @@ function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 export default function* employeeRoleSaga() {
 	yield takeLatest(employeeRoleActions.getAll, getAll);
 	yield takeLatest(employeeRoleActions.getList, getList);
+	yield takeLatest(employeeRoleActions.getPermissions, getPermissions);
 	yield takeLatest(employeeRoleActions.create, create);
 	yield takeLatest(employeeRoleActions.update, update);
 	yield takeLatest(employeeRoleActions.deleteById, deleteById);

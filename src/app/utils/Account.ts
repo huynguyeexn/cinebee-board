@@ -23,6 +23,10 @@ export const getCurrentUser = () => {
 	return getToken()?.user;
 };
 
+export const getUserPermissions = () => {
+	return getToken()?.user.permissions;
+};
+
 export const getAccessToken = () => {
 	return getToken()?.access_token;
 };
@@ -38,9 +42,19 @@ export const login = async (params: UserLogin) => {
 	}
 };
 
-export const logout = () => {
+export const logout = async () => {
 	if (getToken()) {
+		await accountApi.logout();
 		window.localStorage.removeItem('cinebee-board');
 	}
 	return (window.location.href = '/login');
+};
+
+export const hasPermission = (userPermissions: string[], sitePermissions: string[]) => {
+	if (!sitePermissions || !sitePermissions.length) {
+		return true;
+	} else if (sitePermissions.length && userPermissions?.some((x) => sitePermissions.includes(x))) {
+		return true;
+	}
+	return false;
 };

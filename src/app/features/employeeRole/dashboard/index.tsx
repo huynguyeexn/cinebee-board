@@ -1,42 +1,47 @@
-import { Button, Col, Modal, Row } from 'antd'
-import { EmployeeRole } from 'app/interfaces'
-import React from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { AddEditEmployeeRole } from './components/AddEditEmployeeRole'
-import { FilterEmployeeRole } from './components/FilterEmployeeRole'
-import { ListEmployeeRole } from './components/ListEmployeeRole'
+import { Button, Col, Modal, Row } from 'antd';
+import { EmployeeRole } from 'app/interfaces';
+import { useAppDispatch } from 'app/redux/hooks';
+import React from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { employeeRoleActions } from '../redux/employeeRoleSlice';
+import { AddEditEmployeeRole } from './components/AddEditEmployeeRole';
+import { FilterEmployeeRole } from './components/FilterEmployeeRole';
+import { ListEmployeeRole } from './components/ListEmployeeRole';
 
-interface Props {
-    
-}
+interface Props {}
 
 export const EmployeeRoleDashboardPage = (props: Props) => {
-    const [isOpenModal, setIsOpenModal] = React.useState(false);
-    const [isEdit, setIsEdit] = React.useState(false);
-    const [data, setData] = React.useState<EmployeeRole>();
+	const dispatch = useAppDispatch();
+	const [isOpenModal, setIsOpenModal] = React.useState(false);
+	const [isEdit, setIsEdit] = React.useState(false);
+	const [data, setData] = React.useState<EmployeeRole>();
 
-    const handleAddButtonClick = () => {
-        setIsOpenModal(true);
-    }
+	React.useEffect(() => {
+		dispatch(employeeRoleActions.getPermissions());
+	}, [dispatch]);
 
-    const handleCancel = () => {
-        setData(undefined);
-        setIsOpenModal(false);
-        setIsEdit(false);
-    }
+	const handleAddButtonClick = () => {
+		setIsOpenModal(true);
+	};
 
-    const handleEdit = (employeeRole: EmployeeRole) => {
-        setData(employeeRole);
-        setIsOpenModal(true);
-        setIsEdit(true);
-    }
+	const handleCancel = () => {
+		setData(undefined);
+		setIsOpenModal(false);
+		setIsEdit(false);
+	};
 
-    return (
-        <Row gutter={[16,16]}>
+	const handleEdit = (employeeRole: EmployeeRole) => {
+		setData(employeeRole);
+		setIsOpenModal(true);
+		setIsEdit(true);
+	};
+
+	return (
+		<Row gutter={[16, 16]}>
 			<Col span={24}>
 				<FilterEmployeeRole />
 			</Col>
-            <Col span={24}>
+			<Col span={24}>
 				<Button
 					icon={<AiOutlinePlus />}
 					style={{
@@ -48,12 +53,13 @@ export const EmployeeRoleDashboardPage = (props: Props) => {
 					Thêm chức vụ
 				</Button>
 			</Col>
-            {/* List Table */}
+			{/* List Table */}
 			<Col span={24}>
 				<ListEmployeeRole onEdit={handleEdit} />
 			</Col>
 			{/* Add edit */}
 			<Modal
+				destroyOnClose
 				centered={true}
 				closable={false}
 				visible={isOpenModal}
@@ -62,8 +68,8 @@ export const EmployeeRoleDashboardPage = (props: Props) => {
 			>
 				<AddEditEmployeeRole onCancel={handleCancel} isEdit={isEdit} data={data} />
 			</Modal>
-        </Row>
-    )
-}
+		</Row>
+	);
+};
 
-export default EmployeeRoleDashboardPage
+export default EmployeeRoleDashboardPage;
