@@ -154,7 +154,7 @@ const ListMovie = () => {
 			title: 'Cập nhật',
 			key: 'updated_at',
 			dataIndex: 'updated_at',
-			render: (text: string) => <span>{moment(text).fromNow()}</span>,
+			render: (text: string) => <span>{moment(new Date(text)).fromNow()}</span>,
 		},
 		{
 			title: '',
