@@ -1,7 +1,8 @@
 import { blue } from '@ant-design/colors';
 import { Button, Dropdown, Image, Popconfirm, Space } from 'antd';
 import { IMAGE_PLACEHOLDER } from 'app/constants';
-import { Combo, ImageUpload } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
+import { ImageUpload } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import moment from 'moment';

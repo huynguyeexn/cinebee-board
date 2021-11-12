@@ -1,4 +1,5 @@
-import { Item, ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
+import { ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
+import { Item } from 'app/interfaces/item';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, debounce, put, select, takeLatest } from '@redux-saga/core/effects';
 import itemApi from 'app/api/itemApi';

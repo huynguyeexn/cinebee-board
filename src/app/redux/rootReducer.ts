@@ -20,6 +20,7 @@ import paymentReducer from 'app/features/payment/redux/paymentSlice';
 import paymentStatusReducer from 'app/features/paymentStatus/redux/paymentStatusSlice';
 import movieTicketReducer from 'app/features/movieTicket/redux/movieTicketSlice';
 import orderReducer from 'app/features/order/redux/orderSlice';
+import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
 	item: itemReducer,
 	comboTicket: comboTicketReducer,
 	director: directorReducer,
+	showtime: showtimeReducer,
 	room: roomReducer,
 	category: categoryReducer,
 	payment: paymentReducer,

@@ -18,6 +18,7 @@ import paymentStatusSaga from 'app/features/paymentStatus/redux/paymentStatusSag
 import movieTicketSaga from 'app/features/movieTicket/redux/movieTicketSaga';
 import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
 import orderSaga from 'app/features/order/redux/orderSaga';
+import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -41,5 +42,6 @@ export default function* rootSaga() {
 		movieTicketSaga(),
 		comboTicketSaga(),
 		orderSaga(),
+		showtimeSaga(),
 	]);
 }

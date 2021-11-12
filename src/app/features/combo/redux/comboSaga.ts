@@ -1,4 +1,5 @@
-import { Combo, ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
+import { ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, debounce, put, select, takeLatest } from '@redux-saga/core/effects';
 import comboApi from 'app/api/comboApi';

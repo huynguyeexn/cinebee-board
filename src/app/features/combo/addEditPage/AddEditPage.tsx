@@ -4,7 +4,9 @@ import * as yup from 'yup';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Combo, ImageUpload, Item } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
+import { ImageUpload } from 'app/interfaces';
+import { Item } from 'app/interfaces/item';
 import { InputField, UploadFileField } from 'app/utils/components/FormFields';
 import InputAddItem from 'app/features/item/components/InputAddItem';
 import { comboActions } from '../redux/comboSlice';

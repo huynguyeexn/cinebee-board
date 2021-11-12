@@ -1,7 +1,8 @@
 import { call, debounce, put, select, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import employeeRoleApi from 'app/api/employeeRole';
-import { ListParams, ListResponse, SuccessResponse, Permissions } from 'app/interfaces';
+import { ListParams, ListResponse, SuccessResponse } from 'app/interfaces';
+import { Permissions } from 'app/interfaces/permissions';
 import { EmployeeRole } from 'app/interfaces/employeeRole';
 import { RootState } from 'app/redux/store';
 import { employeeRoleActions } from './employeeRoleSlice';

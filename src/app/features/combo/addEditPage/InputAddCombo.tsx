@@ -1,5 +1,5 @@
 import { Button, Col, Form, Popconfirm, Row, Select, Spin } from 'antd';
-import { Combo } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import React from 'react';

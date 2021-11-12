@@ -1,5 +1,5 @@
 import { IBase } from '.';
-import { Permissions } from '.';
+import { Permissions } from './permissions';
 
 export interface EmployeeRole extends IBase {
 	name: string;
