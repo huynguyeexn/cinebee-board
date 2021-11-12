@@ -9,13 +9,16 @@ import employeeRoleReducer from 'app/features/employeeRole/redux/employeeRoleSli
 import directorReducer from 'app/features/director/redux/directorSlice';
 import genreReducer from 'app/features/genres/redux/genreSlice';
 import movieReducer from 'app/features/movie/redux/movieSlice';
+import roomReducer from 'app/features/room/redux/roomSlice';
 import uploadReducer from 'app/features/upload/redux/uploadSlice';
+import comboReducer from 'app/features/combo/redux/comboSlice';
+import itemReducer from 'app/features/item/redux/itemSilce';
+import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
 import paymentReducer from 'app/features/payment/redux/paymentSlice';
 import paymentStatusReducer from 'app/features/paymentStatus/redux/paymentStatusSlice';
 import movieTicketReducer from 'app/features/movieTicket/redux/movieTicketSlice';
-import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 import orderReducer from 'app/features/order/redux/orderSlice';
 
 const rootReducer = combineReducers({
@@ -28,12 +31,15 @@ const rootReducer = combineReducers({
 	upload: uploadReducer,
 	actor: actorReducer,
 	genre: genreReducer,
+	combo: comboReducer,
+	item: itemReducer,
+	comboTicket: comboTicketReducer,
 	director: directorReducer,
+	room: roomReducer,
 	category: categoryReducer,
 	payment: paymentReducer,
 	paymentStatus: paymentStatusReducer,
 	movieTicket: movieTicketReducer,
-	comboTicket: comboTicketReducer,
 	order: orderReducer,
 });
 

@@ -1,10 +1,11 @@
 import { blue } from '@ant-design/colors';
 import { Button, Col, Dropdown, Image, Popconfirm, Row, Space, Spin, Tag } from 'antd';
+import { IMAGE_PLACEHOLDER, MOVIE_STATUS } from 'app/constants';
 import { ageRatingActions, selectAgeRatingMap } from 'app/features/ageRating/redux/ageRatingSlice';
 import { ImageUpload, Movie } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
-import { ageRatingColor } from 'app/utils/helper';
+import { ageRatingColor, movieStatusTagColor } from 'app/utils/helper';
 import moment from 'moment';
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
@@ -69,7 +70,12 @@ const ListMovie = () => {
 			render: (posters: ImageUpload[]) => (
 				<>
 					{posters && posters[0] && (
-						<Image height={100} src={posters[0]?.url} alt={posters[0].alt} />
+						<Image
+							height={100}
+							src={posters[0]?.url}
+							alt={posters[0].alt}
+							fallback={IMAGE_PLACEHOLDER}
+						/>
 					)}
 				</>
 			),
@@ -84,12 +90,24 @@ const ListMovie = () => {
 						<>
 							<Image.PreviewGroup>
 								{backdrops[0] && (
-									<Image height={100} src={backdrops[0]?.url} alt={backdrops[0].alt} />
+									<Image
+										fallback={IMAGE_PLACEHOLDER}
+										height={100}
+										src={backdrops[0]?.url}
+										alt={backdrops[0].alt}
+									/>
 								)}
 								<div className="" style={{ display: 'none' }}>
 									{backdrops.length > 0 &&
 										backdrops.slice(1).map((image) => {
-											return <Image height={100} src={image?.url} alt={image.alt} />;
+											return (
+												<Image
+													fallback={IMAGE_PLACEHOLDER}
+													height={100}
+													src={image?.url}
+													alt={image.alt}
+												/>
+											);
 										})}
 								</div>
 							</Image.PreviewGroup>
@@ -120,6 +138,14 @@ const ListMovie = () => {
 			),
 		},
 		{
+			title: 'Trạng thái',
+			dataIndex: 'status',
+			key: 'status',
+			render: (status: number) => (
+				<Tag color={movieStatusTagColor(status)}>{MOVIE_STATUS[status]}</Tag>
+			),
+		},
+		{
 			title: 'Ngày chiếu',
 			dataIndex: 'release_date',
 			key: 'release_date',
@@ -128,7 +154,7 @@ const ListMovie = () => {
 			title: 'Cập nhật',
 			key: 'updated_at',
 			dataIndex: 'updated_at',
-			render: (text: string) => <span>{moment(text).fromNow()}</span>,
+			render: (text: string) => <span>{moment(new Date(text)).fromNow()}</span>,
 		},
 		{
 			title: '',

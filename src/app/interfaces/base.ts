@@ -4,4 +4,6 @@ export interface IBase {
 	deleted_at?: number;
 	created_at?: number;
 	updated_at?: number;
+
+	pivot?: any;
 }

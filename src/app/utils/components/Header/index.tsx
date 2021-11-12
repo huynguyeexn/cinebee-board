@@ -1,5 +1,7 @@
 import { Col, Layout, Menu, Row } from 'antd';
+import { getCurrentUser, logout } from 'app/utils/Account';
 import { AiOutlineUser } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
@@ -7,17 +9,18 @@ const { SubMenu } = Menu;
 interface Props {}
 
 const TopHeader = (props: Props) => {
+	const userName = getCurrentUser()?.fullname;
 	return (
 		<Header id="top-header" className="site-layout-background" style={{ padding: 0 }}>
 			<Row>
 				<Col span={12}></Col>
 				<Col span={12}>
 					<Menu mode="horizontal" className="user-menu">
-						<SubMenu key="SubMenu" icon={<AiOutlineUser />} title="Huy Nguyễn">
-							<Menu.Item key="setting:1">Option 1</Menu.Item>
-							<Menu.Item key="setting:2">Option 2</Menu.Item>
-							<Menu.Item key="setting:3">Option 3</Menu.Item>
-							<Menu.Item key="setting:4">Option 4</Menu.Item>
+						<SubMenu key="SubMenu" icon={<AiOutlineUser />} title={userName || ''}>
+							<Menu.Item key="setting:1">
+								<Link to="/admin/about">Thông tin tài khoản</Link>
+							</Menu.Item>
+							<Menu.Item onClick={() => logout()}>Đăng xuất</Menu.Item>
 						</SubMenu>
 					</Menu>
 				</Col>

@@ -1,7 +1,8 @@
 import { Layout, Spin } from 'antd';
+import Page403 from 'app/features/common/403';
 import PrivateRoute from 'app/router/privateRoute';
 import { routers } from 'app/router/routers';
-import { useState, Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import TopHeader from '../components/Header';
 import SideMenu from '../components/SideMenu';
@@ -10,7 +11,6 @@ const { Content, Sider } = Layout;
 
 const AdminLayout = () => {
 	const [collapsed, setCollapsed] = useState(false);
-
 	return (
 		<>
 			<Layout style={{ minHeight: '100vh' }} id="admin-layout">
@@ -40,12 +40,15 @@ const AdminLayout = () => {
 											exact
 											path={route.path}
 											component={route.component}
+											permissions={route?.permissions}
 										></PrivateRoute>
 									))}
 
 									{/* <PrivateRoute path="/admin/rooms" component={RoomAddPage}></PrivateRoute> */}
 									<Redirect exact from="/" to="/admin/dashboard" />
 									<Redirect exact from="/admin" to="/admin/dashboard" />
+
+									<Route path="/admin/403" component={Page403} exact />
 									<Route path="*">Not found</Route>
 								</Switch>
 							</Suspense>

@@ -131,7 +131,7 @@ const CustomerDashboard = () => {
 			key: 'updated_at',
 			dataIndex: 'updated_at',
 			width: 150,
-			render: (text: string) => <span>{moment(text).fromNow()}</span>,
+			render: (text: string) => <span>{moment(new Date(text)).fromNow()}</span>,
 		},
 		{
 			title: '',
@@ -142,11 +142,7 @@ const CustomerDashboard = () => {
 				<Dropdown
 					overlay={
 						<Space size="middle">
-							<Button
-								type="text"
-								style={{ color: blue[3] }}
-								onClick={() => handleEdit(record)}
-							>
+							<Button type="text" style={{ color: blue[3] }} onClick={() => handleEdit(record)}>
 								Sửa <AiOutlineEdit />
 							</Button>
 							<Popconfirm title="Bạn chắc chứ?" onConfirm={() => handleDelete(record)}>
@@ -200,11 +196,7 @@ const CustomerDashboard = () => {
 
 			<ModalAddCustomer isModalVisible={isAdd} onCancel={() => setIsAdd(false)} />
 			{customer && (
-				<ModalEditCustomer
-					isModalVisible={isEdit}
-					onCancel={handleCloseEdit}
-					customer={customer}
-				/>
+				<ModalEditCustomer isModalVisible={isEdit} onCancel={handleCloseEdit} customer={customer} />
 			)}
 		</>
 	);

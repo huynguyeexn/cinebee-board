@@ -6,11 +6,8 @@ import { AddEditCategory } from './components/AddEditCategory';
 import { FilterCategory } from './components/FilterCategory';
 import { ListCategory } from './components/ListCategory';
 
-interface Props {
-    
-}
 
-export const CategoryDashboardPage = (props: Props) => {
+const CategoryDashboardPage = () => {
     const [isOpenModal, setIsOpenModal] = React.useState(false);
     const  [data, setData ] = React.useState<Category>();
     const [isEdit, setIsEdit] = React.useState(false);
@@ -63,3 +60,5 @@ export const CategoryDashboardPage = (props: Props) => {
 		</Row>
     )
 }
+
+export default CategoryDashboardPage;

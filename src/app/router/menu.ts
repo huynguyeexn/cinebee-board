@@ -1,5 +1,5 @@
 import { IconType } from 'react-icons';
-import { GiTempleDoor, GiPopcorn } from 'react-icons/gi';
+import { GiTempleDoor } from 'react-icons/gi';
 import { MdCardTravel, MdSubtitles, MdPayment, MdGrade } from 'react-icons/md';
 
 import { RiMovie2Line } from 'react-icons/ri';
@@ -7,7 +7,7 @@ import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
 	HiOutlineTicket,
-	HiOutlineUsers,
+	HiOutlineUsers
 } from 'react-icons/hi';
 import { FiUsers } from 'react-icons/fi';
 import { AiOutlineContainer, AiOutlineMenuUnfold } from 'react-icons/ai';
@@ -55,6 +55,11 @@ export const menus: IMenu[] = [
 		label: 'Khách hàng',
 		icon: HiOutlineUsers,
 	},
+/* 	{
+		path: '/admin/comboticket',
+		label: 'Combo vé',
+		icon: AiOutlineContainer,
+	}, */
 	{
 		path: '/admin/customer-types',
 		label: 'Hạng Khách Hàng',
@@ -63,7 +68,12 @@ export const menus: IMenu[] = [
 	{
 		path: '/admin/combo',
 		label: 'Combo thức ăn',
-		icon: GiPopcorn,
+		icon: AiOutlineContainer,
+	},
+	{
+		path: '/admin/item',
+		label: 'Thức ăn',
+		icon: AiOutlineContainer,
 	},
 	{
 		path: '/admin/movies',

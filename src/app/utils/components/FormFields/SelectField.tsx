@@ -43,7 +43,7 @@ export const SelectField = ({
 			required={required}
 			help={error?.message}
 			initialValue={
-				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value
+				Array.isArray(value) ? value?.map((val: number) => val.toString()) : value && `${value}`
 			}
 			validateStatus={invalid ? 'error' : ''}
 		>

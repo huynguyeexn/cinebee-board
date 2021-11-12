@@ -3,11 +3,17 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
 	baseURL: process.env.REACT_APP_BASE_URL_API,
-	headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+	headers: {
+		'Content-Type': 'application/json',
+		Accept: 'application/json',
+	},
 });
 
 axiosClient.interceptors.request.use(
 	function (config: AxiosRequestConfig) {
+		config.headers.Authorization = `Bearer ${
+			JSON.parse(localStorage.getItem('cinebee-board') || 'null')?.access_token
+		}`;
 		return config;
 	},
 	function (error: AxiosError) {
