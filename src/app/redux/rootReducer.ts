@@ -2,7 +2,7 @@ import actorReducer from 'app/features/actors/redux/actorSlice';
 import ageRatingReducer from 'app/features/ageRating/redux/ageRatingSlice';
 import customerReducer from 'app/features/customer/redux/customerSlice';
 import customerTypeReducer from 'app/features/customerType/redux/customerTypeSlice';
-import employeeReducer from 'app/features/employee/redux/employeeSlice';
+import employeeReducer from 'app/features/Employee/redux/employeeSlice';
 import employeeRoleReducer from 'app/features/employeeRole/redux/employeeRoleSlice';
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';
@@ -17,7 +17,7 @@ import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice'
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
-
+import BlogReducer from 'app/features/Blog/redux/BlogSlide';
 
 
 const rootReducer = combineReducers({
@@ -37,6 +37,7 @@ const rootReducer = combineReducers({
 	room: roomReducer,
 	category: categoryReducer,
 	showtime: showtimeReducer,
+	blog: BlogReducer
 });
 
 export default rootReducer;

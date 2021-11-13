@@ -16,7 +16,7 @@ const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTick
 const ComboTicketAddEditPage = React.lazy(
 	() => import('app/features/comboTicket/addEditPage/AddEditPage')
 );
-const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
+const EmployeeDashboard = React.lazy(() => import('app/features/Employee/dashboard'));
 const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 const RoomDashboardPage = React.lazy(() => import('app/features/room/dashboard'));
 const ShowtimeDashboardPage = React.lazy(() => import('app/features/showtime/dashboard'));
@@ -26,6 +26,8 @@ const AddEditRoomPage = React.lazy(
 const DetailRoomPage = React.lazy(() => import('app/features/room/detailRoomPage/DetailRoomPage'));
 const CategoryDashboardPage = React.lazy(() => import('app/features/category/dashboard'));
 const EmployeeRoleDashboardPage = React.lazy(() => import('app/features/employeeRole/dashboard'));
+const BlogDashboard = React.lazy(() => import('app/features/Blog/Dashboard'));
+const BlogAdd = React.lazy(() => import('app/features/Blog/components/Addblog'));
 
 interface IRoute {
 	path: string;
@@ -150,8 +152,25 @@ export const routers: IRoute[] = [
 		permissions: [],
 	},
 	{
+         path: '/admin/blog',
+		 component: BlogDashboard,
+		 permissions: [],
+	},
+	{
+		path: '/admin/blog/add',
+		component: BlogAdd,
+		permissions: [],
+	},
+	{
+          path: '/admin/blog/:id_blog/edit',
+		  component: BlogAdd,
+		  permissions:[],
+	},
+	{
 		path: '/admin/about',
 		component: AccountAboutPage,
 		permissions: [],
 	},
+
+
 ];

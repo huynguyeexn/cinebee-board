@@ -6,8 +6,9 @@ import { parseElementObjectToUTC } from 'app/utils/helper';
 const path = '/employee';
 
 const employeeApi = {
-	getAll(params?: ListParams): Promise<ListResponse<Employee>> {
-		return axiosClient.get(path, { params });
+	getAll(): Promise<ListResponse<Employee>> {
+		const url = `${path}/all`;
+		return axiosClient.get(url);
 	},
 	getById(employee: Employee): Promise<Employee> {
 		const url = `${path}/${employee.id}`;

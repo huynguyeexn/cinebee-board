@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@tinymce/tinymce-react": "^3.13.0",
 		"@toast-ui/react-calendar": "^1.0.5",
 		"@types/react-big-calendar": "^0.36.0",
 		"axios": "^0.21.3",

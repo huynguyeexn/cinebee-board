@@ -8,13 +8,21 @@ import { employeeActions } from "./employeeSlice";
 
 function* fetchEmployeeList(actions: PayloadAction<ListParams>) {
 	try {
-		const data: ListResponse<Employee> = yield call(employeeApi.getAll, actions.payload);
+		const data: ListResponse<Employee> = yield call(employeeApi.getAll);
 		yield put(employeeActions.fetchEmployeeListSuccess(data));
 	} catch (error) {
 		yield put(employeeActions.runError());
 	}
 }
 
+function* getAll() {
+	try {
+		const data: ListResponse<Employee> = yield call(employeeApi.getAll);
+		yield put(employeeActions.fetchEmployeeListSuccess(data));
+	} catch (error) {
+		yield put(employeeActions.runError());
+	}
+}
 function* deleteById(actions: PayloadAction<Employee>) {
 	try {
 		const data: SuccessResponse<Employee> = yield call(
@@ -65,6 +73,7 @@ function* setFilterDebounce(actions: PayloadAction<ListParams>) {
 export default function* employeeSaga() {
 	yield takeLatest(employeeActions.fetchEmployeeList, fetchEmployeeList);
 	yield takeLatest(employeeActions.setFilter, fetchEmployeeList);
+	yield takeLatest(employeeActions.getAll, getAll);
 	yield takeLatest(employeeActions.create, create);
 	yield takeLatest(employeeActions.update, update);
 	yield takeLatest(employeeActions.deleteById, deleteById);
