@@ -18,10 +18,10 @@ import { blue } from '@ant-design/colors';
 
 
 interface Props {
-    showModal: (category: Blog) => void;
+   
 }
 
-const ListBlog = ({showModal}: Props) => {
+const ListBlog = (props: Props) => {
    const dispatch = useDispatch();
    const Blog = useAppSelector(SelectBlogList);
    const loading = useAppSelector(selectBlogListLoading);
@@ -121,9 +121,11 @@ const ListBlog = ({showModal}: Props) => {
             key: 'action',
             render: (text: Blog) => (
               <Space size="middle">
-               <Button onClick={()=>showModal(text)}>
-                    Xem chi tiết <AiFillEye />
-                </Button>
+                <Link to={`blog/${text.id}/view`}>
+                    <Button >
+                            Xem chi tiết <AiFillEye />
+                    </Button>
+                </Link>
                 <Link to={`blog/${text.id}/edit`}>
                     <Button style={{ color: blue[3] }}>
 							Sửa <AiOutlineEdit />

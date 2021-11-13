@@ -1,4 +1,4 @@
-import { ListParams, ListResponse, SuccessResponse } from '../interfaces/common';
+import { ListResponse, SuccessResponse } from '../interfaces/common';
 import axiosClient from './axiosClient';
 import { Employee } from '../interfaces/employee';
 import { parseElementObjectToUTC } from 'app/utils/helper';

@@ -28,7 +28,7 @@ const CategoryDashboardPage = React.lazy(() => import('app/features/category/das
 const EmployeeRoleDashboardPage = React.lazy(() => import('app/features/employeeRole/dashboard'));
 const BlogDashboard = React.lazy(() => import('app/features/Blog/Dashboard'));
 const BlogAdd = React.lazy(() => import('app/features/Blog/components/Addblog'));
-
+const BlogView = React.lazy(() => import('app/features/Blog/components/Blogview'));
 interface IRoute {
 	path: string;
 	component: React.FC;
@@ -165,6 +165,11 @@ export const routers: IRoute[] = [
           path: '/admin/blog/:id_blog/edit',
 		  component: BlogAdd,
 		  permissions:[],
+	},
+	{
+		path: '/admin/blog/:id/view',
+		component: BlogView,
+		permissions:[],
 	},
 	{
 		path: '/admin/about',
