@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initFilterParams, initPaginationParams } from "app/constants";
 import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
 import { Category } from "app/interfaces/category";
@@ -36,7 +36,10 @@ const categorySlice = createSlice({
         getList: (state, action: PayloadAction<ListParams>) => {
             state.listLoading = true;
         },
-
+        // get all category blog
+        getAll:(state)=>{
+            state.listLoading = true;
+        },
         getListSuccess: (state, action: PayloadAction<ListResponse<Category>>) => {
             state.listLoading = false;
             state.list = action.payload.data;
@@ -112,6 +115,26 @@ export const selectCategoryFilter = (state: RootState) => state.category.filter;
 export const selectCategoryPagination = (state: RootState) => state.category.pagination;
 export const selectCategorySearchList = (state: RootState) => state.category.searchList;
 
+export const selectCategoryMap = createSelector(
+	selectCategoryList,
+	(typeList: Category[]) => {
+		return typeList.reduce((map: { [key: string]: Category }, empType: Category) => {
+			map[`${empType.id}`] = empType;
+			return map;
+		}, {});
+	}
+);
+export const selectCategoryOptions = createSelector(
+	selectCategoryList,
+	(typeList: Category[]) => {
+		return typeList.map((type, idx) => {
+			return {
+				value: type.id as string | number,
+				label: type.name,
+			};
+		});
+	}
+);
 //Reducer
 const categoryReducer = categorySlice.reducer;
 export default categoryReducer

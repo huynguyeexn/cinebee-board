@@ -1,4 +1,4 @@
-import { ListParams, ListResponse, SuccessResponse } from '../interfaces/common';
+import { ListResponse, SuccessResponse } from '../interfaces/common';
 import axiosClient from './axiosClient';
 import { Employee } from '../interfaces/employee';
 import { parseElementObjectToUTC } from 'app/utils/helper';
@@ -6,8 +6,9 @@ import { parseElementObjectToUTC } from 'app/utils/helper';
 const path = '/employee';
 
 const employeeApi = {
-	getAll(params?: ListParams): Promise<ListResponse<Employee>> {
-		return axiosClient.get(path, { params });
+	getAll(): Promise<ListResponse<Employee>> {
+		const url = `${path}/all`;
+		return axiosClient.get(url);
 	},
 	getById(employee: Employee): Promise<Employee> {
 		const url = `${path}/${employee.id}`;
