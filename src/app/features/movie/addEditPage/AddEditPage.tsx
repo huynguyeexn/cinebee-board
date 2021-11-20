@@ -79,7 +79,7 @@ const MovieAddEditPage = (props: Props) => {
 			setLoading(true);
 			(async () => {
 				let response: Movie = await movieApi.getById(id);
-
+				console.log(response);
 				setActorsFull(response.actors_full || []);
 				setDirectorsFull(response.directors_full || []);
 				setPostersFull(response.posters_full || []);
@@ -126,7 +126,7 @@ const MovieAddEditPage = (props: Props) => {
 	// Form Methods
 	const onSubmit = async (data: Movie) => {
 		setIsSaving(true);
-
+        console.log(data);
 		// Upload Images
 		const posterResponse = await handlePosterUpload(data);
 		const backdropsResponse = await handleBackdropUpload(data);

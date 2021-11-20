@@ -97,4 +97,9 @@ export const menus: IMenu[] = [
 		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
 	},
+	{
+		path: '/admin/blog',
+		label: 'Bài viết',
+		icon: AiOutlineContainer,
+	}
 ];
