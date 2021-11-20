@@ -26,7 +26,9 @@ const AddEditRoomPage = React.lazy(
 const DetailRoomPage = React.lazy(() => import('app/features/room/detailRoomPage/DetailRoomPage'));
 const CategoryDashboardPage = React.lazy(() => import('app/features/category/dashboard'));
 const EmployeeRoleDashboardPage = React.lazy(() => import('app/features/employeeRole/dashboard'));
-
+const BlogDashboard = React.lazy(() => import('app/features/Blog/Dashboard'));
+const BlogAdd = React.lazy(() => import('app/features/Blog/components/Addblog'));
+const BlogView = React.lazy(() => import('app/features/Blog/components/Blogview'));
 interface IRoute {
 	path: string;
 	component: React.FC;
@@ -150,8 +152,30 @@ export const routers: IRoute[] = [
 		permissions: [],
 	},
 	{
+         path: '/admin/blog',
+		 component: BlogDashboard,
+		 permissions: [],
+	},
+	{
+		path: '/admin/blog/add',
+		component: BlogAdd,
+		permissions: [],
+	},
+	{
+          path: '/admin/blog/:id_blog/edit',
+		  component: BlogAdd,
+		  permissions:[],
+	},
+	{
+		path: '/admin/blog/:id/view',
+		component: BlogView,
+		permissions:[],
+	},
+	{
 		path: '/admin/about',
 		component: AccountAboutPage,
 		permissions: [],
 	},
+
+
 ];

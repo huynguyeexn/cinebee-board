@@ -19,3 +19,4 @@ export * from './item';
 export * from './comboTicket';
 export * from './account';
 export * from './permissions';
+export * from './Blog';

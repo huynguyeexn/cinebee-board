@@ -17,7 +17,7 @@ import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice'
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
-
+import BlogReducer from 'app/features/Blog/redux/BlogSlide';
 
 
 const rootReducer = combineReducers({
@@ -37,6 +37,7 @@ const rootReducer = combineReducers({
 	room: roomReducer,
 	category: categoryReducer,
 	showtime: showtimeReducer,
+	blog: BlogReducer
 });
 
 export default rootReducer;

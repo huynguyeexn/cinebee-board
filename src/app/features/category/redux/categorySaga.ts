@@ -6,6 +6,7 @@ import { ListParams, ListResponse, SuccessResponse } from "app/interfaces";
 import { Category } from "app/interfaces/category";
 import { categoryActions } from "./categorySlice";
 
+
 function* getList(actions: PayloadAction<ListParams>) {
     try {
         const data: ListResponse<Category> = yield call(categoryApi.getAll, actions.payload);
@@ -13,6 +14,14 @@ function* getList(actions: PayloadAction<ListParams>) {
     } catch (error) {
         yield put(categoryActions.runError())
     }
+}
+function* getAll() {
+	try {
+		const response: ListResponse<Category> = yield call(categoryApi.getAll_N);
+		yield put(categoryActions.getListSuccess(response));
+	} catch (error) {
+		yield put(categoryActions.runError);
+	}
 }
 
 function* create (actions: PayloadAction<Category>) {
@@ -72,6 +81,7 @@ function* searchByName(actions: PayloadAction<string>) {
 export default function* categorySaga() {
     yield takeLatest(categoryActions.getList, getList);
     yield takeLatest(categoryActions.setFilter, getList);
+    yield takeLatest(categoryActions.getAll,getAll);
     yield takeLatest(categoryActions.create, create);
     yield takeLatest(categoryActions.update, update);
     yield takeLatest(categoryActions.deleteById, deleteById);

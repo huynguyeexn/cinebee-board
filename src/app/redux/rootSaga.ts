@@ -14,6 +14,7 @@ import movieSaga from 'app/features/movie/redux/movieSaga';
 import roomSaga from 'app/features/room/redux/roomSaga';
 import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
+import BlogSaga from 'app/features/Blog/redux/BLogSaga';
 import { all } from 'redux-saga/effects';
 
 export default function* rootSaga() {
@@ -34,5 +35,6 @@ export default function* rootSaga() {
 		roomSaga(),
 		categorySaga(),
 		showtimeSaga(),
+		BlogSaga(),
 	]);
 }
