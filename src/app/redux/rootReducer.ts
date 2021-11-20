@@ -2,7 +2,7 @@ import actorReducer from 'app/features/actors/redux/actorSlice';
 import ageRatingReducer from 'app/features/ageRating/redux/ageRatingSlice';
 import customerReducer from 'app/features/customer/redux/customerSlice';
 import customerTypeReducer from 'app/features/customerType/redux/customerTypeSlice';
-import employeeReducer from 'app/features/Employee/redux/employeeSlice';
+import employeeReducer from 'app/features/employee/redux/employeeSlice';
 import employeeRoleReducer from 'app/features/employeeRole/redux/employeeRoleSlice';
 // import movieReducer from 'app/features/movie/Redux/movieSlice';
 // import roomReducer from 'app/features/room/Redux/roomSlice';

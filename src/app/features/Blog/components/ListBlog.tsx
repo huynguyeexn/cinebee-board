@@ -7,7 +7,7 @@ import { SelectBlogList,
     SelectBlogPagination,BlogAction } from './../redux/BlogSlide';
 import { useAppSelector } from 'app/redux/hooks';
 import { categoryActions, selectCategoryMap } from 'app/features/category/redux/categorySlice';
-import { selectEmployeeMap, employeeActions } from 'app/features/Employee/redux/employeeSlice';
+import { selectEmployeeMap, employeeActions } from 'app/features/employee/redux/employeeSlice';
 import { Link } from 'react-router-dom';
 import { Blog } from 'app/interfaces';
 import { AiOutlineEdit, AiOutlineDelete, AiFillEye } from 'react-icons/ai';

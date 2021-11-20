@@ -4,7 +4,7 @@ import { Blog } from 'app/interfaces';
 import BlogApi from 'app/api/BlogApi';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { selectEmployeeMap, employeeActions } from 'app/features/Employee/redux/employeeSlice';
+import { selectEmployeeMap, employeeActions } from 'app/features/employee/redux/employeeSlice';
 import { useAppSelector } from 'app/redux/hooks';
 
 import { Typography } from 'antd';
