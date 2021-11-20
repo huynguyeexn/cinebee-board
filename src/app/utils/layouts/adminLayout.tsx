@@ -6,6 +6,7 @@ import { Suspense, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import TopHeader from '../components/Header';
 import SideMenu from '../components/SideMenu';
+import logo from 'app/assets/images/Cinebee-logo-text.png';
 
 const { Content, Sider } = Layout;
 
@@ -24,7 +25,7 @@ const AdminLayout = () => {
 					onCollapse={(collapsed) => setCollapsed(collapsed)}
 				>
 					<div className="logo">
-						<span>Logo</span>
+						<img src={logo} alt="Cinebee logo" />
 					</div>
 					<SideMenu />
 				</Sider>

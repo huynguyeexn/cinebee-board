@@ -16,7 +16,7 @@ const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTick
 const ComboTicketAddEditPage = React.lazy(
 	() => import('app/features/comboTicket/addEditPage/AddEditPage')
 );
-const EmployeeDashboard = React.lazy(() => import('app/features/Employee/dashboard'));
+const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
 const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 const RoomDashboardPage = React.lazy(() => import('app/features/room/dashboard'));
 const ShowtimeDashboardPage = React.lazy(() => import('app/features/showtime/dashboard'));
