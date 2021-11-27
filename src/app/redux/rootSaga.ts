@@ -12,6 +12,7 @@ import itemSaga from 'app/features/item/redux/itemSaga';
 import movieSaga from 'app/features/movie/redux/movieSaga';
 import roomSaga from 'app/features/room/redux/roomSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
+import BlogSaga from 'app/features/Blog/redux/BLogSaga';
 import { all } from 'redux-saga/effects';
 import paymentSaga from 'app/features/payment/redux/paymentSaga';
 import paymentStatusSaga from 'app/features/paymentStatus/redux/paymentStatusSaga';
@@ -43,5 +44,6 @@ export default function* rootSaga() {
 		comboTicketSaga(),
 		orderSaga(),
 		showtimeSaga(),
+		BlogSaga(),
 	]);
 }

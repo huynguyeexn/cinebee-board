@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createSelector} from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initFilterParams, initPaginationParams } from "app/constants";
 import { ToastSuccess } from "app/utils/Toast";
 import { ListParams, ListResponse, PaginationParams, SuccessResponse } from "app/interfaces";
@@ -43,7 +43,10 @@ const employeeSlice = createSlice({
 		fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = false;
 		},
-
+         
+		getAll:(state)=>{
+            state.listLoading = true;
+		},
 		getById: (state, action: PayloadAction<Employee>) => {
 			state.listLoading = true;
 		},
@@ -93,13 +96,10 @@ export const selectEmployeePagination = (state: RootState) => state.employee.pag
 export const selectEmployeeMap = createSelector(
 	selectEmployeeList,
 	(typeList: Employee[]) => {
-		return typeList.reduce(
-			(map: { [key: string]: Employee }, emp: Employee) => {
-				map[`${emp.id}`] = emp;
-				return map;
-			},
-			{}
-		);
+		return typeList.reduce((map: { [key: string]: Employee }, empType: Employee) => {
+			map[`${empType.id}`] = empType;
+			return map;
+		}, {});
 	}
 );
 // Reducer

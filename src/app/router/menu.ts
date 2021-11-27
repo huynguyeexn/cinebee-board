@@ -120,4 +120,9 @@ export const menus: IMenu[] = [
 		label: 'Đơn Hàng',
 		icon: AiOutlineMenuUnfold,
 	},
+	{
+		path: '/admin/blog',
+		label: 'Bài viết',
+		icon: AiOutlineContainer,
+	}
 ];

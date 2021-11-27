@@ -7,9 +7,12 @@ const endpoint = '/categories'
 const categoryApi = {
 
     getAll(params?: ListParams): Promise<ListResponse<Category>> {
-        return axiosClient.get(endpoint, {params})
+        return axiosClient.get(endpoint,{params});
     },
-
+    getAll_N(): Promise<ListResponse<Category>> {
+        const url = `${endpoint}/all`;
+        return axiosClient.get(url)
+    },
     getById(params: Category): Promise<Category> {
         const url = `${endpoint}/${params.id}`
         return axiosClient.get(url)

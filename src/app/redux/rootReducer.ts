@@ -21,6 +21,8 @@ import paymentStatusReducer from 'app/features/paymentStatus/redux/paymentStatus
 import movieTicketReducer from 'app/features/movieTicket/redux/movieTicketSlice';
 import orderReducer from 'app/features/order/redux/orderSlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
+import BlogReducer from 'app/features/Blog/redux/BlogSlide';
+
 
 const rootReducer = combineReducers({
 	ageRating: ageRatingReducer,
@@ -43,6 +45,7 @@ const rootReducer = combineReducers({
 	paymentStatus: paymentStatusReducer,
 	movieTicket: movieTicketReducer,
 	order: orderReducer,
+	blog: BlogReducer
 });
 
 export default rootReducer;

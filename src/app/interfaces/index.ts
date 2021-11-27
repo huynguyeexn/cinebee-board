@@ -16,4 +16,5 @@ export * from './payment';
 export * from './paymentStatus';
 export * from './account';
 export * from './showtime';
-
+export * from './permissions';
+export * from './Blog';
