@@ -2,7 +2,6 @@ import actorSaga from 'app/features/actors/redux/actorSaga';
 import ageRatingSaga from 'app/features/ageRating/redux/ageRatingSaga';
 import categorySaga from 'app/features/category/redux/categorySaga';
 import comboSaga from 'app/features/combo/redux/comboSaga';
-import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
 import customerSaga from 'app/features/customer/redux/customerSaga';
 import customerTypeSaga from 'app/features/customerType/redux/customerTypeSaga';
 import directorSaga from 'app/features/director/redux/directorSaga';
@@ -12,10 +11,15 @@ import genreSaga from 'app/features/genres/redux/genreSaga';
 import itemSaga from 'app/features/item/redux/itemSaga';
 import movieSaga from 'app/features/movie/redux/movieSaga';
 import roomSaga from 'app/features/room/redux/roomSaga';
-import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 import uploadSaga from 'app/features/upload/redux/uploadSage';
 import BlogSaga from 'app/features/Blog/redux/BLogSaga';
 import { all } from 'redux-saga/effects';
+import paymentSaga from 'app/features/payment/redux/paymentSaga';
+import paymentStatusSaga from 'app/features/paymentStatus/redux/paymentStatusSaga';
+import movieTicketSaga from 'app/features/movieTicket/redux/movieTicketSaga';
+import comboTicketSaga from 'app/features/comboTicket/redux/comboTicketSaga';
+import orderSaga from 'app/features/order/redux/orderSaga';
+import showtimeSaga from 'app/features/showtime/redux/showtimeSaga';
 
 export default function* rootSaga() {
 	yield all([
@@ -34,6 +38,11 @@ export default function* rootSaga() {
 		directorSaga(),
 		roomSaga(),
 		categorySaga(),
+		paymentSaga(),
+		paymentStatusSaga(),
+		movieTicketSaga(),
+		comboTicketSaga(),
+		orderSaga(),
 		showtimeSaga(),
 		BlogSaga(),
 	]);

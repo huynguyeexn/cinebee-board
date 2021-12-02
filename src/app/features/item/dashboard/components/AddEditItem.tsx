@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Spin, Form } from 'antd';
 import itemApi from 'app/api/itemApi';
-import { Item } from 'app/interfaces'
+import { Item } from 'app/interfaces/item'
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { InputField } from 'app/utils/components/FormFields';
 import { stringToSlug } from 'app/utils/helper';

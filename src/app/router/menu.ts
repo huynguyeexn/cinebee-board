@@ -1,18 +1,16 @@
 import { IconType } from 'react-icons';
-import { AiOutlineContainer } from 'react-icons/ai';
-import { FiUsers } from 'react-icons/fi';
 import { GiTempleDoor } from 'react-icons/gi';
+import { MdCardTravel, MdSubtitles, MdPayment, MdGrade } from 'react-icons/md';
+
+import { RiMovie2Line } from 'react-icons/ri';
 import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
 	HiOutlineTicket,
 	HiOutlineUsers
 } from 'react-icons/hi';
-import {
-	MdCardTravel, MdSubtitles
-} from 'react-icons/md';
-import { RiMovie2Line } from 'react-icons/ri';
-
+import { FiUsers } from 'react-icons/fi';
+import { AiOutlineContainer, AiOutlineMenuUnfold } from 'react-icons/ai';
 
 interface IMenu {
 	path: string;
@@ -63,6 +61,11 @@ export const menus: IMenu[] = [
 		icon: AiOutlineContainer,
 	}, */
 	{
+		path: '/admin/customer-types',
+		label: 'Hạng Khách Hàng',
+		icon: MdGrade,
+	},
+	{
 		path: '/admin/combo',
 		label: 'Combo thức ăn',
 		icon: AiOutlineContainer,
@@ -96,6 +99,26 @@ export const menus: IMenu[] = [
 		path: '/admin/categories',
 		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
+	},
+	{
+		path: '/admin/payments',
+		label: 'Thanh Toán',
+		icon: MdPayment,
+	},
+	{
+		path: '/admin/movie-tickets',
+		label: 'Vé xem phim',
+		icon: HiOutlineTicket,
+	},
+	{
+		path: '/admin/combo-tickets',
+		label: 'Vé combo',
+		icon: HiOutlineTicket,
+	},
+	{
+		path: '/admin/orders',
+		label: 'Đơn Hàng',
+		icon: AiOutlineMenuUnfold,
 	},
 	{
 		path: '/admin/blog',

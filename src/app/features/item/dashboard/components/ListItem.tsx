@@ -1,5 +1,5 @@
 import { Button, Dropdown, Popconfirm, Space } from 'antd';
-import { Item } from 'app/interfaces';
+import { Item } from 'app/interfaces/item';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import TableBase from 'app/utils/components/TableBase';
 import moment from 'moment';

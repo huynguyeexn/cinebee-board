@@ -33,11 +33,13 @@ const employeeSlice = createSlice({
 		fetchEmployeeList: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = true;
 		},
+
 		fetchEmployeeListSuccess: (state, action: PayloadAction<ListResponse<Employee>>) => {
 			state.listLoading = false;
 			state.list = action.payload.data;
 			state.pagination = action.payload.pagination;
 		},
+
 		fetchEmployeeError: (state, action: PayloadAction<ListParams>) => {
 			state.listLoading = false;
 		},

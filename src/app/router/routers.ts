@@ -1,3 +1,8 @@
+import { ComboTicketDashboard } from 'app/features/comboTicket/dasboard';
+import { CustomerTypeDashboardPage } from 'app/features/customerType/dashboard';
+import { MovieTicketDashboard } from 'app/features/movieTicket/dashboard';
+import { orderDashboard } from 'app/features/order/dashboard';
+import { PaymentDashboardPage } from 'app/features/payment/dashboard';
 import { permissionsConfig } from 'app/constants';
 import AccountAboutPage from 'app/features/accounts/aboutPage/accountAboutPage';
 
@@ -12,10 +17,6 @@ const MovieAddEditPage = React.lazy(() => import('app/features/movie/addEditPage
 const ComboDashboardPage = React.lazy(() => import('app/features/combo/dashboard'));
 const ItemDashboardPage = React.lazy(() => import('app/features/item/dashboard'));
 const ComboAddEditPage = React.lazy(() => import('app/features/combo/addEditPage/AddEditPage'));
-const ComboTicketDashboardPage = React.lazy(() => import('app/features/comboTicket/dashboard'));
-const ComboTicketAddEditPage = React.lazy(
-	() => import('app/features/comboTicket/addEditPage/AddEditPage')
-);
 const EmployeeDashboard = React.lazy(() => import('app/features/employee/dashboard'));
 const DirectorDashboardPage = React.lazy(() => import('app/features/director/dashboard'));
 const RoomDashboardPage = React.lazy(() => import('app/features/room/dashboard'));
@@ -103,17 +104,7 @@ export const routers: IRoute[] = [
 	},
 	{
 		path: '/admin/comboticket',
-		component: ComboTicketDashboardPage,
-		permissions: [],
-	},
-	{
-		path: '/admin/comboticket/:id/edit',
-		component: ComboTicketAddEditPage,
-		permissions: [],
-	},
-	{
-		path: '/admin/comboticket/new',
-		component: ComboTicketAddEditPage,
+		component: ComboTicketDashboard,
 		permissions: [],
 	},
 	{
@@ -175,6 +166,26 @@ export const routers: IRoute[] = [
 		path: '/admin/about',
 		component: AccountAboutPage,
 		permissions: [],
+	},
+	{
+		path: '/admin/payments',
+		component: PaymentDashboardPage,
+	},
+	{
+		path: '/admin/customer-types',
+		component: CustomerTypeDashboardPage,
+	},
+	{
+		path: '/admin/movie-tickets',
+		component: MovieTicketDashboard,
+	},
+	{
+		path: '/admin/combo-tickets',
+		component: ComboTicketDashboard,
+	},
+	{
+		path: '/admin/orders',
+		component: orderDashboard,
 	},
 
 

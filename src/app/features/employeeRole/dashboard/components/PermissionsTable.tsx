@@ -1,5 +1,5 @@
 import { Collapse, Spin } from 'antd';
-import { Permissions } from 'app/interfaces';
+import { Permissions } from 'app/interfaces/permissions';
 import { useAppSelector } from 'app/redux/hooks';
 import React, { ChangeEvent } from 'react';
 import { Control } from 'react-hook-form';
@@ -53,7 +53,7 @@ const PermissionsTable = ({ permissions_full, name, control }: Props) => {
 				{Object.keys(options).map((key: string, index: number) => (
 					TabsConfig[key] &&
 						<Collapse.Panel header={TabsConfig[key]} key={index}>
-						{options[key].map(value => (
+						{options[key].map((value:any) => (
 							<span  style={{margin: "0 16px 8px 0", display: 'inline-flex', justifyContent:"center", alignItems: "center"}}>
 							<input type="checkbox"
 							value={value.value}

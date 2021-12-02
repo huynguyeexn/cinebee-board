@@ -1,4 +1,4 @@
-import { Combo } from "../interfaces";
+import { Combo } from "../interfaces/combo";
 import { ListParams, ListResponse, SuccessResponse } from "../interfaces/common";
 import axiosClient from "./axiosClient";
 

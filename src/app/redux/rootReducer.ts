@@ -16,6 +16,10 @@ import itemReducer from 'app/features/item/redux/itemSilce';
 import comboTicketReducer from 'app/features/comboTicket/redux/comboTicketSlice';
 import { combineReducers } from 'redux';
 import categoryReducer from 'app/features/category/redux/categorySlice';
+import paymentReducer from 'app/features/payment/redux/paymentSlice';
+import paymentStatusReducer from 'app/features/paymentStatus/redux/paymentStatusSlice';
+import movieTicketReducer from 'app/features/movieTicket/redux/movieTicketSlice';
+import orderReducer from 'app/features/order/redux/orderSlice';
 import showtimeReducer from 'app/features/showtime/redux/showtimeSlice';
 import BlogReducer from 'app/features/Blog/redux/BlogSlide';
 
@@ -34,9 +38,13 @@ const rootReducer = combineReducers({
 	item: itemReducer,
 	comboTicket: comboTicketReducer,
 	director: directorReducer,
+	showtime: showtimeReducer,
 	room: roomReducer,
 	category: categoryReducer,
-	showtime: showtimeReducer,
+	payment: paymentReducer,
+	paymentStatus: paymentStatusReducer,
+	movieTicket: movieTicketReducer,
+	order: orderReducer,
 	blog: BlogReducer
 });
 

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Col, Spin, Form } from 'antd';
 import comboApi from 'app/api/comboApi';
-import { Combo } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import { InputField } from 'app/utils/components/FormFields';
 import { stringToSlug } from 'app/utils/helper';
@@ -28,7 +28,7 @@ const AddEditCombo = ({ onCancel, isEdit = false, data}: Props) => {
     const dispatch = useAppDispatch();
     const saveLoading = useAppSelector(selectComboActionLoading);
     const [loading, setLoading] = React.useState(false);
-    const { control, handleSubmit, reset, setValue, watch, getValues} = useForm<any>({
+    const { control, handleSubmit, reset, setValue, getValues} = useForm<any>({
         resolver: yupResolver(formValidate),
     });
 
@@ -49,7 +49,6 @@ const AddEditCombo = ({ onCancel, isEdit = false, data}: Props) => {
     }, [isEdit, data, setValue]);
 
     //convert to slug
-    const watchName = watch('name');
     React.useEffect(() => {
         const name = getValues('name');
         if(name) {
@@ -57,7 +56,7 @@ const AddEditCombo = ({ onCancel, isEdit = false, data}: Props) => {
         } else {
             setValue('slug', name);
         }
-    }, [watchName, getValues]);
+    });
 
     const onSubmit = (data: Combo) => {
         if (isEdit) {

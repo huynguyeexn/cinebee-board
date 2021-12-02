@@ -1,9 +1,9 @@
-import { /* Combo, */ IBase } from '.';
+import { IBase } from '.';
 
 export interface ComboTicket extends IBase {
-    get_at: string;
-    price: number;
-    combo_id: number;
-
-    /* combos_full?: Combo[]; */
+    get_at: string | Date,
+    quantity: string | number,
+    price: number,
+    order_id: number | string,
+    combo_id: number | string,
 }
