@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { initFilterParams, initPaginationParams } from 'app/constants';
 import { ToastSuccess } from 'app/utils/Toast';
 import {
@@ -90,7 +90,18 @@ export const selectCustomerActionLoading = (state: RootState) =>
 	state.customer.actionLoading;
 export const selectCustomerFilter = (state: RootState) => state.customer.filter;
 export const selectCustomerPagination = (state: RootState) => state.customer.pagination;
-
+export const selectCustomerMap = createSelector(
+	selectCustomerList,
+	(typeList: Customer[]) => {
+		return typeList.reduce(
+			(map: { [key: string]: Customer }, cus: Customer) => {
+				map[`${cus.id}`] = cus;
+				return map;
+			},
+			{}
+		);
+	}
+);
 // Reducer
 const customerReducer = customerSlice.reducer;
 export default customerReducer;

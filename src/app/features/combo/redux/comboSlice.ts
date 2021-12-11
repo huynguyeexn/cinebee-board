@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { initFilterParams, initPaginationParams } from 'app/constants';
 import {
-	Combo,
 	ListParams,
 	ListResponse,
 	PaginationParams,
 	SuccessResponse,
 } from 'app/interfaces';
+import { Combo } from 'app/interfaces/combo';
 import { RootState } from 'app/redux/store';
 import { ToastSuccess } from 'app/utils/Toast';
 

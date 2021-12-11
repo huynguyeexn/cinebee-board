@@ -10,6 +10,7 @@ const employeeApi = {
 		const url = `${path}/all`;
 		return axiosClient.get(url);
 	},
+	
 	getById(employee: Employee): Promise<Employee> {
 		const url = `${path}/${employee.id}`;
 		return axiosClient.get(url);

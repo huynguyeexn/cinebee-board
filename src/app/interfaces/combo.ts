@@ -1,5 +1,6 @@
 import { UploadFile } from 'antd/lib/upload/interface';
-import { IBase, ImageUpload, Item } from '.';
+import { IBase, ImageUpload } from '.';
+import { Item } from './item';
 
 export interface Combo extends IBase {
 	name: string;

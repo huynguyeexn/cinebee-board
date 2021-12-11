@@ -1,4 +1,4 @@
-import { ListResponse, EmployeeRole, ListParams, Permissions } from 'app/interfaces';
+import { ListResponse, EmployeeRole, ListParams } from 'app/interfaces';
 import axiosClient from './axiosClient';
 
 const path = '/role';

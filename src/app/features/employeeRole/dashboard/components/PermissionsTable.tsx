@@ -1,75 +1,40 @@
-import { Collapse, Spin } from 'antd';
-import { Permissions } from 'app/interfaces';
+import { Checkbox, Col, Collapse, Form, Row, Spin } from 'antd';
+import { permissionsConfig } from 'app/constants';
 import { useAppSelector } from 'app/redux/hooks';
-import React, { ChangeEvent } from 'react';
-import { Control } from 'react-hook-form';
+import React from 'react';
 import { selectPermissionsLoading, selectPermissionsOptions } from '../../redux/employeeRoleSlice';
 interface Props {
-	permissions_full: Permissions[];
-	name: string;
-	control: Control<any>;
+		name: string;
 }
 
-const TabsConfig: { [key: string]: string } = {
-	actors: 'Diễn viên',
-	'age-ratings': 'Giới hạn độ tuổi',
-	'customer-types': 'Hạng khách hàng',
-	customers: 'Khách hàng',
-	directors: 'Đạo diễn',
-	employee: 'Nhân viên',
-	genres: 'Thể loại phim',
-	items: 'Thức ăn',
-	'movie-actors': '',
-	'movie-directors': '',
-	'movie-genres': '',
-	movies: 'Phim',
-	role: 'Chức vụ',
-	'room-status': 'Trạng thái phòng chiếu',
-	rooms: 'Phòng chiếu',
-	'seat-status': '',
-	seats: '',
-};
-
-const PermissionsTable = ({ permissions_full, name, control }: Props) => {
+const PermissionsTable = ({ name }: Props) => {
 	const loading = useAppSelector(selectPermissionsLoading);
 	const options = useAppSelector(selectPermissionsOptions);
-	const [checkboxSelect, setCheckboxSelect] = React.useState<number[]>([]);
-
-
-	const handleOnchange = (event: ChangeEvent<HTMLInputElement>) => {
-		const value = Number(event.target.value);
-		const newState = checkboxSelect;
-		if(newState.includes(value)){
-			newState.filter(x => x !== value);
-		}else{
-			newState.push(value);
-		}
-		setCheckboxSelect(newState);
-	}
 
 	return (
 		<Spin spinning={!options && loading}>
-			<Collapse>
-				{Object.keys(options).map((key: string, index: number) => (
-					TabsConfig[key] &&
-						<Collapse.Panel header={TabsConfig[key]} key={index}>
-						{options[key].map(value => (
-							<span  style={{margin: "0 16px 8px 0", display: 'inline-flex', justifyContent:"center", alignItems: "center"}}>
-							<input type="checkbox"
-							value={value.value}
-							// options={options[key]}
-							// defaultValue={permissions_full.map((x) => x.id as number)}
-							onChange={handleOnchange}
-							id={`${name}-${value.value}`}
-							/>
-							<label htmlFor={`${name}-${value.value}`}>
-								{value.label}
-							</label>
-							</span>
-							))}
-					</Collapse.Panel>
-				))}
-			</Collapse>
+			<Form.Item name={name}>
+				<Checkbox.Group style={{width: "100%"}}>
+					<Collapse>
+						{Object.keys(permissionsConfig).map(
+							(key: string, index: number) =>
+								permissionsConfig[key]?.name && (
+									<Collapse.Panel header={permissionsConfig[key].name} key={index}>
+										<Row>
+											{options[key]?.map((value: any) => (
+												<Col span={12} key={value.value}>
+													<Checkbox value={value.value} style={{ lineHeight: '32px' }}>
+														{value.label}
+													</Checkbox>
+												</Col>
+											))}
+										</Row>
+									</Collapse.Panel>
+								)
+						)}
+					</Collapse>
+				</Checkbox.Group>
+			</Form.Item>
 		</Spin>
 	);
 };

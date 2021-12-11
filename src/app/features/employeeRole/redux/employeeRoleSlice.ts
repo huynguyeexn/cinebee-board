@@ -4,10 +4,9 @@ import {
 	ListParams,
 	ListResponse,
 	PaginationParams,
-	Permissions,
-	PermissionsOptions,
 	SuccessResponse,
 } from 'app/interfaces';
+import { Permissions, PermissionsOptions } from 'app/interfaces/permissions';
 import { EmployeeRole } from 'app/interfaces/employeeRole';
 import { RootState } from 'app/redux/store';
 import { ToastSuccess } from 'app/utils/Toast';
