@@ -1,16 +1,16 @@
 import { IconType } from 'react-icons';
+import { AiOutlineContainer, AiOutlineMenuUnfold } from 'react-icons/ai';
+import { FiUsers } from 'react-icons/fi';
 import { GiTempleDoor } from 'react-icons/gi';
-import { MdCardTravel, MdSubtitles, MdPayment, MdGrade } from 'react-icons/md';
-
-import { RiMovie2Line } from 'react-icons/ri';
 import {
 	HiOutlineCalendar,
 	HiOutlineChartBar,
 	HiOutlineTicket,
 	HiOutlineUsers
 } from 'react-icons/hi';
-import { FiUsers } from 'react-icons/fi';
-import { AiOutlineContainer, AiOutlineMenuUnfold } from 'react-icons/ai';
+import { MdCardTravel, MdGrade, MdSubtitles } from 'react-icons/md';
+import { RiMovie2Line } from 'react-icons/ri';
+
 
 interface IMenu {
 	path: string;
@@ -55,11 +55,21 @@ export const menus: IMenu[] = [
 		label: 'Khách hàng',
 		icon: HiOutlineUsers,
 	},
-/* 	{
-		path: '/admin/comboticket',
-		label: 'Combo vé',
+	{
+		path: '/admin/orders',
+		label: 'Đơn Hàng',
+		icon: AiOutlineMenuUnfold,
+	},
+	{
+		path: '/admin/blog',
+		label: 'Bài viết',
 		icon: AiOutlineContainer,
-	}, */
+	},
+	{
+		path: '/admin/categories',
+		label: 'Thể Loại bài viết',
+		icon: AiOutlineContainer,
+	},
 	{
 		path: '/admin/customer-types',
 		label: 'Hạng Khách Hàng',
@@ -95,34 +105,19 @@ export const menus: IMenu[] = [
 		label: 'Đạo diễn',
 		icon: FiUsers,
 	},
-	{
-		path: '/admin/categories',
-		label: 'Thể Loại bài viết',
-		icon: AiOutlineContainer,
-	},
-	{
-		path: '/admin/payments',
-		label: 'Thanh Toán',
-		icon: MdPayment,
-	},
-	{
-		path: '/admin/movie-tickets',
-		label: 'Vé xem phim',
-		icon: HiOutlineTicket,
-	},
-	{
-		path: '/admin/combo-tickets',
-		label: 'Vé combo',
-		icon: HiOutlineTicket,
-	},
-	{
-		path: '/admin/orders',
-		label: 'Đơn Hàng',
-		icon: AiOutlineMenuUnfold,
-	},
-	{
-		path: '/admin/blog',
-		label: 'Bài viết',
-		icon: AiOutlineContainer,
-	}
+	// {
+	// 	path: '/admin/payments',
+	// 	label: 'Thanh Toán',
+	// 	icon: MdPayment,
+	// },
+	// {
+	// 	path: '/admin/movie-tickets',
+	// 	label: 'Vé xem phim',
+	// 	icon: HiOutlineTicket,
+	// },
+	// {
+	// 	path: '/admin/combo-tickets',
+	// 	label: 'Vé combo',
+	// 	icon: HiOutlineTicket,
+	// },
 ];

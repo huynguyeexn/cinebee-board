@@ -1,16 +1,8 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import employeeRoleApi from 'app/api/employeeRole';
+import { Button, Col, Form, Input } from 'antd';
 import { EmployeeRole } from 'app/interfaces';
 import { useAppDispatch, useAppSelector } from 'app/redux/hooks';
 import React from 'react';
-import * as yup from 'yup';
-import {
-	employeeRoleActions,
-	selectEmployeeRoleActionLoading,
-} from '../../redux/employeeRoleSlice';
-import { Button, Col, Spin, Form } from 'antd';
-import { InputField } from 'app/utils/components/FormFields';
+import { employeeRoleActions, selectEmployeeRoleActionLoading } from '../../redux/employeeRoleSlice';
 import PermissionsTable from './PermissionsTable';
 
 interface Props {
@@ -19,63 +11,46 @@ interface Props {
 	data?: EmployeeRole;
 }
 
-const formValidate = yup.object().shape({
-	name: yup.string().required(),
-});
-
 export const AddEditEmployeeRole = ({ onCancel, isEdit = false, data }: Props) => {
-	const dispatch = useAppDispatch();
 	const saveLoading = useAppSelector(selectEmployeeRoleActionLoading);
-	const [loading, setLoading] = React.useState(false);
-	const { control, handleSubmit, reset, setValue } = useForm<any>({
-		resolver: yupResolver(formValidate),
-	});
+	const dispatch = useAppDispatch();
 
-	// For edit mode
-	React.useEffect(() => {
-		if (isEdit) {
-			if (!data) {
-				return;
-			}
-			setLoading(true);
-			// get user and set form fields
-			(async () => {
-				const response: EmployeeRole = await employeeRoleApi.getById(data);
-				Object.keys(response).forEach((key) => {
-					setValue(key, response[key as keyof EmployeeRole]);
-				});
-				setLoading(false);
-			})();
+	const onFinish = (values: any) => {
+		values = {
+			...data,
+			...values,
 		}
-	}, [isEdit, data, setValue]);
-
-	const onSubmit = (data: EmployeeRole) => {
+		console.log(`values`, values);
 		if (isEdit) {
-			dispatch(employeeRoleActions.update(data));
+			dispatch(employeeRoleActions.update(values));
 		} else {
-			dispatch(employeeRoleActions.create(data));
+			dispatch(employeeRoleActions.create(values));
 		}
 	};
 	return (
-		<Spin spinning={loading}>
-			<Form layout="vertical">
-				<InputField control={control} name="name" label="Tên chức vụ" required />
+			<Form
+				layout="vertical"
+				name="validate_other"
+				onFinish={onFinish}
+				initialValues={{
+					permissions: data?.permissions_full.map((x) => x.id) || [],
+					name: data?.name || '',
+				}}
+			>
+				<Form.Item name="name" label="Tên chức vụ" rules={[{ required: true }]}>
+					<Input />
+				</Form.Item>
 				<Col span={24}>
-					<PermissionsTable
-						control={control}
-						name="permissions"
-						permissions_full={data?.permissions_full || []}
-					/>
+					<PermissionsTable name="permissions" />
 				</Col>
 				{/* Form actions */}
 				<Col span={24} style={{ textAlign: 'right' }}>
-					<Button style={{ margin: '0 8px' }} onClick={() => reset()} type="link">
+					{/* <Button style={{ margin: '0 8px' }} onClick={() => reset()} type="link">
 						Clear
-					</Button>
+					</Button> */}
 					<Button
 						onClick={() => {
 							onCancel();
-							reset();
 						}}
 					>
 						Hủy
@@ -83,13 +58,12 @@ export const AddEditEmployeeRole = ({ onCancel, isEdit = false, data }: Props) =
 					<Button
 						loading={saveLoading}
 						style={{ margin: '0 8px' }}
-						onClick={handleSubmit(onSubmit)}
+						htmlType="submit"
 						type="primary"
 					>
 						Lưu
 					</Button>
 				</Col>
 			</Form>
-		</Spin>
 	);
 };
