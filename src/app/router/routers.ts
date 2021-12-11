@@ -85,22 +85,22 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/combo',
 		component: ComboDashboardPage,
-		permissions: [],
+		permissions: [permissionsConfig.combo.list],
 	},
 	{
 		path: '/admin/item',
 		component: ItemDashboardPage,
-		permissions: [],
+		permissions: [permissionsConfig.items.list],
 	},
 	{
 		path: '/admin/combo/new',
 		component: ComboAddEditPage,
-		permissions: [],
+		permissions: [permissionsConfig.combo.create],
 	},
 	{
 		path: '/admin/combo/:id/edit',
 		component: ComboAddEditPage,
-		permissions: [],
+		permissions: [permissionsConfig.combo.edit, permissionsConfig.combo.update],
 	},
 	{
 		path: '/admin/comboticket',
@@ -140,27 +140,27 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/categories',
 		component: CategoryDashboardPage,
-		permissions: [],
+		permissions: [permissionsConfig.categories.list],
 	},
 	{
-         path: '/admin/blog',
-		 component: BlogDashboard,
-		 permissions: [],
+		path: '/admin/blog',
+		component: BlogDashboard,
+		permissions: [permissionsConfig.blogs.list],
 	},
 	{
 		path: '/admin/blog/add',
 		component: BlogAdd,
-		permissions: [],
+		permissions: [permissionsConfig.blogs.create],
 	},
 	{
-          path: '/admin/blog/:id_blog/edit',
-		  component: BlogAdd,
-		  permissions:[],
+		path: '/admin/blog/:id_blog/edit',
+		component: BlogAdd,
+		permissions: [permissionsConfig.blogs.edit, permissionsConfig.blogs.update],
 	},
 	{
 		path: '/admin/blog/:id/view',
 		component: BlogView,
-		permissions:[],
+		permissions: [permissionsConfig.blogs.list],
 	},
 	{
 		path: '/admin/about',
@@ -170,23 +170,26 @@ export const routers: IRoute[] = [
 	{
 		path: '/admin/payments',
 		component: PaymentDashboardPage,
+		permissions: [permissionsConfig.payments.list],
 	},
 	{
 		path: '/admin/customer-types',
 		component: CustomerTypeDashboardPage,
+		permissions: [permissionsConfig.customer_types.list],
 	},
 	{
 		path: '/admin/movie-tickets',
 		component: MovieTicketDashboard,
+		permissions: [permissionsConfig.movie_tickets.list],
 	},
 	{
 		path: '/admin/combo-tickets',
 		component: ComboTicketDashboard,
+		permissions: [permissionsConfig.combo_tickets.list],
 	},
 	{
 		path: '/admin/orders',
 		component: orderDashboard,
+		permissions: [permissionsConfig.orders.list],
 	},
-
-
 ];

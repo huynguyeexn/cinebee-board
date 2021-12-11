@@ -115,3 +115,9 @@ export const movieStatusTagColor = (status: number): string => {
 			return 'default';
 	}
 };
+
+
+// number to vietnam dong
+export const numberToVND = (number: number): string => {
+	return new Intl.NumberFormat('vi-VI').format(number) + ' đ';
+}
