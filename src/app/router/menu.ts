@@ -4,9 +4,7 @@ import { FiUsers } from 'react-icons/fi';
 import { GiTempleDoor } from 'react-icons/gi';
 import {
 	HiOutlineCalendar,
-	HiOutlineChartBar,
-	HiOutlineTicket,
-	HiOutlineUsers
+	HiOutlineChartBar, HiOutlineUsers
 } from 'react-icons/hi';
 import { MdCardTravel, MdGrade, MdSubtitles } from 'react-icons/md';
 import { RiMovie2Line } from 'react-icons/ri';
@@ -25,20 +23,15 @@ export const menus: IMenu[] = [
 		label: 'Quản trị',
 		icon: HiOutlineChartBar,
 	},
+	// {
+	// 	path: '/admin/tickets',
+	// 	label: 'Vé',
+	// 	icon: HiOutlineTicket,
+	// },
 	{
-		path: '/admin/tickets',
-		label: 'Vé',
-		icon: HiOutlineTicket,
-	},
-	{
-		path: '/admin/rooms',
-		label: 'Phòng chiếu',
-		icon: GiTempleDoor,
-	},
-	{
-		path: '/admin/showtime',
-		label: 'Lịch chiếu',
-		icon: HiOutlineCalendar,
+		path: '/admin/orders',
+		label: 'Đơn Hàng',
+		icon: AiOutlineMenuUnfold,
 	},
 	{
 		path: '/admin/employees',
@@ -56,9 +49,19 @@ export const menus: IMenu[] = [
 		icon: HiOutlineUsers,
 	},
 	{
-		path: '/admin/orders',
-		label: 'Đơn Hàng',
-		icon: AiOutlineMenuUnfold,
+		path: '/admin/customer-types',
+		label: 'Hạng Khách Hàng',
+		icon: MdGrade,
+	},
+	{
+		path: '/admin/showtime',
+		label: 'Lịch chiếu',
+		icon: HiOutlineCalendar,
+	},
+	{
+		path: '/admin/rooms',
+		label: 'Phòng chiếu',
+		icon: GiTempleDoor,
 	},
 	{
 		path: '/admin/blog',
@@ -69,11 +72,6 @@ export const menus: IMenu[] = [
 		path: '/admin/categories',
 		label: 'Thể Loại bài viết',
 		icon: AiOutlineContainer,
-	},
-	{
-		path: '/admin/customer-types',
-		label: 'Hạng Khách Hàng',
-		icon: MdGrade,
 	},
 	{
 		path: '/admin/combo',
