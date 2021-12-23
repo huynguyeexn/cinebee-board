@@ -8,7 +8,7 @@ import { employeeActions } from "./employeeSlice";
 
 function* fetchEmployeeList(actions: PayloadAction<ListParams>) {
 	try {
-		const data: ListResponse<Employee> = yield call(employeeApi.getAll);
+		const data: ListResponse<Employee> = yield call(employeeApi.getList, actions.payload);
 		yield put(employeeActions.fetchEmployeeListSuccess(data));
 	} catch (error) {
 		yield put(employeeActions.runError());
