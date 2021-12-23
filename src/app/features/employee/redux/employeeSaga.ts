@@ -15,9 +15,9 @@ function* fetchEmployeeList(actions: PayloadAction<ListParams>) {
 	}
 }
 
-function* getAll() {
+function* getAll(action: PayloadAction<ListParams>) {
 	try {
-		const data: ListResponse<Employee> = yield call(employeeApi.getAll);
+		const data: ListResponse<Employee> = yield call(employeeApi.getList, action.payload);
 		yield put(employeeActions.fetchEmployeeListSuccess(data));
 	} catch (error) {
 		yield put(employeeActions.runError());
