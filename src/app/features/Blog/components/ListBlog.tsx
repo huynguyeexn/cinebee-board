@@ -1,17 +1,18 @@
-import React from 'react'
-import TableBase from './../../../utils/components/TableBase/index';
-import { Space, Spin, Button, Popconfirm } from 'antd';
-import { useDispatch } from 'react-redux';
-import { SelectBlogList, 
-    selectBlogListLoading, SelectBlogFilter, 
-    SelectBlogPagination,BlogAction } from './../redux/BlogSlide';
-import { useAppSelector } from 'app/redux/hooks';
-import { categoryActions, selectCategoryMap } from 'app/features/category/redux/categorySlice';
-import { selectEmployeeMap, employeeActions } from 'app/features/employee/redux/employeeSlice';
-import { Link } from 'react-router-dom';
-import { Blog } from 'app/interfaces';
-import { AiOutlineEdit, AiOutlineDelete, AiFillEye } from 'react-icons/ai';
 import { blue } from '@ant-design/colors';
+import { Button, Popconfirm, Space, Spin } from 'antd';
+import { categoryActions, selectCategoryMap } from 'app/features/category/redux/categorySlice';
+import { selectEmployeeMap } from 'app/features/employee/redux/employeeSlice';
+import { Blog } from 'app/interfaces';
+import { useAppSelector } from 'app/redux/hooks';
+import React from 'react';
+import { AiFillEye, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import TableBase from './../../../utils/components/TableBase/index';
+import {
+    BlogAction, SelectBlogFilter, SelectBlogList,
+    selectBlogListLoading, SelectBlogPagination
+} from './../redux/BlogSlide';
 
 
 
@@ -36,10 +37,6 @@ const ListBlog = (props: Props) => {
    // Thể loại
     React.useEffect(() => {
         dispatch(categoryActions.getAll());
-    }, [dispatch]);
-    // Người đăng
-    React.useEffect(() => {
-        dispatch(employeeActions.getAll());
     }, [dispatch]);
    // phân trang
    const handlePageChange = (page: number, pageSize?: number) => {
